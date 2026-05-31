@@ -330,6 +330,7 @@ h3 {
 
 .work-card p {
   line-height: 1.65;
+  white-space: pre-line;
 }
 
 .work-card a {
