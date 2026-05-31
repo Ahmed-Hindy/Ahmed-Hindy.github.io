@@ -48,7 +48,7 @@ const experience = [
       'Designed and maintained hybrid USD publishing and rendering workflows used across FX, Lighting, and Character departments. Built Python tools, PySide/PyQt interfaces, HDAs, and standalone utilities for publishing, validation, render submission, asset handoff, and production debugging across Houdini, Solaris, Maya, Maya-Arnold, Deadline, and PDG.',
   },
   {
-    title: 'FX TD Background',
+    title: 'Houdini FX TD',
     meta: '2022 — Present / Trend VFX',
     details:
       'Created Houdini FX work for photoreal projects using pyro, RBD, POP particles, vellum, muscle, and crowds. This background helps me build pipeline tools with a practical understanding of artist scenes, caches, render errors, and cross-department handoff.',
@@ -66,7 +66,7 @@ const projects = [
     title: 'RenderKit',
     summary:
       'VFX image-sequence review and conversion tool with Python API, CLI, PySide6 UI, OpenImageIO, OpenColorIO, FFmpeg, CRF quality control, burn-ins, and multi-AOV contact sheets.',
-    tags: ['Python', 'PySide6', 'OpenImageIO', 'OpenColorIO', 'FFmpeg'],
+    tags: ['PySide6', 'OpenImageIO', 'OpenColorIO', 'FFmpeg'],
     href: 'https://github.com/Ahmed-Hindy/renderkit',
   },
   {
@@ -79,7 +79,7 @@ const projects = [
   {
     title: 'Materials Processor',
     summary:
-      'Material ingestion and conversion tool focused on standardizing complex material networks across USD, Houdini, Arnold, MaterialX, Redshift, and related DCC workflows.',
+      'A Universal Material ingestion and conversion tool focused on standardizing complex material networks across USD, Houdini, Arnold, MaterialX, Redshift, and related DCC workflows.',
     tags: ['Houdini', 'USD', 'MaterialX', 'Arnold', 'Redshift'],
     href: 'https://github.com/Ahmed-Hindy/Materials-Processor',
   },
@@ -91,11 +91,12 @@ const projects = [
     href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
   },
   {
-    title: 'Houdini / Solaris Utilities',
+    title: 'Houdini / USD Utilities',
     summary:
-      'Small Houdini and Solaris tools, including an Arnold OBJ light to Solaris/USD translator and a Houdini external drag-and-drop workflow plugin for artists.',
+      'A Houdini Solaris OBJ lights translator, translates Arnold OBJ light to standard USD lights. \n\n' +
+        'A Houdini external drag-and-drop workflow plugin for artists.',
     tags: ['Houdini', 'Solaris', 'USD', 'Arnold', 'Artist Tools'],
-    href: 'https://github.com/Ahmed-Hindy',
+    href: 'https://github.com/Ahmed-Hindy/Arnold-husd-translator',
   },
 ]
 
