@@ -1,5 +1,52 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import profileImage from './assets/profile.jpg'
+
+type Theme = 'light' | 'dark'
+
+const themeStorageKey = 'theme'
+
+const getSystemTheme = (): Theme =>
+  window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+
+const getStoredTheme = (): Theme | null => {
+  try {
+    const storedTheme = window.localStorage.getItem(themeStorageKey)
+    return storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : null
+  } catch {
+    return null
+  }
+}
+
+const storeTheme = (nextTheme: Theme) => {
+  try {
+    window.localStorage.setItem(themeStorageKey, nextTheme)
+  } catch {
+    // Ignore storage failures; the toggle still works for the current page view.
+  }
+}
+
+const getInitialTheme = (): Theme => {
+  return getStoredTheme() ?? getSystemTheme()
+}
+
+const applyTheme = (nextTheme: Theme) => {
+  document.documentElement.dataset.theme = nextTheme
+}
+
+const theme = ref<Theme>(getInitialTheme())
+applyTheme(theme.value)
+
+const isDarkTheme = computed(() => theme.value === 'dark')
+const themeToggleLabel = computed(() =>
+  isDarkTheme.value ? 'Switch to light mode' : 'Switch to dark mode',
+)
+
+const toggleTheme = () => {
+  theme.value = isDarkTheme.value ? 'light' : 'dark'
+  applyTheme(theme.value)
+  storeTheme(theme.value)
+}
 
 const links = {
   email: 'mailto:ahmed.hindy96@gmail.com',
@@ -146,6 +193,19 @@ const skills = [
         <a v-for="item in navItems" :key="item.href" :href="item.href">{{ item.label }}</a>
       </nav>
 
+      <button
+        class="theme-toggle"
+        type="button"
+        :aria-label="themeToggleLabel"
+        :aria-pressed="isDarkTheme"
+        @click="toggleTheme"
+      >
+        <span class="theme-toggle-track" aria-hidden="true">
+          <span class="theme-toggle-thumb">{{ isDarkTheme ? '☾' : '☀' }}</span>
+        </span>
+        <span>{{ isDarkTheme ? 'Dark' : 'Light' }}</span>
+      </button>
+
       <div class="sidebar-links" aria-label="Profile links">
         <a :href="links.email">Email</a>
         <a :href="links.github" target="_blank" rel="noreferrer">GitHub</a>
@@ -163,6 +223,18 @@ const skills = [
           I build artist-facing VFX pipeline tools for Houdini, Solaris/USD, Maya, rendering,
           publishing, and production support.
         </p>
+        <button
+          class="theme-toggle mobile-theme-toggle"
+          type="button"
+          :aria-label="themeToggleLabel"
+          :aria-pressed="isDarkTheme"
+          @click="toggleTheme"
+        >
+          <span class="theme-toggle-track" aria-hidden="true">
+            <span class="theme-toggle-thumb">{{ isDarkTheme ? '☾' : '☀' }}</span>
+          </span>
+          <span>{{ isDarkTheme ? 'Dark' : 'Light' }}</span>
+        </button>
       </section>
 
       <section class="section" id="overview">
