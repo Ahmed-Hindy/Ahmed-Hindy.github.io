@@ -147,6 +147,24 @@ main {
   max-width: 720px;
 }
 
+.hero-identity {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.hero-photo {
+  width: 148px;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: center 18%;
+  background: var(--surface-muted);
+  box-shadow: var(--shadow);
+}
+
 .eyebrow {
   color: var(--accent);
   font-size: 0.76rem;
@@ -241,10 +259,17 @@ h3 {
   box-shadow: var(--shadow);
 }
 
-.profile-mark {
-  width: 76px;
-  height: auto;
+.profile-media {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
   margin-bottom: 24px;
+}
+
+.profile-mark {
+  width: 58px;
+  height: auto;
   opacity: 0.76;
   filter: saturate(0.75);
 }
@@ -496,6 +521,15 @@ h3 {
     font-size: 1rem;
   }
 
+  .hero-identity {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .hero-photo {
+    width: 132px;
+  }
+
   .hero-actions,
   .contact-links {
     grid-template-columns: 1fr;
@@ -511,7 +545,7 @@ h3 {
   }
 
   .profile-mark {
-    width: 64px;
+    width: 48px;
   }
 
   .section-band,

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import heroImage from './assets/hero.png'
+import profileImage from './assets/profile.jpg'
 
 const links = {
   email: 'mailto:Ahmed.hindy96@gmail.com',
@@ -80,8 +81,13 @@ const experience = [
   <main id="top">
     <section class="hero-section">
       <div class="hero-copy">
-        <p class="eyebrow">Technical Artist / Pipeline Developer</p>
-        <h1>Ahmed Hindy</h1>
+        <div class="hero-identity">
+          <img :src="profileImage" alt="Ahmed Hindy" class="hero-photo" />
+          <div>
+            <p class="eyebrow">Technical Artist / Pipeline Developer</p>
+            <h1>Ahmed Hindy</h1>
+          </div>
+        </div>
         <p class="lead">
           I build production-oriented tools for Houdini, USD, material workflows, and DCC
           automation. My work sits between technical direction and implementation: making artist
@@ -97,7 +103,9 @@ const experience = [
 
       <aside class="hero-panel" aria-label="Profile summary">
         <div class="profile-card">
-          <img :src="heroImage" alt="" class="profile-mark" aria-hidden="true" />
+          <div class="profile-media">
+            <img :src="heroImage" alt="" class="profile-mark" aria-hidden="true" />
+          </div>
           <p class="profile-kicker">Profile</p>
           <dl class="profile-list">
             <div v-for="item in experience" :key="item.label">

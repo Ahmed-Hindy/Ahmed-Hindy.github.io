@@ -36,5 +36,4 @@ Push this project to that repository and enable GitHub Pages with GitHub Actions
 
 ## Personalization Checklist
 
-- Add a real profile picture and replace the abstract image in `src/assets/hero.png`.
 - Replace project summaries with final public project descriptions.
