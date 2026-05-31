@@ -4,7 +4,7 @@ import heroImage from './assets/hero.png'
 const links = {
   email: 'mailto:Ahmed.hindy96@gmail.com',
   github: 'https://github.com/Ahmed-Hindy',
-  linkedin: 'https://linkedin.com/in/your-linkedin',
+  linkedin: 'https://www.linkedin.com/in/ahmed-hindy96/',
   resume:
     'https://drive.google.com/file/d/1Z_kxy2KLX37aWCo5lGf7RSoDb629Nnlj/view?usp=sharing',
   youtube: 'https://www.youtube.com/@axe_fx',
