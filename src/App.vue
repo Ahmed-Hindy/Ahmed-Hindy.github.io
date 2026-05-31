@@ -101,33 +101,28 @@ const projects = [
 
 const skills = [
   'Python',
-  'PySide6 / PyQt',
-  'Qt',
+  'Qt / PySide6 / PyQt6',
+  'AYON',
+  'Kitsu',
   'Houdini',
+  'Maya',
   'Solaris',
   'USD',
-  'Maya',
-  'Maya-Arnold',
-  'Deadline',
-  'PDG / TOPs',
-  'HDAs',
-  'Publishing',
-  'Rendering',
-  'Validation',
-  'Scene debugging',
-  'Asset / shot workflows',
-  'AYON-style workflows',
-  'Kitsu',
-  'Git',
-  'Docker',
-  'SQLite',
-  'Postgres',
   'MaterialX',
   'Arnold',
   'RenderMan',
   'Redshift',
-  'Unreal Engine basics',
-  'C++ basics',
+  'Unreal Engine 5',
+  'Deadline',
+  'PDG',
+  'Publishing',
+  'Rendering',
+  'Sanity checks',
+  'Git',
+  'Docker',
+  'SQLite',
+  'Postgres',
+  'C++',
   'Bash',
   'JavaScript',
   'Documentation',
@@ -171,7 +166,7 @@ const skills = [
 
       <section class="section" id="overview">
         <p class="section-kicker">Overview</p>
-        <h2>Artist-facing pipeline tools for Houdini, USD, rendering, and production handoff.</h2>
+        <h2>Pipeline Technical Director for Houdini, USD, Maya and UE5.</h2>
         <p class="intro">
           I am a Pipeline TD and VFX Pipeline Developer based in Cairo, Egypt. My work sits between
           artists and pipeline engineering: turning repeated production problems into tools, checks,
