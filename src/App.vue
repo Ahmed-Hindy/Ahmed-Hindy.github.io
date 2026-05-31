@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import heroImage from './assets/hero.png'
 import profileImage from './assets/profile.jpg'
 
 const links = {
@@ -11,24 +10,57 @@ const links = {
   youtube: 'https://www.youtube.com/@axe_fx',
 }
 
+const navItems = [
+  { href: '#about', label: 'About' },
+  { href: '#resume', label: 'Resume' },
+  { href: '#work', label: 'Work' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#contact', label: 'Contact' },
+]
+
+const summary = [
+  { label: 'Location', value: 'Cairo, Egypt' },
+  { label: 'Focus', value: 'Houdini pipeline tools, USD, material workflows' },
+  { label: 'Stack', value: 'Python, Qt/PySide, TypeScript, Vue, GitHub Actions' },
+  { label: 'Availability', value: 'Pipeline, tooling, and technical-art work' },
+]
+
+const experience = [
+  {
+    title: 'Pipeline / Technical Artist',
+    meta: 'Houdini, USD, DCC automation',
+    details:
+      'Builds tools that turn production workflows into repeatable, testable systems for artists and technical teams.',
+  },
+  {
+    title: 'Python Tool Developer',
+    meta: 'CLI tools, desktop utilities, validation',
+    details:
+      'Works across implementation, packaging, documentation, and release checks with a focus on real runtime behavior.',
+  },
+  {
+    title: 'Material Workflow Development',
+    meta: 'USD, MaterialX, renderer-facing pipelines',
+    details:
+      'Develops conversion and inspection workflows for material networks, scene data, and DCC handoff.',
+  },
+]
+
 const projects = [
   {
     title: 'Materials Processor',
-    type: 'Pipeline tooling',
     summary:
       'Houdini-focused material conversion and validation workflows for USD and MaterialX-oriented production pipelines.',
     tags: ['Houdini', 'USD', 'Python', 'MaterialX'],
   },
   {
     title: 'HipFile Recreator',
-    type: 'Scene reconstruction',
     summary:
       'Manifest-driven tools for rebuilding Houdini scenes, comparing outputs, and validating graph-level behavior.',
     tags: ['Houdini', 'Qt', 'Testing', 'CLI'],
   },
   {
     title: 'Denoise Utilities',
-    type: 'Desktop utility',
     summary:
       'Image and video denoising utilities packaged for practical local workflows and GPU-aware processing.',
     tags: ['Python', 'OptiX', 'OIDN', 'Packaging'],
@@ -38,137 +70,121 @@ const projects = [
 const skills = [
   'Python tooling',
   'Houdini pipeline development',
-  'USD and material workflows',
-  'Qt desktop interfaces',
+  'USD workflows',
+  'Material processing',
+  'Qt/PySide interfaces',
   'CLI automation',
-  'GitHub release workflows',
+  'GitHub Actions',
+  'Release packaging',
   'Technical debugging',
-  'Artist-friendly UX',
-]
-
-const highlights = [
-  'Develops pipeline tools that connect DCC workflows, automation, and artist-facing interfaces.',
-  'Works across implementation, debugging, packaging, documentation, and release validation.',
-  'Prioritizes real project files and runtime checks when evaluating tool behavior.',
-]
-
-const experience = [
-  {
-    label: 'Focus',
-    value: 'Houdini pipeline tools, USD workflows, material processing, desktop utilities',
-  },
-  {
-    label: 'Working style',
-    value: 'Practical engineering, repeatable validation, clear handoff documentation',
-  },
-  {
-    label: 'Preferred stack',
-    value: 'Python, Qt/PySide, TypeScript, Vue, GitHub Actions, command-line tooling',
-  },
+  'Artist-facing UX',
 ]
 </script>
 
 <template>
-  <header class="site-header" aria-label="Primary navigation">
-    <a class="brand" href="#top" aria-label="Ahmed Hindy home">Ahmed Hindy</a>
-    <nav>
-      <a href="#work">Work</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <div class="site-shell">
+    <aside class="sidebar" aria-label="Profile sidebar">
+      <img :src="profileImage" alt="Ahmed Hindy" class="sidebar-photo" />
+      <p class="role">Technical Artist / Pipeline Developer</p>
+      <h1>Ahmed Hindy</h1>
+      <p class="sidebar-summary">
+        Production-oriented tools for Houdini, USD, material workflows, and DCC automation.
+      </p>
 
-  <main id="top">
-    <section class="hero-section">
-      <div class="hero-copy">
-        <div class="hero-identity">
-          <img :src="profileImage" alt="Ahmed Hindy" class="hero-photo" />
-          <div>
-            <p class="eyebrow">Technical Artist / Pipeline Developer</p>
-            <h1>Ahmed Hindy</h1>
-          </div>
-        </div>
-        <p class="lead">
-          I build production-oriented tools for Houdini, USD, material workflows, and DCC
-          automation. My work sits between technical direction and implementation: making artist
-          workflows easier to reproduce, validate, and maintain.
-        </p>
-        <div class="hero-actions" aria-label="Primary actions">
-          <a class="button button-primary" :href="links.email">Contact me</a>
-          <a class="button button-secondary" :href="links.resume" target="_blank" rel="noreferrer">
-            View resume
-          </a>
-        </div>
-      </div>
+      <nav class="sidebar-nav" aria-label="Section navigation">
+        <a v-for="item in navItems" :key="item.href" :href="item.href">{{ item.label }}</a>
+      </nav>
 
-      <aside class="hero-panel" aria-label="Profile summary">
-        <div class="profile-card">
-          <div class="profile-media">
-            <img :src="heroImage" alt="" class="profile-mark" aria-hidden="true" />
-          </div>
-          <p class="profile-kicker">Profile</p>
-          <dl class="profile-list">
-            <div v-for="item in experience" :key="item.label">
-              <dt>{{ item.label }}</dt>
-              <dd>{{ item.value }}</dd>
-            </div>
-          </dl>
-        </div>
-      </aside>
-    </section>
-
-    <section class="section-band" id="work">
-      <div class="section-heading">
-        <p class="eyebrow">Selected work</p>
-        <h2>Representative projects and technical areas.</h2>
-      </div>
-
-      <div class="project-list">
-        <article v-for="project in projects" :key="project.title" class="project-card">
-          <div>
-            <p class="project-type">{{ project.type }}</p>
-            <h3>{{ project.title }}</h3>
-          </div>
-          <p class="project-summary">{{ project.summary }}</p>
-          <ul class="tag-list" :aria-label="`${project.title} technologies`">
-            <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="split-section" id="skills">
-      <div class="section-heading">
-        <p class="eyebrow">Capabilities</p>
-        <h2>Production skills across tools, pipelines, and delivery.</h2>
-      </div>
-
-      <div class="skills-wrap">
-        <ul class="skill-list" aria-label="Skills and tools">
-          <li v-for="skill in skills" :key="skill">{{ skill }}</li>
-        </ul>
-        <div class="highlight-list">
-          <p v-for="highlight in highlights" :key="highlight">{{ highlight }}</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact-section" id="contact">
-      <div>
-        <p class="eyebrow">Contact</p>
-        <h2>Available for pipeline, tooling, and technical-art work.</h2>
-        <p>
-          Replace the links below with your real GitHub, LinkedIn, email, and resume once the
-          public repo is ready.
-        </p>
-      </div>
-      <div class="contact-links" aria-label="Contact links">
+      <div class="sidebar-links" aria-label="Profile links">
+        <a :href="links.resume" target="_blank" rel="noreferrer">Resume</a>
         <a :href="links.github" target="_blank" rel="noreferrer">GitHub</a>
         <a :href="links.linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
         <a :href="links.youtube" target="_blank" rel="noreferrer">YouTube</a>
-        <a :href="links.email">Email</a>
-        <a :href="links.resume" target="_blank" rel="noreferrer">Resume</a>
       </div>
-    </section>
-  </main>
+    </aside>
+
+    <main class="content">
+      <section class="mobile-intro">
+        <img :src="profileImage" alt="Ahmed Hindy" class="mobile-photo" />
+        <p class="role">Technical Artist / Pipeline Developer</p>
+        <h1>Ahmed Hindy</h1>
+      </section>
+
+      <section class="section" id="about">
+        <p class="section-kicker">About</p>
+        <h2>Pipeline-focused technical artist building reliable production tools.</h2>
+        <p class="intro">
+          I work at the intersection of technical art and engineering, creating tools that make
+          DCC workflows easier to run, validate, package, and hand off. My current focus is Houdini
+          tooling, USD/material workflows, Python automation, and desktop utilities for production
+          teams.
+        </p>
+
+        <dl class="summary-grid">
+          <div v-for="item in summary" :key="item.label">
+            <dt>{{ item.label }}</dt>
+            <dd>{{ item.value }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="section" id="resume">
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">Resume</p>
+            <h2>Experience profile</h2>
+          </div>
+          <a class="text-link" :href="links.resume" target="_blank" rel="noreferrer">
+            Open resume
+          </a>
+        </div>
+
+        <div class="timeline">
+          <article v-for="item in experience" :key="item.title" class="timeline-item">
+            <p>{{ item.meta }}</p>
+            <h3>{{ item.title }}</h3>
+            <span>{{ item.details }}</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="work">
+        <p class="section-kicker">Selected work</p>
+        <h2>Representative projects</h2>
+        <div class="work-grid">
+          <article v-for="project in projects" :key="project.title" class="work-card">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.summary }}</p>
+            <ul>
+              <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <p class="section-kicker">Skills</p>
+        <h2>Tools and production capabilities</h2>
+        <ul class="skill-cloud">
+          <li v-for="skill in skills" :key="skill">{{ skill }}</li>
+        </ul>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div>
+          <p class="section-kicker">Contact</p>
+          <h2>Available for pipeline, tooling, and technical-art work.</h2>
+          <p>
+            For production tools, Houdini workflows, material pipelines, or technical-art support,
+            email me directly or connect through GitHub and LinkedIn.
+          </p>
+        </div>
+        <div class="contact-actions">
+          <a class="button primary" :href="links.email">Email</a>
+          <a class="button" :href="links.linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="button" :href="links.github" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </section>
+    </main>
+  </div>
 </template>
