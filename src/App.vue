@@ -2,82 +2,136 @@
 import profileImage from './assets/profile.jpg'
 
 const links = {
-  email: 'mailto:Ahmed.hindy96@gmail.com',
+  email: 'mailto:ahmed.hindy96@gmail.com',
   github: 'https://github.com/Ahmed-Hindy',
-  linkedin: 'https://www.linkedin.com/in/ahmed-hindy96/',
+  linkedin: 'https://linkedin.com/in/ahmed-hindy96',
   resume:
     'https://drive.google.com/file/d/1Z_kxy2KLX37aWCo5lGf7RSoDb629Nnlj/view?usp=sharing',
-  youtube: 'https://www.youtube.com/@axe_fx',
+  youtube: 'https://youtube.com/@Axe_FX',
 }
 
 const navItems = [
-  { href: '#about', label: 'About' },
-  { href: '#resume', label: 'Resume' },
-  { href: '#work', label: 'Work' },
+  { href: '#overview', label: 'Overview' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#work', label: 'Public Tools' },
   { href: '#skills', label: 'Skills' },
   { href: '#contact', label: 'Contact' },
 ]
 
 const summary = [
-  { label: 'Location', value: 'Cairo, Egypt' },
-  { label: 'Focus', value: 'Houdini pipeline tools, USD, material workflows' },
-  { label: 'Stack', value: 'Python, Qt/PySide, TypeScript, Vue, GitHub Actions' },
-  { label: 'Availability', value: 'Pipeline, tooling, and technical-art work' },
+  {
+    label: 'Primary focus',
+    value:
+      'Python, Houdini, Solaris/USD, Maya, Deadline/PDG, PySide/PyQt, publishing, rendering, and artist workflow automation.',
+  },
+  {
+    label: 'Production work',
+    value:
+      'Hybrid USD publishing, render handoff, validation, farm support, scene debugging, and cross-DCC workflows.',
+  },
+  {
+    label: 'Departments supported',
+    value: 'FX, Lighting, Character, Groom, and related production teams.',
+  },
+  {
+    label: 'Current direction',
+    value:
+      'Pipeline TD, Houdini Pipeline TD, USD Pipeline Developer, and DCC Tools Developer roles.',
+  },
 ]
 
 const experience = [
   {
-    title: 'Pipeline / Technical Artist',
-    meta: 'Houdini, USD, DCC automation',
+    title: 'Pipeline TD',
+    meta: '2023 — Present / Trend VFX',
     details:
-      'Builds tools that turn production workflows into repeatable, testable systems for artists and technical teams.',
+      'Designed and maintained hybrid USD publishing and rendering workflows used across FX, Lighting, and Character departments. Built Python tools, PySide/PyQt interfaces, HDAs, and standalone utilities for publishing, validation, render submission, asset handoff, and production debugging across Houdini, Solaris, Maya, Maya-Arnold, Deadline, and PDG.',
   },
   {
-    title: 'Python Tool Developer',
-    meta: 'CLI tools, desktop utilities, validation',
+    title: 'FX TD Background',
+    meta: '2022 — Present / Trend VFX',
     details:
-      'Works across implementation, packaging, documentation, and release checks with a focus on real runtime behavior.',
+      'Created Houdini FX work for photoreal projects using pyro, RBD, POP particles, vellum, muscle, and crowds. This background helps me build pipeline tools with a practical understanding of artist scenes, caches, render errors, and cross-department handoff.',
   },
   {
-    title: 'Material Workflow Development',
-    meta: 'USD, MaterialX, renderer-facing pipelines',
+    title: 'FX Artist',
+    meta: '2021 — 2022 / Freelance',
     details:
-      'Develops conversion and inspection workflows for material networks, scene data, and DCC handoff.',
+      'Delivered Houdini FX work for international clients, with a focus on clean setups, reliable caches, and production-ready simulation results.',
   },
 ]
 
 const projects = [
   {
+    title: 'RenderKit',
+    summary:
+      'VFX image-sequence review and conversion tool with Python API, CLI, PySide6 UI, OpenImageIO, OpenColorIO, FFmpeg, CRF quality control, burn-ins, and multi-AOV contact sheets.',
+    tags: ['Python', 'PySide6', 'OpenImageIO', 'OpenColorIO', 'FFmpeg'],
+    href: 'https://github.com/Ahmed-Hindy/renderkit',
+  },
+  {
+    title: 'Substance Painter USD Creator',
+    summary:
+      'Substance Painter plugin for structured USD asset and material publishing, including layered USD outputs, texture publishing, material bindings, and renderer-ready material workflows.',
+    tags: ['USD', 'Substance Painter', 'Materials', 'Publishing', 'Python'],
+    href: 'https://github.com/Ahmed-Hindy/Substance-Painter-Usd-Creator',
+  },
+  {
     title: 'Materials Processor',
     summary:
-      'Houdini-focused material conversion and validation workflows for USD and MaterialX-oriented production pipelines.',
-    tags: ['Houdini', 'USD', 'Python', 'MaterialX'],
+      'Material ingestion and conversion tool focused on standardizing complex material networks across USD, Houdini, Arnold, MaterialX, Redshift, and related DCC workflows.',
+    tags: ['Houdini', 'USD', 'MaterialX', 'Arnold', 'Redshift'],
+    href: 'https://github.com/Ahmed-Hindy/Materials-Processor',
   },
   {
-    title: 'HipFile Recreator',
+    title: 'Kitsu Docker Prod',
     summary:
-      'Manifest-driven tools for rebuilding Houdini scenes, comparing outputs, and validating graph-level behavior.',
-    tags: ['Houdini', 'Qt', 'Testing', 'CLI'],
+      'Production-style Kitsu/Zou deployment using Docker, Postgres, Traefik, version pinning, and automated backups.',
+    tags: ['Docker', 'Kitsu', 'Postgres', 'Traefik', 'Pipeline'],
+    href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
   },
   {
-    title: 'Denoise Utilities',
+    title: 'Houdini / Solaris Utilities',
     summary:
-      'Image and video denoising utilities packaged for practical local workflows and GPU-aware processing.',
-    tags: ['Python', 'OptiX', 'OIDN', 'Packaging'],
+      'Small Houdini and Solaris tools, including an Arnold OBJ light to Solaris/USD translator and a Houdini external drag-and-drop workflow plugin for artists.',
+    tags: ['Houdini', 'Solaris', 'USD', 'Arnold', 'Artist Tools'],
+    href: 'https://github.com/Ahmed-Hindy',
   },
 ]
 
 const skills = [
-  'Python tooling',
-  'Houdini pipeline development',
-  'USD workflows',
-  'Material processing',
-  'Qt/PySide interfaces',
-  'CLI automation',
-  'GitHub Actions',
-  'Release packaging',
-  'Technical debugging',
-  'Artist-facing UX',
+  'Python',
+  'PySide6 / PyQt',
+  'Qt',
+  'Houdini',
+  'Solaris',
+  'USD',
+  'Maya',
+  'Maya-Arnold',
+  'Deadline',
+  'PDG / TOPs',
+  'HDAs',
+  'Publishing',
+  'Rendering',
+  'Validation',
+  'Scene debugging',
+  'Asset / shot workflows',
+  'AYON-style workflows',
+  'Kitsu',
+  'Git',
+  'Docker',
+  'SQLite',
+  'Postgres',
+  'MaterialX',
+  'Arnold',
+  'RenderMan',
+  'Redshift',
+  'Unreal Engine basics',
+  'C++ basics',
+  'Bash',
+  'JavaScript',
+  'Documentation',
+  'Artist support',
 ]
 </script>
 
@@ -85,10 +139,11 @@ const skills = [
   <div class="site-shell">
     <aside class="sidebar" aria-label="Profile sidebar">
       <img :src="profileImage" alt="Ahmed Hindy" class="sidebar-photo" />
-      <p class="role">Technical Artist / Pipeline Developer</p>
+      <p class="role">Pipeline TD / VFX Pipeline Developer</p>
       <h1>Ahmed Hindy</h1>
       <p class="sidebar-summary">
-        Production-oriented tools for Houdini, USD, material workflows, and DCC automation.
+        I build artist-facing VFX pipeline tools for Houdini, Solaris/USD, Maya, rendering,
+        publishing, and production support.
       </p>
 
       <nav class="sidebar-nav" aria-label="Section navigation">
@@ -96,7 +151,7 @@ const skills = [
       </nav>
 
       <div class="sidebar-links" aria-label="Profile links">
-        <a :href="links.resume" target="_blank" rel="noreferrer">Resume</a>
+        <a :href="links.email">Email</a>
         <a :href="links.github" target="_blank" rel="noreferrer">GitHub</a>
         <a :href="links.linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
         <a :href="links.youtube" target="_blank" rel="noreferrer">YouTube</a>
@@ -106,18 +161,28 @@ const skills = [
     <main class="content">
       <section class="mobile-intro">
         <img :src="profileImage" alt="Ahmed Hindy" class="mobile-photo" />
-        <p class="role">Technical Artist / Pipeline Developer</p>
-        <h1>Ahmed Hindy</h1>
+        <p class="role">Pipeline TD / VFX Pipeline Developer</p>
+        <p class="mobile-name">Ahmed Hindy</p>
+        <p>
+          I build artist-facing VFX pipeline tools for Houdini, Solaris/USD, Maya, rendering,
+          publishing, and production support.
+        </p>
       </section>
 
-      <section class="section" id="about">
-        <p class="section-kicker">About</p>
-        <h2>Pipeline-focused technical artist building reliable production tools.</h2>
+      <section class="section" id="overview">
+        <p class="section-kicker">Overview</p>
+        <h2>Artist-facing pipeline tools for Houdini, USD, rendering, and production handoff.</h2>
         <p class="intro">
-          I work at the intersection of technical art and engineering, creating tools that make
-          DCC workflows easier to run, validate, package, and hand off. My current focus is Houdini
-          tooling, USD/material workflows, Python automation, and desktop utilities for production
-          teams.
+          I am a Pipeline TD and VFX Pipeline Developer based in Cairo, Egypt. My work sits between
+          artists and pipeline engineering: turning repeated production problems into tools, checks,
+          workflows, and documentation that make scenes easier to publish, render, and hand off
+          between departments.
+        </p>
+        <p class="intro">
+          I started in Houdini FX, then moved deeper into pipeline work after spending enough time
+          around heavy scenes, broken caches, bad paths, failed farm jobs, missing versions, USD
+          handoff issues, and render setup problems. That artist background still shapes how I
+          build tools.
         </p>
 
         <dl class="summary-grid">
@@ -128,11 +193,11 @@ const skills = [
         </dl>
       </section>
 
-      <section class="section" id="resume">
+      <section class="section" id="experience">
         <div class="section-header">
           <div>
-            <p class="section-kicker">Resume</p>
-            <h2>Experience profile</h2>
+            <p class="section-kicker">Experience</p>
+            <h2>Production pipeline work grounded in real Houdini and VFX problems.</h2>
           </div>
           <a class="text-link" :href="links.resume" target="_blank" rel="noreferrer">
             Open resume
@@ -149,12 +214,20 @@ const skills = [
       </section>
 
       <section class="section" id="work">
-        <p class="section-kicker">Selected work</p>
-        <h2>Representative projects</h2>
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">Public Tools</p>
+            <h2>Selected pipeline tools and technical projects.</h2>
+          </div>
+          <a class="text-link" :href="links.github" target="_blank" rel="noreferrer">
+            View GitHub
+          </a>
+        </div>
         <div class="work-grid">
           <article v-for="project in projects" :key="project.title" class="work-card">
             <h3>{{ project.title }}</h3>
             <p>{{ project.summary }}</p>
+            <a :href="project.href" target="_blank" rel="noreferrer">View project</a>
             <ul>
               <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
             </ul>
@@ -164,7 +237,11 @@ const skills = [
 
       <section class="section" id="skills">
         <p class="section-kicker">Skills</p>
-        <h2>Tools and production capabilities</h2>
+        <h2>Tools and workflows I use in production.</h2>
+        <p class="intro">
+          My strongest area is Python pipeline development around DCC tools, USD workflows,
+          publishing, rendering, validation, farm support, and artist-facing interfaces.
+        </p>
         <ul class="skill-cloud">
           <li v-for="skill in skills" :key="skill">{{ skill }}</li>
         </ul>
@@ -173,16 +250,18 @@ const skills = [
       <section class="section contact" id="contact">
         <div>
           <p class="section-kicker">Contact</p>
-          <h2>Available for pipeline, tooling, and technical-art work.</h2>
+          <h2>Let’s talk pipeline, tools, and production workflows.</h2>
           <p>
-            For production tools, Houdini workflows, material pipelines, or technical-art support,
-            email me directly or connect through GitHub and LinkedIn.
+            I am open to Pipeline TD, Houdini Pipeline TD, USD Pipeline Developer, and DCC Tools
+            Developer roles. I am especially interested in teams building artist-facing tools,
+            Houdini/USD workflows, publishing systems, render pipelines, and production automation.
           </p>
         </div>
         <div class="contact-actions">
-          <a class="button primary" :href="links.email">Email</a>
-          <a class="button" :href="links.linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="button primary" :href="links.email">Email Me</a>
           <a class="button" :href="links.github" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="button" :href="links.linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="button" :href="links.youtube" target="_blank" rel="noreferrer">YouTube</a>
         </div>
       </section>
     </main>
