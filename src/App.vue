@@ -122,14 +122,14 @@ const projects = [
   {
     title: 'RenderKit',
     summary:
-      'VFX image-sequence review and conversion tool with CLI, UI, burn-ins, and multi-AOV contact sheets.',
+      'image-sequence conversion GUI tool. supports burn-ins, and multi-AOV contact sheets.',
     tags: ['PySide6', 'OpenImageIO', 'OpenColorIO', 'FFmpeg'],
     href: 'https://github.com/Ahmed-Hindy/renderkit',
   },
   {
     title: 'h_denoise_utils',
     summary:
-      'Standalone denoising GUI and CLI with bundled OptiX and OIDN. Support multi-AOV EXRs',
+      'Standalone denoising GUI, with bundled OptiX and OIDN. Support multi-AOV EXRs',
     tags: ['Nvidia', 'OptiX', 'Intel', 'OIDN', 'PySide6', 'CLI', 'EXR'],
     href: 'https://github.com/Ahmed-Hindy/h_denoise_utils',
   },
@@ -143,16 +143,14 @@ const projects = [
   {
     title: 'Substance Painter USD Creator',
     summary:
-      'Substance Painter plugin for structured USD asset and material publishing, including layered USD outputs, ' +
-        'texture publishing, material bindings, and renderer-ready material workflows.',
+      'Substance Painter plugin for publishing layered USD assets.',
     tags: ['USD', 'Substance Painter', 'Materials', 'Publishing', 'Python'],
     href: 'https://github.com/Ahmed-Hindy/Substance-Painter-Usd-Creator',
   },
   {
     title: 'Materials Processor',
     summary:
-      'Material ingestion and conversion tool for standardizing complex material networks across USD, Houdini, ' +
-        'Arnold, MaterialX, Redshift, and related DCC workflows.',
+      'Material ingestion and conversion tool for standardizing networks across USD and MaterialX.',
     tags: ['Houdini', 'USD', 'MaterialX', 'Arnold', 'Redshift'],
     href: 'https://github.com/Ahmed-Hindy/Materials-Processor',
   },
@@ -173,20 +171,20 @@ const projects = [
   {
     title: 'Kitsu Docker Prod',
     summary:
-      'Production-style Kitsu/Zou deployment using Docker, Postgres, Traefik, version pinning, and automated backups.',
+      'Production-ready Kitsu docker stack.',
     tags: ['Docker', 'Kitsu', 'Postgres', 'Traefik', 'Pipeline'],
     href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
   },
   {
     title: 'Homelab / Local LLMs',
     summary:
-      'A personal Docker-based homelab for self-hosted tools, experiments, and local LLM workflows. Mostly built for learning, tinkering, and breaking things safely.',
+      'Docker-based homelab for self-hosted tools and local LLM workflows.',
     tags: ['Docker', 'Homelab', 'Local LLMs', 'Self-hosting'],
   },
   {
     title: 'Houdini / USD Utilities',
     summary:
-      'Houdini and Solaris utilities, including an Arnold OBJ light to Solaris/USD translator and a drag-and-drop workflow plugin for artists.',
+      'Houdini/Solaris utilities including an Arnold OBJ light to USD translator.',
     tags: ['Houdini', 'Solaris', 'USD', 'Arnold', 'Artist Tools'],
     href: 'https://github.com/Ahmed-Hindy/Arnold-husd-translator',
   },
