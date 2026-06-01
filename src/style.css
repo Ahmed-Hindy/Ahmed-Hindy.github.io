@@ -514,7 +514,8 @@ h3 {
 .button {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 10px;
   min-height: 46px;
   padding: 0 16px;
   border: 1px solid var(--line);
@@ -523,6 +524,19 @@ h3 {
   color: var(--text-strong);
   font-weight: 900;
   text-decoration: none;
+}
+
+.button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-size: 0.72rem;
+  line-height: 1;
 }
 
 .button:hover {
@@ -534,6 +548,11 @@ h3 {
   border-color: var(--accent);
   color: var(--primary-button-text);
   background: var(--accent);
+}
+
+.button.primary .button-icon {
+  color: var(--accent);
+  background: var(--primary-button-text);
 }
 
 @media (max-width: 1020px) {

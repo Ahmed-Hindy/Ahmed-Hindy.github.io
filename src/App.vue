@@ -119,14 +119,16 @@ const projects = [
   {
     title: 'Substance Painter USD Creator',
     summary:
-      'Substance Painter plugin for structured USD asset and material publishing, including layered USD outputs, texture publishing, material bindings, and renderer-ready material workflows.',
+      'Substance Painter plugin for structured USD asset and material publishing, including layered USD outputs, ' +
+        'texture publishing, material bindings, and renderer-ready material workflows.',
     tags: ['USD', 'Substance Painter', 'Materials', 'Publishing', 'Python'],
     href: 'https://github.com/Ahmed-Hindy/Substance-Painter-Usd-Creator',
   },
   {
     title: 'Materials Processor',
     summary:
-      'Material ingestion and conversion tool for standardizing complex material networks across USD, Houdini, Arnold, MaterialX, Redshift, and related DCC workflows.',
+      'Material ingestion and conversion tool for standardizing complex material networks across USD, Houdini, ' +
+        'Arnold, MaterialX, Redshift, and related DCC workflows.',
     tags: ['Houdini', 'USD', 'MaterialX', 'Arnold', 'Redshift'],
     href: 'https://github.com/Ahmed-Hindy/Materials-Processor',
   },
@@ -239,7 +241,7 @@ const skills = [
 
       <section class="section" id="overview">
         <p class="section-kicker">Overview</p>
-        <h2>Pipeline TD focused on Houdini, USD, Maya, and production tooling.</h2>
+        <h2>Pipeline Technical Director for Houdini, USD, Maya and UE5</h2>
         <p class="intro">
           I am a Pipeline Technical Director based in Cairo, Egypt. I build tools and workflows that sit between
           artists and pipeline engineering: publishing, render handoff, validation, farm debugging,
@@ -265,9 +267,6 @@ const skills = [
             <p class="section-kicker">Experience</p>
             <h2>Pipeline work grounded in real production problems.</h2>
           </div>
-          <a class="text-link" :href="links.resume" target="_blank" rel="noreferrer">
-            Open resume
-          </a>
         </div>
 
         <div class="timeline">
@@ -285,9 +284,6 @@ const skills = [
             <p class="section-kicker">Public Tools</p>
             <h2>Selected public pipeline tools.</h2>
           </div>
-          <a class="text-link" :href="links.github" target="_blank" rel="noreferrer">
-            View GitHub
-          </a>
         </div>
         <div class="work-grid">
           <article v-for="project in projects" :key="project.title" class="work-card">
@@ -324,11 +320,26 @@ const skills = [
           </p>
         </div>
         <div class="contact-actions">
-          <a class="button primary" :href="links.email">Email Me</a>
-          <a class="button" :href="links.resume" target="_blank" rel="noreferrer">Resume</a>
-          <a class="button" :href="links.github" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="button" :href="links.linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="button" :href="links.youtube" target="_blank" rel="noreferrer">YouTube</a>
+          <a class="button primary" :href="links.email">
+            <span class="button-icon" aria-hidden="true">@</span>
+            <span>Email Me</span>
+          </a>
+          <a class="button" :href="links.resume" target="_blank" rel="noreferrer">
+            <span class="button-icon" aria-hidden="true">CV</span>
+            <span>Resume</span>
+          </a>
+          <a class="button" :href="links.github" target="_blank" rel="noreferrer">
+            <span class="button-icon" aria-hidden="true">GH</span>
+            <span>GitHub</span>
+          </a>
+          <a class="button" :href="links.linkedin" target="_blank" rel="noreferrer">
+            <span class="button-icon" aria-hidden="true">in</span>
+            <span>LinkedIn</span>
+          </a>
+          <a class="button" :href="links.youtube" target="_blank" rel="noreferrer">
+            <span class="button-icon" aria-hidden="true">YT</span>
+            <span>YouTube</span>
+          </a>
         </div>
       </section>
     </main>
