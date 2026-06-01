@@ -65,6 +65,8 @@ const profileLinks = [
   { href: links.youtube, icon: 'youtube', label: 'YouTube', external: true },
 ]
 
+const focusChips = ['Pipeline', 'Houdini', 'USD', 'Maya', 'Unreal']
+
 const navItems = [
   { href: '#overview', label: 'Overview' },
   { href: '#experience', label: 'Experience' },
@@ -77,12 +79,12 @@ const summary = [
   {
     label: 'Primary focus',
     value:
-      'All things pipeline, Houdini, Solaris/USD, Maya, Unreal, Deadline, and PySide/PyQt',
+      'All things 3D pipeline related: Houdini, Solaris/USD, Maya, Unreal, Deadline, and PySide/PyQt GUIs',
   },
   {
     label: 'Production work',
     value:
-      'Cross-DCC pipelines involving Publishing, Farm Rendering, and Validation',
+      'Cross-DCC pipelines involving Publishing, Farm Rendering, Validation, and Scene Debugging',
   },
   {
     label: 'Departments supported',
@@ -91,7 +93,7 @@ const summary = [
   {
     label: 'Current direction',
     value:
-      'a generalist Pipeline TD, with most experience being with Houdini, USD, Unreal and Substance',
+      'A generalist Pipeline TD, with most experience being with Houdini, USD, Unreal and Substance',
   },
 ]
 
@@ -162,6 +164,12 @@ const projects = [
     href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
   },
   {
+    title: 'Homelab / Local LLMs',
+    summary:
+      'A personal Docker-based homelab for self-hosted tools, experiments, and local LLM workflows. Mostly built for learning, tinkering, and breaking things safely.',
+    tags: ['Docker', 'Homelab', 'Local LLMs', 'Self-hosting'],
+  },
+  {
     title: 'Houdini / USD Utilities',
     summary:
       'Houdini and Solaris utilities, including an Arnold OBJ light to Solaris/USD translator and a drag-and-drop workflow plugin for artists.',
@@ -195,7 +203,7 @@ const skills = [
   'Postgres',
   'C++ basics',
   'Bash',
-  'JavaScript',
+  'JavaScript enthusiast',
   'Documentation',
   'Artist support',
 ]
@@ -262,27 +270,10 @@ const skills = [
       <img :src="profileImage" alt="Ahmed Hindy" class="sidebar-photo" />
       <p class="role">Pipeline TD / VFX Pipeline Developer</p>
       <h1>Ahmed Hindy</h1>
-      <p class="sidebar-summary">
-        I build production tools that help artists publish, render, debug, and hand off work across
-        Houdini, USD, and Maya.
-      </p>
 
-      <nav class="sidebar-nav" aria-label="Section navigation">
-        <a v-for="item in navItems" :key="item.href" :href="item.href">{{ item.label }}</a>
-      </nav>
-
-      <button
-        class="theme-toggle"
-        type="button"
-        :aria-label="themeToggleLabel"
-        :aria-pressed="isDarkTheme"
-        @click="toggleTheme"
-      >
-        <span class="theme-toggle-track" aria-hidden="true">
-          <span class="theme-toggle-thumb">{{ isDarkTheme ? '☾' : '☀' }}</span>
-        </span>
-        <span>{{ isDarkTheme ? 'Dark' : 'Light' }}</span>
-      </button>
+      <ul class="focus-chips" aria-label="Primary focus areas">
+        <li v-for="chip in focusChips" :key="chip">{{ chip }}</li>
+      </ul>
 
       <div class="sidebar-links" aria-label="Profile links">
         <a
@@ -300,6 +291,23 @@ const skills = [
           <span class="sr-only">{{ link.label }}</span>
         </a>
       </div>
+
+      <nav class="sidebar-nav" aria-label="Section navigation">
+        <a v-for="item in navItems" :key="item.href" :href="item.href">{{ item.label }}</a>
+      </nav>
+
+      <button
+        class="theme-toggle"
+        type="button"
+        :aria-label="themeToggleLabel"
+        :aria-pressed="isDarkTheme"
+        @click="toggleTheme"
+      >
+        <span class="theme-toggle-track" aria-hidden="true">
+          <span class="theme-toggle-thumb">{{ isDarkTheme ? '☾' : '☀' }}</span>
+        </span>
+        <span>{{ isDarkTheme ? 'Dark' : 'Light' }}</span>
+      </button>
     </aside>
 
     <main class="content">
@@ -307,10 +315,25 @@ const skills = [
         <img :src="profileImage" alt="Ahmed Hindy" class="mobile-photo" />
         <p class="role">Pipeline TD / VFX Pipeline Developer</p>
         <p class="mobile-name">Ahmed Hindy</p>
-        <p>
-          I build production tools that help artists publish, render, debug, and hand off work
-          across Houdini, USD, and Maya.
-        </p>
+        <ul class="focus-chips" aria-label="Primary focus areas">
+          <li v-for="chip in focusChips" :key="chip">{{ chip }}</li>
+        </ul>
+        <div class="mobile-links" aria-label="Profile links">
+          <a
+            v-for="link in profileLinks"
+            :key="link.label"
+            :aria-label="link.label"
+            :href="link.href"
+            :rel="link.external ? 'noreferrer' : undefined"
+            :target="link.external ? '_blank' : undefined"
+            :title="link.label"
+          >
+            <svg class="link-icon" aria-hidden="true" focusable="false">
+              <use :href="`#icon-${link.icon}`" />
+            </svg>
+            <span class="sr-only">{{ link.label }}</span>
+          </a>
+        </div>
         <button
           class="theme-toggle mobile-theme-toggle"
           type="button"
@@ -334,9 +357,10 @@ const skills = [
           and cross-DCC support.
         </p>
         <p class="intro">
-          I started in Houdini FX, so I know the artist side of the problems I now solve: heavy
-          scenes, broken caches, bad paths, failed farm jobs, missing versions, and USD handoff
-          issues.
+          I started in Houdini FX, so I know the artist side of the problems I now solve: heavy scenes,
+          broken caches, bad paths, failed farm jobs, missing versions, and USD composition issues.
+          Outside production, I like tinkering with C++ game mods, Docker homelab setups, local LLMs,
+          and Vue JS projects.
         </p>
 
         <dl class="summary-grid">
@@ -368,14 +392,16 @@ const skills = [
         <div class="section-header">
           <div>
             <p class="section-kicker">Public Tools</p>
-            <h2>personal projects showcase</h2>
+            <h2>Production tools, experiments, and side quests.</h2>
           </div>
         </div>
         <div class="work-grid">
           <article v-for="project in projects" :key="project.title" class="work-card">
             <h3>{{ project.title }}</h3>
             <p>{{ project.summary }}</p>
-            <a :href="project.href" target="_blank" rel="noreferrer">View project</a>
+            <a v-if="project.href" :href="project.href" target="_blank" rel="noreferrer">
+              View project
+            </a>
             <ul>
               <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
             </ul>

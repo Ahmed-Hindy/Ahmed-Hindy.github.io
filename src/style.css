@@ -187,20 +187,13 @@ h3 {
   line-height: 1;
 }
 
-.sidebar-summary {
-  margin-top: 18px;
-  color: var(--sidebar-muted);
-  line-height: 1.65;
-}
-
 .sidebar-nav {
   display: grid;
   gap: 6px;
-  margin-top: 36px;
+  margin-top: 30px;
 }
 
-.sidebar-nav a,
-.sidebar-links a {
+.sidebar-nav a {
   border-radius: 8px;
   text-decoration: none;
 }
@@ -216,22 +209,28 @@ h3 {
   background: var(--sidebar-link-hover);
 }
 
-.sidebar-links {
+.sidebar-links,
+.mobile-links {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 16px;
-  padding-top: 28px;
+}
+
+.sidebar-links {
+  margin-top: 18px;
   padding-bottom: 2px;
 }
 
-.sidebar-links a {
+.sidebar-links a,
+.mobile-links a {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 42px;
   height: 42px;
+  border-radius: 50%;
+  text-decoration: none;
   color: var(--sidebar-text);
   background: var(--sidebar-link-bg);
 }
@@ -239,6 +238,19 @@ h3 {
 .sidebar-links a:hover,
 .sidebar-links a:focus-visible {
   background: var(--sidebar-link-hover);
+}
+
+.mobile-links a {
+  color: var(--text-strong);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.mobile-links a:hover,
+.mobile-links a:focus-visible {
+  border-color: var(--accent);
+  background: var(--button-hover);
 }
 
 .sidebar-links a::after {
@@ -277,6 +289,24 @@ h3 {
 .sidebar-links .link-icon {
   width: 21px;
   height: 21px;
+}
+
+.focus-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.focus-chips li {
+  padding: 6px 10px;
+  border: 1px solid var(--sidebar-link-bg);
+  border-radius: 999px;
+  color: var(--sidebar-text);
+  background: var(--sidebar-link-bg);
+  font-size: 0.78rem;
+  font-weight: 850;
+  line-height: 1;
 }
 
 .theme-toggle {
@@ -647,23 +677,31 @@ h3 {
     box-shadow: var(--shadow);
   }
 
-.mobile-intro .role {
-  margin-top: 18px;
-}
+  .mobile-intro .role {
+    margin-top: 18px;
+  }
 
-.mobile-name {
-  margin-top: 8px;
-  color: var(--text-strong);
-  font-size: 3.2rem;
-  font-weight: 800;
-  line-height: 1;
-}
+  .mobile-name {
+    margin-top: 8px;
+    color: var(--text-strong);
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1;
+  }
 
-.mobile-intro p:not(.role) {
-  max-width: 640px;
-  margin-top: 16px;
-  line-height: 1.7;
-}
+  .mobile-intro .focus-chips {
+    max-width: 460px;
+  }
+
+  .mobile-intro .focus-chips li {
+    color: var(--text-strong);
+    border-color: var(--line);
+    background: var(--surface-muted);
+  }
+
+  .mobile-links {
+    margin-top: 18px;
+  }
 
   .section:first-of-type {
     padding-top: 42px;
