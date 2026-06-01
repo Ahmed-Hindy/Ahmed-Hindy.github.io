@@ -208,6 +208,7 @@ const skills = [
 
       <div class="sidebar-links" aria-label="Profile links">
         <a :href="links.email">Email</a>
+        <a :href="links.resume" target="_blank" rel="noreferrer">Resume</a>
         <a :href="links.github" target="_blank" rel="noreferrer">GitHub</a>
         <a :href="links.linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
         <a :href="links.youtube" target="_blank" rel="noreferrer">YouTube</a>
@@ -327,6 +328,7 @@ const skills = [
         </div>
         <div class="contact-actions">
           <a class="button primary" :href="links.email">Email Me</a>
+          <a class="button" :href="links.resume" target="_blank" rel="noreferrer">Resume</a>
           <a class="button" :href="links.github" target="_blank" rel="noreferrer">GitHub</a>
           <a class="button" :href="links.linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
           <a class="button" :href="links.youtube" target="_blank" rel="noreferrer">YouTube</a>

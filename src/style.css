@@ -124,9 +124,12 @@ li {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
   padding: 34px 28px;
   color: var(--sidebar-text);
   background: linear-gradient(180deg, var(--sidebar), var(--sidebar-end));
+  overscroll-behavior: contain;
 }
 
 .sidebar-photo {
@@ -202,6 +205,7 @@ h3 {
   gap: 8px;
   margin-top: 16px;
   padding-top: 28px;
+  padding-bottom: 2px;
 }
 
 .sidebar-links a {
