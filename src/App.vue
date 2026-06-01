@@ -117,6 +117,13 @@ const projects = [
     href: 'https://github.com/Ahmed-Hindy/renderkit',
   },
   {
+    title: 'h_denoise_utils',
+    summary:
+      'Standalone Houdini denoising GUI and CLI with bundled NVIDIA OptiX support, Intel OIDN, AOV preservation, and zero-dependency packaged releases.',
+    tags: ['Houdini', 'OptiX', 'OIDN', 'PySide6', 'CLI'],
+    href: 'https://github.com/Ahmed-Hindy/h_denoise_utils',
+  },
+  {
     title: 'Substance Painter USD Creator',
     summary:
       'Substance Painter plugin for structured USD asset and material publishing, including layered USD outputs, ' +
