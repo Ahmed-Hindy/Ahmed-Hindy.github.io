@@ -132,6 +132,13 @@ const projects = [
     href: 'https://github.com/Ahmed-Hindy/h_denoise_utils',
   },
   {
+    title: 'Hitman ItemSpawner',
+    summary:
+      'Hitman 3 mod for spawning items in-game, built on top of ZHM Mod SDK.',
+    tags: ['C++', 'ZHMModSDK'],
+    href: 'https://github.com/Ahmed-Hindy/Hitman-ItemSpawner',
+  },
+  {
     title: 'Substance Painter USD Creator',
     summary:
       'Substance Painter plugin for structured USD asset and material publishing, including layered USD outputs, ' +
