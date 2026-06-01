@@ -5,8 +5,14 @@ Personal portfolio site built with Vite, Vue, and TypeScript.
 ## Run Locally
 
 ```sh
-npm install
+npm ci
 npm run dev
+```
+
+## Optimize Assets
+
+```sh
+npm run optimize:assets
 ```
 
 ## Build
