@@ -69,7 +69,7 @@ const summary = [
   {
     label: 'Primary focus',
     value:
-      'Python, Houdini, Solaris/USD, Maya, Deadline, PDG, and PySide/PyQt',
+      'All things pipeline, Houdini, Solaris/USD, Maya, Unreal, Deadline, and PySide/PyQt',
   },
   {
     label: 'Production work',
@@ -96,7 +96,7 @@ const experience = [
   },
   {
     title: 'Houdini FX TD',
-    meta: '2022 — Present / Trend VFX',
+    meta: '2022 — 2024 / Trend VFX',
     details:
       'Created Houdini FX work for photoreal projects using pyro, RBD, POP particles, vellum, muscle, and crowds. That background helps me build pipeline tools with a practical understanding of artist scenes, caches, render errors, and handoff problems.',
   },
@@ -119,8 +119,8 @@ const projects = [
   {
     title: 'h_denoise_utils',
     summary:
-      'Standalone Houdini denoising GUI and CLI with bundled NVIDIA OptiX support, Intel OIDN, AOV preservation, and zero-dependency packaged releases.',
-    tags: ['Houdini', 'OptiX', 'OIDN', 'PySide6', 'CLI'],
+      'Standalone denoising GUI and CLI with bundled OptiX and OIDN. Support multi-AOV EXRs',
+    tags: ['Nvidia', 'OptiX', 'Intel', 'OIDN', 'PySide6', 'CLI', 'EXR'],
     href: 'https://github.com/Ahmed-Hindy/h_denoise_utils',
   },
   {
@@ -289,7 +289,7 @@ const skills = [
         <div class="section-header">
           <div>
             <p class="section-kicker">Public Tools</p>
-            <h2>Selected public pipeline tools.</h2>
+            <h2>personal projects showcase</h2>
           </div>
         </div>
         <div class="work-grid">
