@@ -230,8 +230,8 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   color: var(--sidebar-text);
   background: var(--sidebar-link-bg);
 }
@@ -272,6 +272,11 @@ h3 {
   width: 18px;
   height: 18px;
   flex: 0 0 auto;
+}
+
+.sidebar-links .link-icon {
+  width: 21px;
+  height: 21px;
 }
 
 .theme-toggle {
