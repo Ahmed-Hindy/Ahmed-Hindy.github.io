@@ -157,6 +157,20 @@ const projects = [
     href: 'https://github.com/Ahmed-Hindy/Materials-Processor',
   },
   {
+    title: 'USD Scene Audit',
+    summary:
+      'Command-line OpenUSD scene audit tools for geometry, naming, hierarchy, materials, and authored asset references.',
+    tags: ['Python', 'OpenUSD', 'USD', 'Audit', 'CLI'],
+    href: 'https://github.com/Ahmed-Hindy/usd-scene-audit',
+  },
+  {
+    title: 'hou-scene-inspector',
+    summary:
+      'Houdini .hip scene-structure inspector for reading node hierarchy, metadata, parameters, channels, takes, and JSON reports without cooking networks.',
+    tags: ['Python', 'Houdini', 'HIP Files', 'Parser', 'CLI'],
+    href: 'https://github.com/Ahmed-Hindy/hou-scene-inspector',
+  },
+  {
     title: 'Kitsu Docker Prod',
     summary:
       'Production-style Kitsu/Zou deployment using Docker, Postgres, Traefik, version pinning, and automated backups.',
