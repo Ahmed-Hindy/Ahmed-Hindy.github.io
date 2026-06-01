@@ -108,6 +108,23 @@ li {
   list-style: none;
 }
 
+.icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
 #app {
   min-height: 100vh;
 }
@@ -209,11 +226,52 @@ h3 {
 }
 
 .sidebar-links a {
-  padding: 8px 10px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
   color: var(--sidebar-text);
   background: var(--sidebar-link-bg);
-  font-size: 0.82rem;
-  font-weight: 800;
+}
+
+.sidebar-links a:hover,
+.sidebar-links a:focus-visible {
+  background: var(--sidebar-link-hover);
+}
+
+.sidebar-links a::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  color: var(--sidebar);
+  background: var(--sidebar-text);
+  font-size: 0.72rem;
+  font-weight: 850;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(4px);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
+}
+
+.sidebar-links a:hover::after,
+.sidebar-links a:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.link-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
 }
 
 .theme-toggle {
@@ -535,8 +593,6 @@ h3 {
   border-radius: 6px;
   color: var(--accent);
   background: var(--accent-soft);
-  font-size: 0.72rem;
-  line-height: 1;
 }
 
 .button:hover {
