@@ -122,7 +122,7 @@ const projects = [
   {
     title: 'RenderKit',
     summary:
-      'image-sequence conversion GUI tool. supports burn-ins, and multi-AOV contact sheets.',
+      'image-sequence conversion tool. supports burn-ins and contact sheets.',
     tags: ['PySide6', 'OpenImageIO', 'OpenColorIO', 'FFmpeg'],
     href: 'https://github.com/Ahmed-Hindy/renderkit',
   },
@@ -130,7 +130,7 @@ const projects = [
     title: 'h_denoise_utils',
     summary:
       'Standalone denoising GUI, with bundled OptiX and OIDN. Support multi-AOV EXRs',
-    tags: ['Nvidia', 'OptiX', 'Intel', 'OIDN', 'PySide6', 'CLI', 'EXR'],
+    tags: ['Nvidia', 'OptiX', 'CLI', 'Intel', 'OIDN', 'PySide6', 'EXR'],
     href: 'https://github.com/Ahmed-Hindy/h_denoise_utils',
   },
   {
@@ -144,7 +144,7 @@ const projects = [
     title: 'Substance Painter USD Creator',
     summary:
       'Substance Painter plugin for publishing layered USD assets.',
-    tags: ['USD', 'Substance Painter', 'Materials', 'Publishing', 'Python'],
+    tags: ['USD', 'Substance Painter', 'Materials', 'Publishing'],
     href: 'https://github.com/Ahmed-Hindy/Substance-Painter-Usd-Creator',
   },
   {
@@ -157,14 +157,14 @@ const projects = [
   {
     title: 'USD Scene Audit',
     summary:
-      'Command-line OpenUSD scene audit tools for geometry, naming, hierarchy, materials, and authored asset references.',
-    tags: ['Python', 'OpenUSD', 'USD', 'Audit', 'CLI'],
+      'OpenUSD audit tools for mesh prims: naming, hierarchy, materials, layers',
+    tags: ['Python', 'OpenUSD', 'SanityCheck', 'CLI'],
     href: 'https://github.com/Ahmed-Hindy/usd-scene-audit',
   },
   {
     title: 'hou-scene-inspector',
     summary:
-      'Houdini .hip scene-structure inspector for reading node hierarchy, metadata, parameters, channels, takes, and JSON reports without cooking networks.',
+      'Houdini .hip inspector for reading node data.',
     tags: ['Python', 'Houdini', 'HIP Files', 'Parser', 'CLI'],
     href: 'https://github.com/Ahmed-Hindy/hou-scene-inspector',
   },
