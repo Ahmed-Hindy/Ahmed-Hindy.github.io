@@ -21,8 +21,11 @@ defineProps<{
       <a
         v-for="link in profileLinks"
         :key="link.label"
-        class="button"
-        :class="{ primary: link.label === 'Email' }"
+        class="button profile-link"
+        :class="[
+          `profile-link-${link.icon}`,
+          { primary: link.label === 'Email', resume: link.label === 'Resume' },
+        ]"
         :href="link.href"
         :rel="link.external ? 'noopener noreferrer' : undefined"
         :target="link.external ? '_blank' : undefined"
