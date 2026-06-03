@@ -1,13 +1,7 @@
 # Ahmed Hindy Portfolio
 
-Personal portfolio site built with Vite, Vue, and TypeScript.
+Personal portfolio site built with Bun, Vite, Vue, and TypeScript.
 
-## Run Locally
-
-```sh
-bun install
-bun run dev
-```
 
 ## Optimize Assets
 
@@ -18,9 +12,11 @@ bun run optimize:assets
 ## Build
 
 ```sh
+bun install
+bun run dev
 bun run build
 ```
 
 ## Deploy
 
-Push to `main`. GitHub Actions builds the site and publishes `dist` to GitHub Pages.
+Push to `main`. CI will build the site and publishes `dist` to GitHub Pages.
