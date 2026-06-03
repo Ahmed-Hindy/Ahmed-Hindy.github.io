@@ -6,7 +6,7 @@ import sharp from 'sharp'
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const profileJpg = path.join(rootDir, 'src', 'assets', 'profile.jpg')
 const profileWebp = path.join(rootDir, 'src', 'assets', 'profile.webp')
-const openGraphImage = path.join(rootDir, 'public', 'og-image.jpg')
+const openGraphImage = path.join(rootDir, 'public', 'og-image-portrait.jpg')
 const profileJpgTemp = path.join(rootDir, 'src', 'assets', 'profile.tmp.jpg')
 
 const formatBytes = (bytes) => `${Math.round(bytes / 1024)} KB`
@@ -102,7 +102,7 @@ const writeOpenGraphImage = async () => {
     .toBuffer()
 
   await fs.writeFile(openGraphImage, imageBuffer)
-  console.log(`og-image.jpg ${formatBytes(imageBuffer.byteLength)}`)
+  console.log(`${path.basename(openGraphImage)} ${formatBytes(imageBuffer.byteLength)}`)
 }
 
 await optimizeProfileJpg()
