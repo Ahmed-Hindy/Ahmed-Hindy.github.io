@@ -28,6 +28,21 @@ export interface Project {
   summary: string
   tags: string[]
   href?: string
+  media?: {
+    image?: {
+      src: string
+      alt: string
+    }
+    video?: {
+      src: string
+      poster?: string
+    }
+  }
+}
+
+export interface ProjectSection {
+  title: string
+  projects: Project[]
 }
 
 export const links = {
@@ -100,75 +115,123 @@ export const experience: ExperienceItem[] = [
   },
 ]
 
-export const projects: Project[] = [
+export const projectSections: ProjectSection[] = [
   {
-    title: 'RenderKit',
-    summary:
-      'image-sequence conversion tool. supports burn-ins and contact sheets.',
-    tags: ['PySide6', 'OpenImageIO', 'OpenColorIO', 'FFmpeg'],
-    href: 'https://github.com/Ahmed-Hindy/renderkit',
+    title: 'Featured tools',
+    projects: [
+      {
+        title: 'RenderKit',
+        summary:
+          'image-sequence conversion tool. supports burn-ins and contact sheets.',
+        tags: ['PySide6', 'OpenImageIO', 'OpenColorIO', 'FFmpeg'],
+        href: 'https://github.com/Ahmed-Hindy/renderkit',
+        media: {
+          image: {
+            src: '/projects/renderkit/renderkit-ui-screenshot.png',
+            alt: 'RenderKit image sequence conversion interface',
+          },
+        },
+      },
+      {
+        title: 'h_denoise_utils',
+        summary:
+          'Standalone denoising GUI, with bundled OptiX and OIDN. Support multi-AOV EXRs',
+        tags: ['Nvidia', 'OptiX', 'CLI', 'Intel', 'OIDN', 'PySide6', 'EXR'],
+        href: 'https://github.com/Ahmed-Hindy/h_denoise_utils',
+        media: {
+          image: {
+            src: '/projects/h-denoise-utils/demo-poster.png',
+            alt: 'h_denoise_utils drag-and-drop denoising interface',
+          },
+          video: {
+            src: '/projects/h-denoise-utils/demo.mp4',
+            poster: '/projects/h-denoise-utils/demo-poster.png',
+          },
+        },
+      },
+      {
+        title: 'Substance Painter USD Creator',
+        summary:
+          'Substance Painter plugin for publishing layered USD assets.',
+        tags: ['USD', 'Substance Painter', 'Materials', 'Publishing'],
+        href: 'https://github.com/Ahmed-Hindy/Substance-Painter-Usd-Creator',
+        media: {
+          image: {
+            src: '/projects/substance-painter-usd-creator/substance-painter-usd-creator.png',
+            alt: 'Substance Painter USD Creator plugin interface',
+          },
+        },
+      },
+      {
+        title: 'Houdini / USD Utilities',
+        summary:
+          'Houdini/Solaris utilities including an Arnold OBJ light to USD translator.',
+        tags: ['Houdini', 'Solaris', 'USD', 'Arnold', 'Artist Tools'],
+        href: 'https://github.com/Ahmed-Hindy/Arnold-husd-translator',
+        media: {
+          image: {
+            src: '/projects/houdini-usd-utilities/arnold-husd-translator.png',
+            alt: 'Arnold OBJ light to USD translator running in Houdini Solaris',
+          },
+        },
+      },
+    ],
   },
   {
-    title: 'h_denoise_utils',
-    summary:
-      'Standalone denoising GUI, with bundled OptiX and OIDN. Support multi-AOV EXRs',
-    tags: ['Nvidia', 'OptiX', 'CLI', 'Intel', 'OIDN', 'PySide6', 'EXR'],
-    href: 'https://github.com/Ahmed-Hindy/h_denoise_utils',
+    title: 'Pipeline / USD utilities',
+    projects: [
+      {
+        title: 'Materials Processor',
+        summary:
+          'Material ingestion and conversion tool for standardizing networks across USD and MaterialX.',
+        tags: ['Houdini', 'USD', 'MaterialX', 'Arnold', 'Redshift'],
+        href: 'https://github.com/Ahmed-Hindy/Materials-Processor',
+      },
+      {
+        title: 'USD Scene Audit',
+        summary:
+          'OpenUSD audit tools for mesh prims: naming, hierarchy, materials, layers',
+        tags: ['Python', 'OpenUSD', 'SanityCheck', 'CLI'],
+        href: 'https://github.com/Ahmed-Hindy/usd-scene-audit',
+      },
+      {
+        title: 'hou-scene-inspector',
+        summary:
+          'Houdini .hip inspector for reading node data.',
+        tags: ['Python', 'Houdini', 'HIP Files', 'Parser', 'CLI'],
+        href: 'https://github.com/Ahmed-Hindy/hou-scene-inspector',
+      },
+    ],
   },
   {
-    title: 'Hitman ItemSpawner',
-    summary:
-      'Hitman 3 mod for spawning items in-game, built on top of ZHM Mod SDK.',
-    tags: ['C++', 'ZHMModSDK'],
-    href: 'https://github.com/Ahmed-Hindy/Hitman-ItemSpawner',
+    title: 'Infrastructure & experiments',
+    projects: [
+      {
+        title: 'Kitsu Docker Prod',
+        summary:
+          'Production-ready Kitsu docker stack.',
+        tags: ['Docker', 'Kitsu', 'Postgres', 'Traefik', 'Pipeline'],
+        href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
+      },
+      {
+        title: 'Homelab / Local LLMs',
+        summary:
+          'Docker-based homelab for self-hosted tools and local LLM workflows.',
+        tags: ['Docker', 'Homelab', 'Local LLMs', 'Self-hosting'],
+      },
+    ],
   },
   {
-    title: 'Substance Painter USD Creator',
-    summary:
-      'Substance Painter plugin for publishing layered USD assets.',
-    tags: ['USD', 'Substance Painter', 'Materials', 'Publishing'],
-    href: 'https://github.com/Ahmed-Hindy/Substance-Painter-Usd-Creator',
-  },
-  {
-    title: 'Materials Processor',
-    summary:
-      'Material ingestion and conversion tool for standardizing networks across USD and MaterialX.',
-    tags: ['Houdini', 'USD', 'MaterialX', 'Arnold', 'Redshift'],
-    href: 'https://github.com/Ahmed-Hindy/Materials-Processor',
-  },
-  {
-    title: 'USD Scene Audit',
-    summary:
-      'OpenUSD audit tools for mesh prims: naming, hierarchy, materials, layers',
-    tags: ['Python', 'OpenUSD', 'SanityCheck', 'CLI'],
-    href: 'https://github.com/Ahmed-Hindy/usd-scene-audit',
-  },
-  {
-    title: 'hou-scene-inspector',
-    summary:
-      'Houdini .hip inspector for reading node data.',
-    tags: ['Python', 'Houdini', 'HIP Files', 'Parser', 'CLI'],
-    href: 'https://github.com/Ahmed-Hindy/hou-scene-inspector',
-  },
-  {
-    title: 'Kitsu Docker Prod',
-    summary:
-      'Production-ready Kitsu docker stack.',
-    tags: ['Docker', 'Kitsu', 'Postgres', 'Traefik', 'Pipeline'],
-    href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
-  },
-  {
-    title: 'Homelab / Local LLMs',
-    summary:
-      'Docker-based homelab for self-hosted tools and local LLM workflows.',
-    tags: ['Docker', 'Homelab', 'Local LLMs', 'Self-hosting'],
-  },
-  {
-    title: 'Houdini / USD Utilities',
-    summary:
-      'Houdini/Solaris utilities including an Arnold OBJ light to USD translator.',
-    tags: ['Houdini', 'Solaris', 'USD', 'Arnold', 'Artist Tools'],
-    href: 'https://github.com/Ahmed-Hindy/Arnold-husd-translator',
+    title: 'Side quests',
+    projects: [
+      {
+        title: 'Hitman ItemSpawner',
+        summary:
+          'Hitman 3 mod for spawning items in-game, built on top of ZHM Mod SDK.',
+        tags: ['C++', 'ZHMModSDK'],
+        href: 'https://github.com/Ahmed-Hindy/Hitman-ItemSpawner',
+      },
+    ],
   },
 ]
 

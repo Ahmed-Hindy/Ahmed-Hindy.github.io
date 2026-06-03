@@ -13,7 +13,7 @@ import {
   focusChips,
   navItems,
   profileLinks,
-  projects,
+  projectSections,
   skills,
   summary,
 } from './data/portfolio'
@@ -85,7 +85,7 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
             <h2>Production tools, experiments, and side quests.</h2>
           </div>
         </div>
-        <ProjectGrid :projects="projects" />
+        <ProjectGrid :sections="projectSections" />
       </section>
 
       <section class="section" id="skills">
