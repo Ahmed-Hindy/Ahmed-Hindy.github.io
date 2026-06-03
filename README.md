@@ -5,20 +5,20 @@ Personal portfolio site built with Vite, Vue, and TypeScript.
 ## Run Locally
 
 ```sh
-npm ci
-npm run dev
+bun install
+bun run dev
 ```
 
 ## Optimize Assets
 
 ```sh
-npm run optimize:assets
+bun run optimize:assets
 ```
 
 ## Build
 
 ```sh
-npm run build
+bun run build
 ```
 
 ## Deploy
