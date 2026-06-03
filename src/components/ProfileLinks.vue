@@ -12,6 +12,8 @@ defineProps<{
     <a
       v-for="link in links"
       :key="link.label"
+      class="profile-link"
+      :class="`profile-link-${link.icon}`"
       :aria-label="link.label"
       :href="link.href"
       :rel="link.external ? 'noopener noreferrer' : undefined"
