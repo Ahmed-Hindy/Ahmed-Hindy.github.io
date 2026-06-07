@@ -50,7 +50,7 @@ export const links = {
   github: 'https://github.com/Ahmed-Hindy',
   linkedin: 'https://linkedin.com/in/ahmed-hindy96',
   resume:
-    'https://drive.google.com/file/d/1aerjtgLXTDHqlaU8KbqtJLLC8ICH3qYV/view?usp=sharing',
+    'https://drive.google.com/file/d/1ME3KSJ0DFITPFr8mHBE3dmCq8Wr64VQX/view?usp=sharing',
   youtube: 'https://youtube.com/@Axe_FX',
 }
 
