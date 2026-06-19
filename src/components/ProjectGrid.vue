@@ -15,9 +15,24 @@ defineProps<{
           v-for="project in section.projects"
           :key="project.title"
           class="work-card"
-          :class="{ 'work-card-featured': project.media }"
+          :class="{ 'work-card-featured': project.media, 'work-card-clickable': project.href }"
         >
-          <figure v-if="project.media" class="work-media">
+          <a
+            v-if="project.href"
+            class="work-card-link"
+            :href="project.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="`Open ${project.title} project`"
+          >
+            <span class="sr-only">Open {{ project.title }} project</span>
+          </a>
+
+          <figure
+            v-if="project.media"
+            class="work-media"
+            :class="{ 'work-media-video': project.media.video }"
+          >
             <video
               v-if="project.media.video"
               :poster="project.media.video.poster"
@@ -38,9 +53,6 @@ defineProps<{
           <div class="work-card-content">
             <h4>{{ project.title }}</h4>
             <p>{{ project.summary }}</p>
-            <a v-if="project.href" :href="project.href" target="_blank" rel="noopener noreferrer">
-              View project
-            </a>
             <ul>
               <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
             </ul>
