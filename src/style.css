@@ -800,8 +800,23 @@ h4 {
   }
 }
 
-.skill-cloud {
+.skill-groups {
+  display: grid;
+  gap: 22px;
   margin-top: 28px;
+}
+
+.skill-group {
+  display: grid;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.skill-group h3 {
+  color: var(--text-strong);
+  font-size: 0.95rem;
+  font-weight: 900;
 }
 
 .skill-cloud li {

@@ -45,6 +45,11 @@ export interface ProjectSection {
   projects: Project[]
 }
 
+export interface SkillGroup {
+  title: string
+  skills: string[]
+}
+
 export const links = {
   email: 'mailto:ahmed.hindy96@gmail.com',
   github: 'https://github.com/Ahmed-Hindy',
@@ -235,32 +240,51 @@ export const projectSections: ProjectSection[] = [
   },
 ]
 
-export const skills = [
-  'Python',
-  'Qt / PySide6 / PyQt6',
-  'AYON',
-  'Kitsu',
-  'Houdini',
-  'Maya',
-  'Solaris',
-  'USD',
-  'MaterialX',
-  'Arnold',
-  'RenderMan',
-  'Redshift',
-  'Unreal Engine basics',
-  'Deadline',
-  'PDG',
-  'Publishing',
-  'Rendering',
-  'Sanity checks',
-  'Git',
-  'Docker',
-  'SQLite',
-  'Postgres',
-  'C++ basics',
-  'Bash',
-  'JavaScript enthusiast',
-  'Documentation',
-  'Artist support',
+export const skills: SkillGroup[] = [
+  {
+    title: 'Core strengths',
+    skills: [
+      'Python',
+      'Qt / PySide6 / PyQt6',
+      'Houdini',
+      'Solaris',
+      'USD',
+      'Publishing',
+      'Validation',
+      'Deadline',
+      'PDG',
+      'Artist-facing tools',
+      'Production debugging',
+      'Documentation',
+    ],
+  },
+  {
+    title: 'Production working knowledge',
+    skills: [
+      'Maya',
+      'AYON',
+      'Kitsu',
+      'MaterialX',
+      'Arnold',
+      'RenderMan',
+      'Redshift',
+      'Rendering',
+      'Farm support',
+      'Git',
+      'Cross-DCC handoff',
+    ],
+  },
+  {
+    title: 'Supporting / side experience',
+    skills: [
+      'Docker',
+      'SQLite',
+      'Postgres',
+      'Bash',
+      'C++ basics',
+      'C#',
+      'Unreal Engine basics',
+      'JavaScript / Vue enthusiast',
+    ],
+  },
 ]
