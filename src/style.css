@@ -524,6 +524,19 @@ h4 {
   line-height: 1.8;
 }
 
+.credibility-line {
+  width: fit-content;
+  max-width: 790px;
+  margin-top: 22px;
+  padding: 10px 14px;
+  border: 1px solid var(--accent-border-soft);
+  border-radius: 8px;
+  color: var(--text-strong);
+  background: var(--accent-soft);
+  font-weight: 850;
+  line-height: 1.45;
+}
+
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -727,6 +740,46 @@ h4 {
 .work-card-content {
   display: grid;
   gap: 16px;
+}
+
+.work-card-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.work-card-action {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--accent);
+  background: var(--surface-muted);
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.work-card-action:hover,
+.work-card-action:focus-visible {
+  border-color: var(--accent);
+  color: var(--primary-button-text);
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+
+.work-card-action-icon {
+  width: 17px;
+  height: 17px;
 }
 
 .work-card-featured .work-card-content {

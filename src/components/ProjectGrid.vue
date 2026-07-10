@@ -23,10 +23,9 @@ defineProps<{
             :href="project.href"
             target="_blank"
             rel="noopener noreferrer"
-            :aria-label="`Open ${project.title} project`"
-          >
-            <span class="sr-only">Open {{ project.title }} project</span>
-          </a>
+            aria-hidden="true"
+            tabindex="-1"
+          />
 
           <figure
             v-if="project.media"
@@ -51,7 +50,21 @@ defineProps<{
           </figure>
 
           <div class="work-card-content">
-            <h4>{{ project.title }}</h4>
+            <div class="work-card-heading">
+              <h4>{{ project.title }}</h4>
+              <a
+                v-if="project.href"
+                class="work-card-action"
+                :href="project.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                :aria-label="`Open ${project.title} project`"
+              >
+                <svg class="work-card-action-icon" aria-hidden="true" focusable="false">
+                  <use href="#icon-link" />
+                </svg>
+              </a>
+            </div>
             <p>{{ project.summary }}</p>
             <ul>
               <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>

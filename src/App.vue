@@ -57,11 +57,14 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
           artists and pipeline engineering: publishing, render handoff, validation, farm debugging,
           and cross-DCC support.
         </p>
+        <p class="credibility-line">
+          5+ years of VFX experience and 3+ years focused on pipeline work.
+        </p>
         <p class="intro">
           I started in Houdini FX, so I know the artist side of the problems I now solve: heavy scenes,
           broken caches, bad paths, failed farm jobs, missing versions, and USD composition issues.
-          Outside production, I like tinkering with C++ game mods, Docker homelab setups, local LLMs,
-          and Vue JS projects.
+          Outside production, I like tinkering with C++ game mods, basic Rust, Docker homelab setups,
+          local LLMs, and Vue JS projects.
         </p>
 
         <SummaryGrid :items="summary" />

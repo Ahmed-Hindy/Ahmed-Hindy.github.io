@@ -180,6 +180,19 @@ export const projectSections: ProjectSection[] = [
           },
         },
       },
+      {
+        title: 'Kitsu Desktop',
+        summary:
+          'Windows desktop client for artists using Kitsu, with connection checks and system-tray actions.',
+        tags: ['Tauri', 'TypeScript', 'Kitsu', 'Desktop'],
+        href: 'https://github.com/Ahmed-Hindy/kitsu-desktop-launcher',
+        media: {
+          image: {
+            src: '/projects/kitsu-desktop/kitsu-dashboard.png',
+            alt: 'Kitsu dashboard open in the Kitsu Desktop application',
+          },
+        },
+      },
     ],
   },
   {
@@ -233,7 +246,7 @@ export const projectSections: ProjectSection[] = [
         title: 'Hitman ItemSpawner',
         summary:
           'Hitman 3 mod for spawning items in-game, built on top of ZHM Mod SDK.',
-        tags: ['C++', 'ZHMModSDK'],
+        tags: ['Basic C++', 'ZHMModSDK'],
         href: 'https://github.com/Ahmed-Hindy/Hitman-ItemSpawner',
       },
     ],
@@ -281,7 +294,8 @@ export const skills: SkillGroup[] = [
       'SQLite',
       'Postgres',
       'Bash',
-      'C++ basics',
+      'Basic C++',
+      'Basic Rust',
       'C#',
       'Unreal Engine basics',
       'JavaScript / Vue enthusiast',
