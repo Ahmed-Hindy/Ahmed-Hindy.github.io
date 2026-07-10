@@ -246,7 +246,7 @@ export const projectSections: ProjectSection[] = [
         title: 'Hitman ItemSpawner',
         summary:
           'Hitman 3 mod for spawning items in-game, built on top of ZHM Mod SDK.',
-        tags: ['Basic C++', 'ZHMModSDK'],
+        tags: ['C++', 'ZHMModSDK'],
         href: 'https://github.com/Ahmed-Hindy/Hitman-ItemSpawner',
       },
     ],
