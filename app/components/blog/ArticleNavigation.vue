@@ -1,10 +1,19 @@
 <script setup lang="ts">
-defineProps<{ previous?: { path: string; title: string } | null; next?: { path: string; title: string } | null }>()
+defineProps<{
+  newer?: { path: string; title: string } | null
+  older?: { path: string; title: string } | null
+}>()
 </script>
 
 <template>
-  <nav v-if="previous || next" class="article-navigation" aria-label="Article navigation">
-    <NuxtLink v-if="previous" :to="`${previous.path}/`">← {{ previous.title }}</NuxtLink>
-    <NuxtLink v-if="next" :to="`${next.path}/`">{{ next.title }} →</NuxtLink>
+  <nav v-if="newer || older" class="article-navigation" aria-label="Article navigation">
+    <NuxtLink v-if="newer" :to="`${newer.path}/`" class="article-navigation-item">
+      <span>← Newer post</span>
+      <strong>{{ newer.title }}</strong>
+    </NuxtLink>
+    <NuxtLink v-if="older" :to="`${older.path}/`" class="article-navigation-item article-navigation-item-older">
+      <span>Older post →</span>
+      <strong>{{ older.title }}</strong>
+    </NuxtLink>
   </nav>
 </template>

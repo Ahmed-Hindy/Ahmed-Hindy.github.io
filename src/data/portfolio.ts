@@ -75,7 +75,7 @@ export const navItems: NavItem[] = [
   { href: '/#work', label: 'Public Tools' },
   { href: '/#skills', label: 'Skills' },
   { href: '/#contact', label: 'Contact' },
-  { href: '/blog/', label: 'Blog' },
+  { href: '/blog/', label: 'Writing' },
 ]
 
 export const summary: SummaryItem[] = [

@@ -20,7 +20,13 @@ bunx serve .output/public
 
 ## Write an article
 
-Create a lowercase kebab-case Markdown file in `content/blog/`, for example `content/blog/usd-publishing-workflows.md`.
+Create a draft from a lowercase kebab-case slug:
+
+```sh
+bun run new:post usd-publishing-workflows
+```
+
+The command creates `content/blog/usd-publishing-workflows.md`, rejects duplicate or invalid slugs, uses the current Cairo date, and keeps the article unpublished with `draft: true`.
 
 ```md
 ---
@@ -39,7 +45,7 @@ Article content goes here.
 
 Required fields are `title`, `description`, `date`, `tags`, and `draft`. Dates use `YYYY-MM-DD`. Drafts are excluded from the blog index, sitemap, RSS feed, and production output. Set `draft: false` only when the article is ready to publish. Put article images in `public/blog/images/` and use root-relative paths such as `/blog/images/example.webp`.
 
-Changing a published filename changes its URL, so keep published slugs stable.
+Changing a published filename changes its URL, so keep published slugs stable. Draft filtering reads only the leading frontmatter block, so examples in the article body may safely contain text such as `draft: true`.
 
 ## Deployment and indexing
 

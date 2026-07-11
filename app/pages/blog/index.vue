@@ -1,14 +1,14 @@
 <script setup lang="ts">
 const { data: articles } = await useAsyncData('published-blog-index', () =>
   queryCollection('blog')
-    .select('path', 'title', 'description', 'date', 'updated', 'tags', 'image', 'imageAlt')
+    .select('path', 'title', 'description', 'date', 'tags')
     .where('draft', '=', false)
     .order('date', 'DESC')
     .all(),
 )
 
 useSiteSeo({
-  title: 'Blog',
+  title: 'Writing',
   description: 'Technical notes from Ahmed Hindy about Houdini, USD, pipeline tools, and production workflows.',
   path: '/blog/',
 })
@@ -19,14 +19,15 @@ useSiteSeo({
     <BlogMobileSiteHeader />
     <main class="blog-content">
       <header class="blog-index-header">
-        <p class="section-kicker">Blog</p>
-        <h1>Notes on pipeline tools and production workflows.</h1>
-        <p>Practical notes about Houdini, USD, DCC tooling, and the systems around artists.</p>
+        <p class="section-kicker">Writing</p>
+        <h1>Technical notes from production.</h1>
+        <p>Practical Houdini, USD, pipeline, and production-tooling notes grounded in real artist and studio problems.</p>
       </header>
       <section v-if="articles?.length" class="article-list" aria-label="Articles">
         <BlogArticleCard v-for="article in articles" :key="article.path" :article="article" />
       </section>
       <BlogEmptyState v-else />
+      <p class="blog-rss-link"><a href="/rss.xml">Follow new writing via RSS →</a></p>
     </main>
   </div>
 </template>

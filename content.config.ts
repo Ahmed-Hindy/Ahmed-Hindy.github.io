@@ -1,6 +1,7 @@
 import { defineCollection, defineCollectionSource, defineContentConfig, z } from '@nuxt/content'
 import { readFile, readdir } from 'node:fs/promises'
 import { join } from 'node:path'
+import { isDraftArticleSource, normalizeBlogRelativePath } from './shared/blog-content'
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a YYYY-MM-DD date.')
 const includeDrafts = process.env.NODE_ENV !== 'production'
@@ -24,8 +25,8 @@ const publishedBlogSource = defineCollectionSource({
       })),
     )
     return publicationStates
-      .filter(({ source }) => !/^---[\s\S]*?^draft:\s*true\s*$/m.test(source))
-      .map(({ file }) => `blog/${file}`)
+      .filter(({ source }) => !isDraftArticleSource(source))
+      .map(({ file }) => `blog/${normalizeBlogRelativePath(file)}`)
   },
   getItem: (file) => readFile(join(blogRoot, file.replace(/^blog\//, '')), 'utf8'),
 })

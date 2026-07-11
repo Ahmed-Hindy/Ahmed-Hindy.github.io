@@ -12,12 +12,14 @@ if (!article.value) {
   throw createError({ statusCode: 404, statusMessage: 'Article not found' })
 }
 
-const { data: articles } = await useAsyncData('published-blog-navigation', () =>
-  queryCollection('blog').select('path', 'title', 'date').where('draft', '=', false).order('date', 'DESC').all(),
+const { data: surroundings } = await useAsyncData(
+  () => `blog-surroundings-${path.value}`,
+  () => queryCollectionItemSurroundings('blog', article.value!.path, { fields: ['title'] })
+    .where('draft', '=', false)
+    .order('date', 'DESC'),
 )
-const currentIndex = computed(() => articles.value?.findIndex((item) => item.path === article.value?.path) ?? -1)
-const previous = computed(() => (currentIndex.value > 0 ? articles.value?.[currentIndex.value - 1] : null))
-const next = computed(() => (currentIndex.value >= 0 ? articles.value?.[currentIndex.value + 1] : null))
+const newerArticle = computed(() => surroundings.value?.[0] ?? null)
+const olderArticle = computed(() => surroundings.value?.[1] ?? null)
 
 useSiteSeo({
   title: article.value.title,
@@ -56,7 +58,7 @@ useSeoMeta({
   <div class="blog-shell">
     <BlogMobileSiteHeader />
     <main class="blog-content">
-      <NuxtLink to="/blog/" class="blog-back-link">← All posts</NuxtLink>
+      <NuxtLink to="/blog/" class="blog-back-link">← All writing</NuxtLink>
       <article class="prose">
         <BlogArticleHeader
           :title="article!.title"
@@ -67,7 +69,7 @@ useSeoMeta({
         />
         <ContentRenderer :value="article!" />
       </article>
-      <BlogArticleNavigation :previous="previous" :next="next" />
+      <BlogArticleNavigation :newer="newerArticle" :older="olderArticle" />
     </main>
   </div>
 </template>
