@@ -2,7 +2,7 @@
 import { formatArticleDate } from '~/utils/date'
 
 defineProps<{
-  article: { path: string; title: string; description: string; date: string; tags: string[] }
+  article: { path: string; title: string; description: string; date: string; tags: string[]; draft: boolean }
 }>()
 </script>
 
@@ -12,7 +12,10 @@ defineProps<{
       <ul aria-label="Article topics">
         <li v-for="tag in article.tags" :key="tag">{{ tag }}</li>
       </ul>
-      <time :datetime="article.date" class="article-date">{{ formatArticleDate(article.date) }}</time>
+      <div class="article-card-date">
+        <span v-if="article.draft" class="article-draft-label">Draft</span>
+        <time :datetime="article.date" class="article-date">{{ formatArticleDate(article.date) }}</time>
+      </div>
     </div>
     <h2><NuxtLink :to="`${article.path}/`">{{ article.title }}</NuxtLink></h2>
     <p>{{ article.description }}</p>

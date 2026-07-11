@@ -202,6 +202,28 @@ html[data-theme='dark'] .blog-shell {
   text-transform: uppercase;
 }
 
+.article-card-date,
+.article-published-date {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.article-draft-label {
+  display: inline-flex;
+  padding: 3px 7px;
+  border: 1px solid var(--accent-border-soft);
+  border-radius: 999px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 .article-card h2 {
   margin-top: 12px;
   font-size: clamp(1.45rem, 3vw, 1.8rem);

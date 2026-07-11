@@ -7,6 +7,7 @@ const props = defineProps<{
   date: string
   updated?: string
   tags: string[]
+  draft: boolean
 }>()
 
 const showUpdatedDate = computed(() => Boolean(props.updated && props.updated !== props.date))
@@ -18,6 +19,7 @@ const showUpdatedDate = computed(() => Boolean(props.updated && props.updated !=
     <h1>{{ title }}</h1>
     <p class="article-description">{{ description }}</p>
     <p class="article-date article-published-date">
+      <span v-if="draft" class="article-draft-label">Draft</span>
       Published <time :datetime="date">{{ formatArticleDate(date) }}</time>
       <template v-if="showUpdatedDate">
         · Updated <time :datetime="updated">{{ formatArticleDate(updated!) }}</time>

@@ -5,7 +5,7 @@ const route = useRoute()
 const path = computed(() => route.path.replace(/\/$/, ''))
 const { data: article } = await useAsyncData(
   () => `blog-${path.value}`,
-  () => queryCollection('blog').path(path.value).where('draft', '=', false).first(),
+  () => queryCollection('blog').path(path.value).first(),
 )
 
 if (!article.value) {
@@ -15,7 +15,6 @@ if (!article.value) {
 const { data: surroundings } = await useAsyncData(
   () => `blog-surroundings-${path.value}`,
   () => queryCollectionItemSurroundings('blog', article.value!.path, { fields: ['title'] })
-    .where('draft', '=', false)
     .order('date', 'DESC'),
 )
 const newerArticle = computed(() => surroundings.value?.[0] ?? null)
@@ -66,6 +65,7 @@ useSeoMeta({
           :date="article!.date"
           :updated="article!.updated"
           :tags="article!.tags"
+          :draft="article!.draft"
         />
         <ContentRenderer :value="article!" />
       </article>
