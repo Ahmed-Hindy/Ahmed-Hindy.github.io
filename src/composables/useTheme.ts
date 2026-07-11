@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 export type Theme = 'light' | 'dark'
 
@@ -47,11 +47,8 @@ const applyTheme = (nextTheme: Theme) => {
   document.documentElement.dataset.theme = nextTheme
 }
 
-const getInitialTheme = (): Theme => getStoredTheme() ?? getSystemTheme()
-
 export const useTheme = () => {
-  const theme = ref<Theme>(getInitialTheme())
-  applyTheme(theme.value)
+  const theme = ref<Theme>('light')
 
   const isDarkTheme = computed(() => theme.value === 'dark')
   const themeToggleLabel = computed(() =>
@@ -63,6 +60,11 @@ export const useTheme = () => {
     applyTheme(theme.value)
     storeTheme(theme.value)
   }
+
+  onMounted(() => {
+    theme.value = getStoredTheme() ?? getSystemTheme()
+    applyTheme(theme.value)
+  })
 
   return {
     isDarkTheme,

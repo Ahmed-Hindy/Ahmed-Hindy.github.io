@@ -10,6 +10,9 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.output
+.nuxt
+.data
 *.local
 
 # Editor directories and files
