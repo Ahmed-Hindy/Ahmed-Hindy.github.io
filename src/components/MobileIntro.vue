@@ -25,7 +25,7 @@ defineEmits<{
     <p class="role">Pipeline TD / VFX Pipeline Developer</p>
     <p class="mobile-name">Ahmed Hindy</p>
     <FocusChips :chips="focusChips" />
-    <NuxtLink class="text-link mobile-blog-link" to="/blog/">Read the writing <span aria-hidden="true">→</span></NuxtLink>
+    <NuxtLink class="text-link mobile-blog-link" to="/blog/">Read the blog <span aria-hidden="true">→</span></NuxtLink>
     <ProfileLinks :links="profileLinks" list-class="mobile-links" />
     <ThemeToggle
       mobile

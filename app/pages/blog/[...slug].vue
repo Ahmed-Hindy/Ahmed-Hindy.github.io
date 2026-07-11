@@ -57,8 +57,8 @@ useSeoMeta({
 <template>
   <div class="blog-shell">
     <BlogMobileSiteHeader />
-    <main class="blog-content">
-      <NuxtLink to="/blog/" class="blog-back-link">← All writing</NuxtLink>
+    <main id="main-content" class="blog-content">
+      <NuxtLink to="/blog/" class="blog-back-link">← All blog posts</NuxtLink>
       <article class="prose">
         <BlogArticleHeader
           :title="article!.title"

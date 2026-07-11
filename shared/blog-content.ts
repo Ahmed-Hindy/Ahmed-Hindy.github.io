@@ -1,5 +1,5 @@
 const frontmatterPattern = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/
-const draftFieldPattern = /^draft:\s*true(?:\s+#.*)?\s*$/m
+const draftFieldPattern = /^draft:\s*(?:true|True|TRUE)(?:\s+#.*)?\s*$/m
 
 export const normalizeBlogRelativePath = (filePath: string) => filePath.replaceAll('\\', '/')
 

@@ -8,7 +8,7 @@ const { data: articles } = await useAsyncData('published-blog-index', () =>
 )
 
 useSiteSeo({
-  title: 'Writing',
+  title: 'Blog',
   description: 'Technical notes from Ahmed Hindy about Houdini, USD, pipeline tools, and production workflows.',
   path: '/blog/',
 })
@@ -17,9 +17,9 @@ useSiteSeo({
 <template>
   <div class="blog-shell">
     <BlogMobileSiteHeader />
-    <main class="blog-content">
+    <main id="main-content" class="blog-content">
       <header class="blog-index-header">
-        <p class="section-kicker">Writing</p>
+        <p class="section-kicker">Blog</p>
         <h1>Technical notes from production.</h1>
         <p>Practical Houdini, USD, pipeline, and production-tooling notes grounded in real artist and studio problems.</p>
       </header>
@@ -27,7 +27,7 @@ useSiteSeo({
         <BlogArticleCard v-for="article in articles" :key="article.path" :article="article" />
       </section>
       <BlogEmptyState v-else />
-      <p class="blog-rss-link"><a href="/rss.xml">Follow new writing via RSS →</a></p>
+      <p class="blog-rss-link"><BlogRssLink /></p>
     </main>
   </div>
 </template>

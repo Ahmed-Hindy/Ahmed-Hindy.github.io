@@ -48,6 +48,19 @@ const outputFileForRoute = (route) => {
 }
 const absoluteRoute = (route) => new URL(route, `${siteUrl}/`).toString()
 
+const draftDetectionCases = [
+  { name: 'lowercase draft', source: '---\ndraft: true\n---\n', expected: true },
+  { name: 'title-case draft', source: '---\ndraft: True\n---\n', expected: true },
+  { name: 'uppercase draft', source: '---\ndraft: TRUE # unpublished\n---\n', expected: true },
+  { name: 'body-only draft text', source: '---\ndraft: false\n---\n\n```yaml\ndraft: true\n```\n', expected: false },
+]
+
+for (const { name, source, expected } of draftDetectionCases) {
+  if (isDraftArticleSource(source) !== expected) {
+    fail(`draft detection failed for ${name}`)
+  }
+}
+
 for (const filePath of requiredFiles) {
   await requireFile(filePath)
 }
