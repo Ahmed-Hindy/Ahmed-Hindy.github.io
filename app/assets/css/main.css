@@ -127,7 +127,7 @@ html[data-theme='dark'] .blog-shell {
 .rss-icon-link svg {
   width: 100%;
   height: 100%;
-  fill: currentColor;
+  fill: currentcolor;
 }
 
 .blog-header-actions .theme-toggle {
