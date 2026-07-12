@@ -32,6 +32,12 @@ export interface Project {
     image?: {
       src: string
       alt: string
+      width: number
+      height: number
+      webp: Array<{
+        src: string
+        width: number
+      }>
     }
     video?: {
       src: string
@@ -135,6 +141,12 @@ export const projectSections: ProjectSection[] = [
           image: {
             src: '/projects/renderkit/renderkit-ui-screenshot.png',
             alt: 'RenderKit image sequence conversion interface',
+            width: 1404,
+            height: 984,
+            webp: [
+              { src: '/projects/renderkit/renderkit-ui-screenshot-640w.webp', width: 640 },
+              { src: '/projects/renderkit/renderkit-ui-screenshot-960w.webp', width: 960 },
+            ],
           },
         },
       },
@@ -148,10 +160,15 @@ export const projectSections: ProjectSection[] = [
           image: {
             src: '/projects/h-denoise-utils/demo-poster.png',
             alt: 'h_denoise_utils drag-and-drop denoising interface',
+            width: 1280,
+            height: 720,
+            webp: [
+              { src: '/projects/h-denoise-utils/demo-poster-640w.webp', width: 640 },
+            ],
           },
           video: {
             src: '/projects/h-denoise-utils/demo.mp4',
-            poster: '/projects/h-denoise-utils/demo-poster.png',
+            poster: '/projects/h-denoise-utils/demo-poster-640w.webp',
           },
         },
       },
@@ -165,6 +182,14 @@ export const projectSections: ProjectSection[] = [
           image: {
             src: '/projects/substance-painter-usd-creator/substance-painter-usd-creator.png',
             alt: 'Substance Painter USD Creator plugin interface',
+            width: 718,
+            height: 809,
+            webp: [
+              {
+                src: '/projects/substance-painter-usd-creator/substance-painter-usd-creator-640w.webp',
+                width: 640,
+              },
+            ],
           },
         },
       },
@@ -178,6 +203,12 @@ export const projectSections: ProjectSection[] = [
           image: {
             src: '/projects/houdini-usd-utilities/arnold-husd-translator.png',
             alt: 'Arnold OBJ light to USD translator running in Houdini Solaris',
+            width: 1919,
+            height: 967,
+            webp: [
+              { src: '/projects/houdini-usd-utilities/arnold-husd-translator-640w.webp', width: 640 },
+              { src: '/projects/houdini-usd-utilities/arnold-husd-translator-960w.webp', width: 960 },
+            ],
           },
         },
       },
@@ -191,6 +222,12 @@ export const projectSections: ProjectSection[] = [
           image: {
             src: '/projects/kitsu-desktop/kitsu-dashboard.png',
             alt: 'Kitsu dashboard open in the Kitsu Desktop application',
+            width: 1397,
+            height: 927,
+            webp: [
+              { src: '/projects/kitsu-desktop/kitsu-dashboard-640w.webp', width: 640 },
+              { src: '/projects/kitsu-desktop/kitsu-dashboard-960w.webp', width: 960 },
+            ],
           },
         },
       },

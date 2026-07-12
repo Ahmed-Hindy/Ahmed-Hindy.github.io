@@ -7,8 +7,33 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const profileJpg = path.join(rootDir, 'src', 'assets', 'profile.jpg')
 const openGraphImage = path.join(rootDir, 'public', 'og-image-portrait.jpg')
 const profileJpgTemp = path.join(rootDir, 'src', 'assets', 'profile.tmp.jpg')
+const projectMediaReport = path.join(rootDir, 'docs', 'project-media-optimization.md')
+const projectMedia = [
+  {
+    source: 'public/projects/houdini-usd-utilities/arnold-husd-translator.png',
+    widths: [640, 960],
+  },
+  {
+    source: 'public/projects/substance-painter-usd-creator/substance-painter-usd-creator.png',
+    widths: [640],
+  },
+  {
+    source: 'public/projects/renderkit/renderkit-ui-screenshot.png',
+    widths: [640, 960],
+  },
+  {
+    source: 'public/projects/h-denoise-utils/demo-poster.png',
+    widths: [640],
+  },
+  {
+    source: 'public/projects/kitsu-desktop/kitsu-dashboard.png',
+    widths: [640, 960],
+  },
+]
 
 const formatBytes = (bytes) => `${Math.round(bytes / 1024)} KB`
+
+const formatReportBytes = (bytes) => new Intl.NumberFormat('en-US').format(bytes)
 
 const optimizeProfileJpg = async () => {
   const originalSize = (await fs.stat(profileJpg)).size
@@ -90,5 +115,54 @@ const writeOpenGraphImage = async () => {
   console.log(`${path.basename(openGraphImage)} ${formatBytes(imageBuffer.byteLength)}`)
 }
 
+const optimizeProjectMedia = async () => {
+  const results = []
+
+  for (const { source, widths } of projectMedia) {
+    const sourcePath = path.join(rootDir, source)
+    const sourceStats = await fs.stat(sourcePath)
+    const metadata = await sharp(sourcePath).metadata()
+    const outputs = []
+
+    for (const width of widths) {
+      const outputPath = sourcePath.replace(/\.png$/i, `-${width}w.webp`)
+      const outputBuffer = await sharp(sourcePath)
+        .rotate()
+        .resize({ width, withoutEnlargement: true })
+        .webp({ quality: 85, effort: 6, smartSubsample: false })
+        .toBuffer()
+
+      await fs.writeFile(outputPath, outputBuffer)
+      outputs.push({
+        filename: path.basename(outputPath),
+        width,
+        bytes: outputBuffer.byteLength,
+      })
+    }
+
+    results.push({
+      source,
+      dimensions: `${metadata.width}x${metadata.height}`,
+      sourceBytes: sourceStats.size,
+      outputs,
+    })
+  }
+
+  const sourceBytes = results.reduce((total, result) => total + result.sourceBytes, 0)
+  const largestDerivativeBytes = results.reduce(
+    (total, result) => total + Math.max(...result.outputs.map((output) => output.bytes)),
+    0,
+  )
+  const reportRows = results.flatMap((result) => result.outputs.map((output) =>
+    `| \`${result.source.replace('public/', '')}\` | ${result.dimensions} | ${formatReportBytes(result.sourceBytes)} | ${output.width}w WebP | ${formatReportBytes(output.bytes)} |`,
+  ))
+  const report = `# Project media optimization\n\nGenerated with \`bun run optimize:assets\`. The source PNGs remain as fallbacks; current browsers select a responsive WebP derivative through \`srcset\`. The featured-card CSS presentation remains 16:9 with \`object-fit: contain\`.\n\n| Source PNG | Dimensions | PNG bytes | Generated derivative | WebP bytes |\n| --- | ---: | ---: | --- | ---: |\n${reportRows.join('\n')}\n\nThe five original PNGs total ${formatReportBytes(sourceBytes)} bytes. The largest responsive derivative for each card totals ${formatReportBytes(largestDerivativeBytes)} bytes, a ${((1 - largestDerivativeBytes / sourceBytes) * 100).toFixed(1)}% reduction for a typical high-density desktop visit. The h_denoise_utils video stays at \`preload="none"\`; its poster uses the 640w WebP derivative.\n\nThe WebP settings favor screenshot text and UI clarity: quality 85, no chroma subsampling, and encoder effort 6. Review the original and generated files side by side whenever source screenshots change.\n`
+
+  await fs.mkdir(path.dirname(projectMediaReport), { recursive: true })
+  await fs.writeFile(projectMediaReport, report)
+  console.log(`project media ${formatBytes(sourceBytes)} -> ${formatBytes(largestDerivativeBytes)} (largest responsive variants)`)
+}
+
 await optimizeProfileJpg()
 await writeOpenGraphImage()
+await optimizeProjectMedia()

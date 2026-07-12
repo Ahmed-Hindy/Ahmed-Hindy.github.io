@@ -41,13 +41,21 @@ defineProps<{
             >
               <source :src="project.media.video.src" type="video/mp4">
             </video>
-            <img
-              v-else-if="project.media.image"
-              :src="project.media.image.src"
-              :alt="project.media.image.alt"
-              loading="lazy"
-              decoding="async"
-            >
+            <picture v-else-if="project.media.image">
+              <source
+                type="image/webp"
+                :srcset="project.media.image.webp.map(({ src, width }) => `${src} ${width}w`).join(', ')"
+                sizes="(min-width: 1021px) 456px, calc(100vw - 44px)"
+              >
+              <img
+                :src="project.media.image.src"
+                :alt="project.media.image.alt"
+                :width="project.media.image.width"
+                :height="project.media.image.height"
+                loading="lazy"
+                decoding="async"
+              >
+            </picture>
           </figure>
 
           <div class="work-card-content">
