@@ -71,9 +71,13 @@ useSeoMeta({
           :tags="article!.tags"
           :draft="article!.draft"
         />
+        <BlogTableOfContents :links="article!.body.toc?.links ?? []" />
         <ContentRenderer :value="article!" />
       </article>
       <BlogArticleNavigation :newer="newerArticle" :older="olderArticle" />
+      <p class="article-all-posts-link">
+        <NuxtLink to="/blog/">View all blog posts →</NuxtLink>
+      </p>
     </main>
   </div>
 </template>

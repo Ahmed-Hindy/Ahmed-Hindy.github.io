@@ -17,7 +17,9 @@ defineProps<{
         <time :datetime="article.date" class="article-date">{{ formatArticleDate(article.date) }}</time>
       </div>
     </div>
-    <h2><NuxtLink :to="`${article.path}/`">{{ article.title }}</NuxtLink></h2>
-    <p>{{ article.description }}</p>
+    <NuxtLink :to="`${article.path}/`" class="article-card-link">
+      <h2>{{ article.title }}</h2>
+      <p>{{ article.description }}</p>
+    </NuxtLink>
   </article>
 </template>
