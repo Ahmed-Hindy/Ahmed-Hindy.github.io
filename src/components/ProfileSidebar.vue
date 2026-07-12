@@ -9,8 +9,6 @@ defineProps<{
   focusChips: string[]
   isDarkTheme: boolean
   navItems: NavItem[]
-  profileImage: string
-  profileImageWebp: string
   profileLinks: ProfileLink[]
   themeToggleLabel: string
 }>()
@@ -22,7 +20,7 @@ defineEmits<{
 
 <template>
   <aside class="sidebar" aria-label="Profile sidebar">
-    <ProfilePhoto :image="profileImage" :image-webp="profileImageWebp" image-class="sidebar-photo" />
+    <ProfilePhoto image-class="sidebar-photo" />
     <p class="role">Pipeline TD / VFX Pipeline Developer</p>
     <h1>Ahmed Hindy</h1>
 
