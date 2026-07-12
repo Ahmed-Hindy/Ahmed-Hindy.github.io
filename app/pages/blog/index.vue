@@ -28,7 +28,6 @@ useSiteSeo({
         <BlogArticleCard v-for="article in articles" :key="article.path" :article="article" />
       </section>
       <BlogEmptyState v-else />
-      <p class="blog-rss-link"><BlogRssLink /></p>
     </main>
   </div>
 </template>

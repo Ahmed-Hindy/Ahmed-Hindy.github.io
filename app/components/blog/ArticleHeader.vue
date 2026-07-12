@@ -15,7 +15,6 @@ const showUpdatedDate = computed(() => Boolean(props.updated && props.updated !=
 
 <template>
   <header class="article-header">
-    <p class="section-kicker">Blog</p>
     <h1>{{ title }}</h1>
     <p class="article-description">{{ description }}</p>
     <p class="article-date article-published-date">
