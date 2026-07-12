@@ -1,89 +1,86 @@
 :root {
-  --sidebar: #9edaf2;
-  --sidebar-end: #c8ecfb;
-  --sidebar-soft: #eaf8fe;
-  --sidebar-text: #17213a;
-  --sidebar-muted: #47536d;
-  --sidebar-role: #7b2cbf;
-  --sidebar-link-bg: rgb(255 255 255 / 48%);
-  --sidebar-link-hover: rgb(255 255 255 / 76%);
-  --sidebar-link-ring: rgb(46 82 255 / 28%);
+  --sidebar: #b9e7f7;
+  --sidebar-end: #7fc8e3;
+  --sidebar-soft: #e8f6fb;
+  --sidebar-text: #0d0f12;
+  --sidebar-muted: #454d54;
+  --sidebar-role: #4242fa;
+  --sidebar-link-bg: rgb(255 255 255 / 44%);
+  --sidebar-link-hover: rgb(255 255 255 / 72%);
+  --sidebar-link-ring: rgb(66 66 250 / 28%);
   --sidebar-photo-border: rgb(255 255 255 / 78%);
-  --bg: #fffdf9;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-muted: #eef8ff;
-  --text: #3b4358;
-  --text-strong: #191d2c;
-  --muted: #667085;
-  --line: #c9d8e8;
-  --accent: #e13b8f;
-  --accent-soft: #fff0f7;
-  --accent-border-soft: rgb(225 59 143 / 34%);
-  --accent-hover: #bf1f70;
-  --focus-ring: rgb(46 82 255 / 36%);
-  --button-hover: #f7fbff;
+  --surface-muted: #f2f5f7;
+  --text: #454d54;
+  --text-strong: #0d0f12;
+  --muted: #66717c;
+  --line: #c8cad0;
+  --accent: #4242fa;
+  --accent-soft: rgb(66 66 250 / 8%);
+  --accent-border-soft: rgb(66 66 250 / 30%);
+  --accent-hover: #2f2fd6;
+  --focus-ring: rgb(66 66 250 / 34%);
+  --button-hover: #f7f8fb;
   --primary-button-text: #ffffff;
-  --toggle-track: #d7e5f5;
+  --toggle-track: #e6e8f0;
   --toggle-thumb: #ffffff;
-  --toggle-thumb-text: #303bff;
+  --toggle-thumb-text: #4242fa;
   --shadow:
-    0 2px 0 rgb(29 48 86 / 8%),
-    0 14px 30px rgb(29 48 86 / 9%);
-  --playful-blue: #2e52ff;
-  --playful-cyan: #44c2e8;
-  --playful-pink: #e13b8f;
-  --playful-purple: #7b2cbf;
-  --playful-yellow: #ffd166;
-  --playful-green: #2eae7d;
+    0 2px 0 rgb(13 15 18 / 7%),
+    0 14px 30px rgb(13 15 18 / 8%);
+  --playful-blue: #4242fa;
+  --playful-cyan: #66aacc;
+  --playful-pink: #ff1981;
+  --playful-purple: #9a6bff;
+  --playful-yellow: #ffd500;
+  --playful-green: #00aa77;
 
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 [data-theme='dark'] {
-  --sidebar: #101b2e;
-  --sidebar-end: #0a1322;
-  --sidebar-soft: #16253a;
-  --sidebar-text: #eff7ff;
-  --sidebar-muted: #b8c5d8;
-  --sidebar-role: #ff73b5;
+  --sidebar: #111b27;
+  --sidebar-end: #265973;
+  --sidebar-soft: #182939;
+  --sidebar-text: #f2f5f7;
+  --sidebar-muted: #b9c4d0;
+  --sidebar-role: #ff1981;
   --sidebar-link-bg: rgb(255 255 255 / 7%);
-  --sidebar-link-hover: rgb(83 198 255 / 14%);
-  --sidebar-link-ring: rgb(83 198 255 / 36%);
+  --sidebar-link-hover: rgb(128 159 255 / 14%);
+  --sidebar-link-ring: rgb(128 159 255 / 34%);
   --sidebar-photo-border: rgb(255 255 255 / 16%);
-  --bg: #0d1523;
-  --surface: #131f31;
-  --surface-muted: #19283d;
-  --text: #c8d3e2;
-  --text-strong: #f8fbff;
-  --muted: #97a7bc;
-  --line: #2b3b52;
-  --accent: #ff66ad;
-  --accent-soft: #32182b;
-  --accent-border-soft: rgb(255 102 173 / 34%);
-  --accent-hover: #ff91c4;
-  --focus-ring: rgb(83 198 255 / 42%);
-  --button-hover: #18263a;
-  --primary-button-text: #160615;
-  --toggle-track: #26374e;
-  --toggle-thumb: #55c7f2;
-  --toggle-thumb-text: #08111f;
+  --bg: #0d0f12;
+  --surface: #13171b;
+  --surface-muted: #1a1f23;
+  --text: #e3e6e8;
+  --text-strong: #f2f5f7;
+  --muted: #9ca8b4;
+  --line: #454d54;
+  --accent: #809fff;
+  --accent-soft: rgb(128 159 255 / 10%);
+  --accent-border-soft: rgb(128 159 255 / 32%);
+  --accent-hover: #a7baff;
+  --focus-ring: rgb(128 159 255 / 38%);
+  --button-hover: #1a1f23;
+  --primary-button-text: #0d0f12;
+  --toggle-track: #2d343b;
+  --toggle-thumb: #809fff;
+  --toggle-thumb-text: #0d0f12;
   --shadow:
-    0 2px 0 rgb(0 0 0 / 20%),
-    0 18px 34px rgb(0 0 0 / 24%);
-  --playful-blue: #6f8bff;
-  --playful-cyan: #55c7f2;
-  --playful-pink: #ff66ad;
-  --playful-purple: #b88cff;
-  --playful-yellow: #ffd875;
-  --playful-green: #65d3a5;
+    0 2px 0 rgb(0 0 0 / 22%),
+    0 18px 34px rgb(0 0 0 / 28%);
+  --playful-blue: #809fff;
+  --playful-cyan: #66aacc;
+  --playful-pink: #ff1981;
+  --playful-purple: #e6b3ff;
+  --playful-yellow: #ffd500;
+  --playful-green: #00cc88;
 }
 
 body {
-  background:
-    radial-gradient(circle at 10% 8%, rgb(68 194 232 / 10%), transparent 24rem),
-    radial-gradient(circle at 92% 14%, rgb(225 59 143 / 9%), transparent 20rem),
-    var(--bg);
+  background: var(--bg);
 }
 
 h1,
@@ -125,9 +122,7 @@ h4,
 .sidebar {
   overflow-x: hidden;
   color: var(--sidebar-text);
-  background:
-    radial-gradient(circle at 22% 16%, rgb(255 255 255 / 48%) 0 2px, transparent 3px) 0 0 / 20px 20px,
-    linear-gradient(180deg, var(--sidebar), var(--sidebar-end));
+  background: linear-gradient(180deg, var(--sidebar), var(--sidebar-end));
 }
 
 .sidebar::after {
@@ -236,11 +231,9 @@ h4,
   top: 0;
   right: 0;
   left: 0;
-  height: 7px;
-  background:
-    radial-gradient(circle, var(--line) 2px, transparent 2.5px) 0 50% / 18px 7px repeat-x;
+  border-top: 2px dashed var(--line);
   content: '';
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 h2 {
@@ -277,10 +270,8 @@ h2 {
   position: relative;
   overflow: hidden;
   border-radius: 22px;
-  background:
-    radial-gradient(circle at 88% 18%, rgb(46 82 255 / 14%) 0 2px, transparent 2.5px) 0 0 / 18px 18px,
-    var(--accent-soft);
-  box-shadow: 0 8px 0 rgb(225 59 143 / 12%);
+  background: var(--accent-soft);
+  box-shadow: 0 8px 0 rgb(255 25 129 / 12%);
 }
 
 .blog-callout::before {
@@ -461,10 +452,8 @@ h2 {
   padding: 30px;
   border: 2px solid var(--line);
   border-radius: 24px;
-  background:
-    radial-gradient(circle at 92% 18%, rgb(68 194 232 / 14%) 0 3px, transparent 3.5px) 0 0 / 22px 22px,
-    var(--surface);
-  box-shadow: 0 9px 0 rgb(225 59 143 / 10%);
+  background: var(--surface);
+  box-shadow: 0 9px 0 rgb(255 25 129 / 10%);
 }
 
 .button {
@@ -486,9 +475,7 @@ h2 {
   .mobile-intro {
     margin: -28px -22px 0;
     padding: 32px 22px 44px;
-    background:
-      radial-gradient(circle at 80% 20%, rgb(255 255 255 / 42%) 0 2px, transparent 3px) 0 0 / 20px 20px,
-      linear-gradient(180deg, var(--sidebar), var(--sidebar-end));
+    background: linear-gradient(180deg, var(--sidebar), var(--sidebar-end));
   }
 
   .mobile-intro::after {
@@ -535,9 +522,7 @@ html[data-theme='dark'] .blog-shell {
   position: relative;
   overflow: hidden;
   border-bottom: 0;
-  background:
-    radial-gradient(circle at 82% 26%, rgb(255 255 255 / 40%) 0 2px, transparent 3px) 0 0 / 22px 22px,
-    linear-gradient(180deg, var(--sidebar), var(--sidebar-end));
+  background: linear-gradient(180deg, var(--sidebar), var(--sidebar-end));
 }
 
 .blog-site-header::after {
@@ -670,13 +655,11 @@ html[data-theme='dark'] .blog-shell {
 }
 
 .article-toc {
-  border: 2px solid rgb(46 82 255 / 24%);
+  border: 2px solid rgb(66 66 250 / 24%);
   border-left-width: 6px;
   border-radius: 16px;
-  background:
-    radial-gradient(circle at 92% 18%, rgb(46 82 255 / 13%) 0 2px, transparent 2.5px) 0 0 / 18px 18px,
-    var(--surface-muted);
-  box-shadow: 0 6px 0 rgb(46 82 255 / 8%);
+  background: var(--surface-muted);
+  box-shadow: 0 6px 0 rgb(66 66 250 / 8%);
 }
 
 .prose h2 {
