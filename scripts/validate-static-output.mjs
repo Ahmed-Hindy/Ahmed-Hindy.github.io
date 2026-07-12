@@ -36,6 +36,17 @@ const requireFile = async (filePath) => {
 const readOutput = (filePath) => readFile(outputPath(filePath), 'utf8')
 const getTags = (html, tagName) => html.match(new RegExp(`<${tagName}\\b[^>]*>`, 'g')) ?? []
 const getAttribute = (tag, attribute) => tag.match(new RegExp(`\\b${attribute}="([^"]*)"`))?.[1]
+const decodeHtmlAttribute = (value) => value.replaceAll('&amp;', '&')
+const getAssetReferences = (html) => {
+  const directReferences = [...html.matchAll(/<(?:script|link|img|source)\b[^>]*(?:src|href)="([^"]+)"/g)]
+    .map((match) => decodeHtmlAttribute(match[1]))
+  const srcsetReferences = [...html.matchAll(/\bsrcset="([^"]+)"/g)]
+    .flatMap((match) => decodeHtmlAttribute(match[1]).split(','))
+    .map((candidate) => candidate.trim().split(/\s+/, 1)[0])
+    .filter(Boolean)
+
+  return [...directReferences, ...srcsetReferences]
+}
 const getMetaContent = (html, key) => {
   const tag = getTags(html, 'meta').find((metaTag) =>
     getAttribute(metaTag, 'name') === key || getAttribute(metaTag, 'property') === key,
@@ -128,8 +139,7 @@ for (const { filePath, route, html, article } of pages) {
   if (urlReferences.some((reference) => reference.includes('/Ahmed-Hindy.github.io/'))) {
     fail(`${filePath} contains a repository-subpath deployment URL`)
   }
-  const assetReferences = [...html.matchAll(/<(?:script|link|img|source)\b[^>]*(?:src|href)="([^"]+)"/g)]
-    .map((match) => match[1])
+  const assetReferences = getAssetReferences(html)
   if (assetReferences.some((reference) => /^https?:\/\/localhost(?::|\/|$)/i.test(reference))) {
     fail(`${filePath} references a localhost asset`)
   }
@@ -164,6 +174,15 @@ if (!/Sitemap: https:\/\/ahmed-hindy\.github\.io\/sitemap\.xml/.test(await readO
 }
 if (!homepage.includes('rel="alternate"') || !homepage.includes('type="application/rss+xml"')) {
   fail('RSS discovery metadata is missing')
+}
+const profileImageHints = getTags(homepage, 'link').filter((tag) => {
+  const rel = getAttribute(tag, 'rel')
+  return (rel === 'preload' || rel === 'prefetch')
+    && getAttribute(tag, 'as') === 'image'
+    && tag.includes('profile')
+})
+if (profileImageHints.length > 1) {
+  fail('homepage preloads or prefetches multiple profile image variants')
 }
 
 const encodedDump = await readOutput(contentDumpPath)
@@ -201,8 +220,7 @@ if (!outputFiles.some((filePath) => filePath.startsWith('_nuxt/'))) {
 const htmlFiles = outputFiles.filter((filePath) => filePath.endsWith('.html'))
 for (const filePath of htmlFiles) {
   const html = await readOutput(filePath)
-  const references = [...html.matchAll(/<(?:script|link|img|source)\b[^>]*(?:src|href)="([^"]+)"/g)]
-    .map((match) => match[1])
+  const references = getAssetReferences(html)
   for (const reference of references) {
     if (/^(?:https?:|mailto:|tel:|#|\/\/)/.test(reference)) {
       continue

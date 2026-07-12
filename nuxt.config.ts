@@ -14,6 +14,10 @@ export default defineNuxtConfig({
     name: 'Ahmed Hindy',
     trailingSlash: true,
   },
+  image: {
+    // Nuxt 4 resolves this path from app/, while the portfolio assets remain in src/assets.
+    dir: '../src/assets',
+  },
   content: {
     build: {
       markdown: {

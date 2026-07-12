@@ -5,7 +5,6 @@ import sharp from 'sharp'
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const profileJpg = path.join(rootDir, 'src', 'assets', 'profile.jpg')
-const profileWebp = path.join(rootDir, 'src', 'assets', 'profile.webp')
 const openGraphImage = path.join(rootDir, 'public', 'og-image-portrait.jpg')
 const profileJpgTemp = path.join(rootDir, 'src', 'assets', 'profile.tmp.jpg')
 
@@ -38,20 +37,6 @@ const optimizeProfileJpg = async () => {
   await fs.writeFile(profileJpgTemp, optimizedBuffer)
   await fs.rename(profileJpgTemp, profileJpg)
   console.log(`profile.jpg ${formatBytes(originalSize)} -> ${formatBytes(optimizedBuffer.byteLength)}`)
-}
-
-const writeProfileWebp = async () => {
-  const webpBuffer = await sharp(profileJpg)
-    .rotate()
-    .resize(600, 600, { fit: 'cover' })
-    .webp({
-      quality: 82,
-      smartSubsample: true,
-    })
-    .toBuffer()
-
-  await fs.writeFile(profileWebp, webpBuffer)
-  console.log(`profile.webp ${formatBytes(webpBuffer.byteLength)}`)
 }
 
 const writeOpenGraphImage = async () => {
@@ -106,5 +91,4 @@ const writeOpenGraphImage = async () => {
 }
 
 await optimizeProfileJpg()
-await writeProfileWebp()
 await writeOpenGraphImage()

@@ -17,8 +17,6 @@ import {
   skills,
   summary,
 } from './data/portfolio'
-import profileImage from './assets/profile.jpg'
-import profileImageWebp from './assets/profile.webp'
 
 const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
 </script>
@@ -31,8 +29,6 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
       :focus-chips="focusChips"
       :is-dark-theme="isDarkTheme"
       :nav-items="navItems"
-      :profile-image="profileImage"
-      :profile-image-webp="profileImageWebp"
       :profile-links="profileLinks"
       :theme-toggle-label="themeToggleLabel"
       @toggle-theme="toggleTheme"
@@ -42,8 +38,6 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
       <MobileIntro
         :focus-chips="focusChips"
         :is-dark-theme="isDarkTheme"
-        :profile-image="profileImage"
-        :profile-image-webp="profileImageWebp"
         :profile-links="profileLinks"
         :theme-toggle-label="themeToggleLabel"
         @toggle-theme="toggleTheme"

@@ -8,8 +8,6 @@ import ThemeToggle from './ThemeToggle.vue'
 defineProps<{
   focusChips: string[]
   isDarkTheme: boolean
-  profileImage: string
-  profileImageWebp: string
   profileLinks: ProfileLink[]
   themeToggleLabel: string
 }>()
@@ -21,7 +19,7 @@ defineEmits<{
 
 <template>
   <section class="mobile-intro">
-    <ProfilePhoto :image="profileImage" :image-webp="profileImageWebp" image-class="mobile-photo" />
+    <ProfilePhoto image-class="mobile-photo" />
     <p class="role">Pipeline TD / VFX Pipeline Developer</p>
     <p class="mobile-name">Ahmed Hindy</p>
     <FocusChips :chips="focusChips" />
