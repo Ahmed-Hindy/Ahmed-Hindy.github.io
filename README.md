@@ -2,6 +2,16 @@
 
 Static portfolio and technical blog built with Nuxt, Nuxt Content, Vue, and Bun. GitHub Pages publishes the fully prerendered `.output/public` artifact; no runtime server is required.
 
+## Tech stack
+
+- **Application:** Nuxt 4, Vue 3, TypeScript, Vite, and Nitro using the GitHub Pages prerendering preset.
+- **Content:** Nuxt Content 3, Markdown/MDC, Shiki syntax highlighting, and build-time SQLite through `better-sqlite3`.
+- **UI:** Vue single-file components, semantic HTML, and custom responsive CSS with light and dark themes. No CSS or component framework is used.
+- **Images:** Nuxt Image and Sharp for responsive image generation and asset optimization.
+- **SEO and feeds:** Nuxt Sitemap, RSS 2.0 through `feed`, canonical metadata, Open Graph, Twitter cards, robots.txt, and JSON-LD article data.
+- **Tooling:** Bun for dependency management and scripts, Nuxt TypeScript checks through `vue-tsc`, and a custom static-output validator.
+- **CI and hosting:** GitHub Actions and GitHub Pages. Pull requests run type checking, production builds, and output validation before deployment.
+
 ## Development
 
 ```sh
@@ -20,32 +30,11 @@ bunx serve .output/public
 
 ## Write an article
 
-Create a draft from a lowercase kebab-case slug:
-
 ```sh
 bun run new:post usd-publishing-workflows
 ```
 
-The command creates `content/blog/usd-publishing-workflows.md`, rejects duplicate or invalid slugs, uses the current Cairo date, and keeps the article unpublished with `draft: true`.
-
-```md
----
-title: "Article title"
-description: "A concise summary for readers and search engines."
-date: "2026-07-11"
-updated: "2026-07-11"
-tags:
-  - Houdini
-  - USD
-draft: true
----
-
-Article content goes here.
-```
-
-Required fields are `title`, `description`, `date`, `tags`, and `draft`. Dates use `YYYY-MM-DD`. Drafts are excluded from the blog index, sitemap, RSS feed, and production output. Set `draft: false` only when the article is ready to publish. Put article images in `public/blog/images/` and use root-relative paths such as `/blog/images/example.webp`.
-
-Changing a published filename changes its URL, so keep published slugs stable. Draft filtering reads only the leading frontmatter block, so examples in the article body may safely contain text such as `draft: true`.
+See [Blog Authoring](docs/blog-authoring.md) for frontmatter, publishing, image, and figure guidance.
 
 ## Deployment and indexing
 
