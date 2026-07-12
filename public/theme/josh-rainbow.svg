@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" fill="none">
+  <g stroke-linecap="round" stroke-width="10">
+    <path d="M32 208Q300-40 568 208" stroke="#ff1981" stroke-dasharray="16 18"/>
+    <path d="M62 208Q300-2 538 208" stroke="#ffd500" stroke-dasharray="16 18"/>
+    <path d="M94 208Q300 38 506 208" stroke="#00cc88" stroke-dasharray="16 18"/>
+    <path d="M128 208Q300 76 472 208" stroke="#4242fa" stroke-dasharray="16 18"/>
+    <path d="M164 208Q300 110 436 208" stroke="#e6b3ff" stroke-dasharray="16 18"/>
+  </g>
+</svg>
