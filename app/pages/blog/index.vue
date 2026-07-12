@@ -1,9 +1,11 @@
 <script setup lang="ts">
-const { data: articles } = await useAsyncData('published-blog-index', () =>
-  queryCollection('blog')
-    .select('path', 'title', 'description', 'date', 'tags', 'draft')
-    .order('date', 'DESC')
-    .all(),
+import type { PageCollections } from '@nuxt/content'
+
+type BlogIndexArticle = Pick<PageCollections['blog'], 'path' | 'title' | 'description' | 'date' | 'tags' | 'draft'>
+
+const { data: articles } = await useAsyncData<BlogIndexArticle[]>(
+  'published-blog-index',
+  () => $fetch<BlogIndexArticle[]>('/api/blog'),
 )
 
 useSiteSeo({
