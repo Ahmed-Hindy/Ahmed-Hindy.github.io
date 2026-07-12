@@ -67,6 +67,16 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
           local LLMs, and Vue JS projects.
         </p>
 
+        <aside class="blog-callout" aria-label="Blog">
+          <div>
+            <p class="section-kicker">Notes from the pipeline</p>
+            <p>Practical write-ups on my Pipeline journey...</p>
+          </div>
+          <NuxtLink class="blog-callout-link" to="/blog/">
+            Browse the Blog <span aria-hidden="true">→</span>
+          </NuxtLink>
+        </aside>
+
         <SummaryGrid :items="summary" />
       </section>
 
