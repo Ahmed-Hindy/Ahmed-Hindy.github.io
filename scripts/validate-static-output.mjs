@@ -38,7 +38,7 @@ const getTags = (html, tagName) => html.match(new RegExp(`<${tagName}\\b[^>]*>`,
 const getAttribute = (tag, attribute) => tag.match(new RegExp(`\\b${attribute}="([^"]*)"`))?.[1]
 const decodeHtmlAttribute = (value) => value.replaceAll('&amp;', '&')
 const getAssetReferences = (html) => {
-  const directReferences = [...html.matchAll(/<(?:script|link|img|source)\b[^>]*(?:src|href)="([^"]+)"/g)]
+  const directReferences = [...html.matchAll(/<(?:script|link|img|source|video)\b[^>]*(?:src|href|poster)="([^"]+)"/g)]
     .map((match) => decodeHtmlAttribute(match[1]))
   const srcsetReferences = [...html.matchAll(/\bsrcset="([^"]+)"/g)]
     .flatMap((match) => decodeHtmlAttribute(match[1]).split(','))
@@ -106,6 +106,33 @@ const pages = [
   { filePath: 'index.html', route: '/', html: homepage, article: false },
   { filePath: 'blog/index.html', route: '/blog/', html: blogIndex, article: false },
 ]
+
+const projectWebpSources = [
+  '/projects/renderkit/renderkit-ui-screenshot-640w.webp',
+  '/projects/substance-painter-usd-creator/substance-painter-usd-creator-640w.webp',
+  '/projects/houdini-usd-utilities/arnold-husd-translator-640w.webp',
+  '/projects/kitsu-desktop/kitsu-dashboard-640w.webp',
+]
+const homepageSources = getTags(homepage, 'source')
+for (const source of projectWebpSources) {
+  if (!homepageSources.some((tag) => getAttribute(tag, 'type') === 'image/webp' && getAttribute(tag, 'srcset')?.includes(source))) {
+    fail(`homepage is missing responsive WebP source ${source}`)
+  }
+}
+for (const image of getTags(homepage, 'img').filter((tag) => getAttribute(tag, 'src')?.startsWith('/projects/'))) {
+  if (!getAttribute(image, 'width') || !getAttribute(image, 'height')) {
+    fail(`project image ${getAttribute(image, 'src')} is missing intrinsic dimensions`)
+  }
+  if (getAttribute(image, 'loading') !== 'lazy' || getAttribute(image, 'decoding') !== 'async') {
+    fail(`project image ${getAttribute(image, 'src')} is missing deferred loading attributes`)
+  }
+}
+if (!getTags(homepage, 'video').some((tag) => getAttribute(tag, 'preload') === 'none')) {
+  fail('homepage video is not deferred')
+}
+if (!getTags(homepage, 'video').some((tag) => getAttribute(tag, 'poster') === '/projects/h-denoise-utils/demo-poster-640w.webp')) {
+  fail('homepage video is missing the optimized poster')
+}
 for (const article of publishedArticles) {
   pages.push({
     filePath: article.outputFile,
