@@ -29,5 +29,6 @@ useSiteSeo({
       </section>
       <BlogEmptyState v-else />
     </main>
+    <BlogSiteFooter />
   </div>
 </template>
