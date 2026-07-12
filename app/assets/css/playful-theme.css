@@ -171,6 +171,11 @@ h4,
   transform: rotate(-2deg);
 }
 
+.sidebar .role {
+  margin-top: 52px;
+  line-height: 1.35;
+}
+
 .sidebar h1,
 .mobile-name {
   font-weight: 900;
