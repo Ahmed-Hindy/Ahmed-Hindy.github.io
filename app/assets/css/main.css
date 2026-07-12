@@ -401,6 +401,7 @@ html[data-theme='dark'] .blog-shell {
 }
 
 .prose pre {
+  position: relative;
   max-width: 100%;
   overflow-x: auto;
   padding: 18px;
@@ -420,6 +421,43 @@ html[data-theme='dark'] .blog-shell {
   min-width: max-content;
   padding: 0;
   background: transparent;
+}
+
+.code-copy-button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  top: 9px;
+  right: 9px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--text-strong);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  cursor: pointer;
+}
+
+.code-copy-button svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.code-copy-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.code-copy-button:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .prose pre.shiki {
