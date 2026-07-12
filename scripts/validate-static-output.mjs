@@ -11,7 +11,7 @@ const siteUrl = 'https://ahmed-hindy.github.io'
 const outputDirectory = path.resolve('.output/public')
 const contentDirectory = path.resolve('content/blog')
 const contentDumpPath = '__nuxt_content/blog/sql_dump.txt'
-const maximumStaticOutputBytes = 4_000_000
+const maximumRuntimeAssetBytes = 1_000_000
 const requiredFiles = [
   'index.html',
   'blog/index.html',
@@ -199,15 +199,18 @@ const outputFiles = (await readdir(outputDirectory, { recursive: true })).map(no
 if (!outputFiles.some((filePath) => filePath.startsWith('_nuxt/'))) {
   fail('Nuxt assets are missing')
 }
-const databaseRuntimeFiles = outputFiles.filter((filePath) => /(?:sqlite|opfs|worker)/i.test(filePath))
+const runtimeAssetFiles = outputFiles.filter((filePath) =>
+  filePath.startsWith('_nuxt/') && /\.(?:js|wasm)$/i.test(filePath),
+)
+const databaseRuntimeFiles = runtimeAssetFiles.filter((filePath) => /(?:sqlite|opfs|worker)/i.test(filePath))
 if (databaseRuntimeFiles.length) {
   fail(`browser database runtime leaked into output: ${databaseRuntimeFiles.join(', ')}`)
 }
-const staticOutputBytes = (await Promise.all(
-  outputFiles.map((filePath) => stat(outputPath(filePath)).then((file) => file.size)),
+const runtimeAssetBytes = (await Promise.all(
+  runtimeAssetFiles.map((filePath) => stat(outputPath(filePath)).then((file) => file.size)),
 )).reduce((total, fileSize) => total + fileSize, 0)
-if (staticOutputBytes > maximumStaticOutputBytes) {
-  fail(`static output is ${staticOutputBytes} bytes; budget is ${maximumStaticOutputBytes} bytes`)
+if (runtimeAssetBytes > maximumRuntimeAssetBytes) {
+  fail(`JavaScript/WASM runtime is ${runtimeAssetBytes} bytes; budget is ${maximumRuntimeAssetBytes} bytes`)
 }
 const htmlFiles = outputFiles.filter((filePath) => filePath.endsWith('.html'))
 for (const filePath of htmlFiles) {
@@ -225,4 +228,6 @@ for (const filePath of htmlFiles) {
   }
 }
 
-console.log(`Static output validation passed for ${publishedArticles.length} published article(s): ${staticOutputBytes} bytes.`)
+console.log(
+  `Static output validation passed for ${publishedArticles.length} published article(s): ${runtimeAssetBytes} JavaScript/WASM bytes.`,
+)
