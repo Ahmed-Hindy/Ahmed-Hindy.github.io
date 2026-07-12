@@ -3,7 +3,9 @@
 .blog-shell {
   --muted: #5f6d80;
 
+  display: flex;
   min-height: 100vh;
+  flex-direction: column;
   background: var(--bg);
 }
 
@@ -142,6 +144,7 @@ html[data-theme='dark'] .blog-shell {
 }
 
 .blog-content {
+  flex: 1 0 auto;
   padding: 52px 0 84px;
 }
 
@@ -466,6 +469,16 @@ html[data-theme='dark'] .blog-shell {
   text-decoration-thickness: 2px;
 }
 
+.prose a[rel~='nofollow']::after {
+  display: inline-block;
+  margin-left: 0.22em;
+  font-size: 0.72em;
+  line-height: 1;
+  text-decoration: none;
+  vertical-align: 0.16em;
+  content: '↗';
+}
+
 .prose code {
   padding: 0.14em 0.35em;
   border-radius: 4px;
@@ -558,6 +571,30 @@ html[data-theme='dark'] .shiki span {
 .prose img,
 .prose table {
   max-width: 100%;
+}
+
+.prose figure {
+  margin-top: 32px;
+}
+
+.prose figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+}
+
+.prose figcaption {
+  max-width: 64ch;
+  margin: 10px auto 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  text-align: center;
 }
 
 .prose table {
