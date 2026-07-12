@@ -79,5 +79,6 @@ useSeoMeta({
         <NuxtLink to="/blog/">View all blog posts →</NuxtLink>
       </p>
     </main>
+    <BlogSiteFooter />
   </div>
 </template>

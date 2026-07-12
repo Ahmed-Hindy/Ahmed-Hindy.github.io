@@ -1,5 +1,12 @@
+const isDevelopment = process.env.NODE_ENV === 'development'
+const buildDirectory = isDevelopment ? '.nuxt-dev' : '.nuxt'
+const contentDatabaseFilename = isDevelopment
+  ? '.data/content/development.sqlite'
+  : '.data/content/build.sqlite'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-11',
+  buildDir: buildDirectory,
   modules: ['@nuxt/content', '@nuxt/image', '@nuxtjs/sitemap'],
   css: ['~/assets/css/main.css'],
   app: {
@@ -19,6 +26,11 @@ export default defineNuxtConfig({
     dir: '../src/assets',
   },
   content: {
+    // Keep the live dev database isolated from typecheck and prerender builds.
+    _localDatabase: {
+      type: 'sqlite',
+      filename: contentDatabaseFilename,
+    },
     build: {
       markdown: {
         highlight: {
