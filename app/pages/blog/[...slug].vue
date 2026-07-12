@@ -1,24 +1,28 @@
 <script setup lang="ts">
+import type { PageCollections } from '@nuxt/content'
 import { absoluteUrl, site } from '~/data/site'
+
+type BlogArticle = PageCollections['blog']
+type BlogPageResponse = {
+  article: BlogArticle
+  newer: Pick<BlogArticle, 'path' | 'title'> | null
+  older: Pick<BlogArticle, 'path' | 'title'> | null
+}
 
 const route = useRoute()
 const path = computed(() => route.path.replace(/\/$/, ''))
-const { data: article } = await useAsyncData(
+const { data: blogPage } = await useAsyncData<BlogPageResponse>(
   () => `blog-${path.value}`,
-  () => queryCollection('blog').path(path.value).first(),
+  () => $fetch<BlogPageResponse>(`/api/blog${path.value.replace(/^\/blog/, '')}`),
 )
+const article = computed(() => blogPage.value?.article)
 
 if (!article.value) {
   throw createError({ statusCode: 404, statusMessage: 'Article not found' })
 }
 
-const { data: surroundings } = await useAsyncData(
-  () => `blog-surroundings-${path.value}`,
-  () => queryCollectionItemSurroundings('blog', article.value!.path, { fields: ['title'] })
-    .order('date', 'DESC'),
-)
-const newerArticle = computed(() => surroundings.value?.[0] ?? null)
-const olderArticle = computed(() => surroundings.value?.[1] ?? null)
+const newerArticle = computed(() => blogPage.value?.newer ?? null)
+const olderArticle = computed(() => blogPage.value?.older ?? null)
 
 useSiteSeo({
   title: article.value.title,

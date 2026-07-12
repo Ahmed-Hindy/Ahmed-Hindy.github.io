@@ -1,4 +1,4 @@
-import { access, readFile, readdir } from 'node:fs/promises'
+import { access, readFile, readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { gunzipSync } from 'node:zlib'
 import {
@@ -11,6 +11,7 @@ const siteUrl = 'https://ahmed-hindy.github.io'
 const outputDirectory = path.resolve('.output/public')
 const contentDirectory = path.resolve('content/blog')
 const contentDumpPath = '__nuxt_content/blog/sql_dump.txt'
+const maximumRuntimeAssetBytes = 1_000_000
 const requiredFiles = [
   'index.html',
   'blog/index.html',
@@ -244,6 +245,19 @@ const outputFiles = (await readdir(outputDirectory, { recursive: true })).map(no
 if (!outputFiles.some((filePath) => filePath.startsWith('_nuxt/'))) {
   fail('Nuxt assets are missing')
 }
+const runtimeAssetFiles = outputFiles.filter((filePath) =>
+  filePath.startsWith('_nuxt/') && /\.(?:js|wasm)$/i.test(filePath),
+)
+const databaseRuntimeFiles = runtimeAssetFiles.filter((filePath) => /(?:sqlite|opfs|worker)/i.test(filePath))
+if (databaseRuntimeFiles.length) {
+  fail(`browser database runtime leaked into output: ${databaseRuntimeFiles.join(', ')}`)
+}
+const runtimeAssetBytes = (await Promise.all(
+  runtimeAssetFiles.map((filePath) => stat(outputPath(filePath)).then((file) => file.size)),
+)).reduce((total, fileSize) => total + fileSize, 0)
+if (runtimeAssetBytes > maximumRuntimeAssetBytes) {
+  fail(`JavaScript/WASM runtime is ${runtimeAssetBytes} bytes; budget is ${maximumRuntimeAssetBytes} bytes`)
+}
 const htmlFiles = outputFiles.filter((filePath) => filePath.endsWith('.html'))
 for (const filePath of htmlFiles) {
   const html = await readOutput(filePath)
@@ -259,4 +273,6 @@ for (const filePath of htmlFiles) {
   }
 }
 
-console.log(`Static output validation passed for ${publishedArticles.length} published article(s).`)
+console.log(
+  `Static output validation passed for ${publishedArticles.length} published article(s): ${runtimeAssetBytes} JavaScript/WASM bytes.`,
+)
