@@ -35,7 +35,7 @@ defineProps<{
             <video
               v-if="project.media.video"
               :poster="project.media.video.poster"
-              preload="metadata"
+              preload="none"
               controls
               playsinline
             >
@@ -45,7 +45,8 @@ defineProps<{
               v-else-if="project.media.image"
               :src="project.media.image.src"
               :alt="project.media.image.alt"
-              loading="eager"
+              loading="lazy"
+              decoding="async"
             >
           </figure>
 

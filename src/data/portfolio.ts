@@ -70,11 +70,12 @@ export const profileLinks: ProfileLink[] = [
 export const focusChips = ['Pipeline', 'Houdini', 'USD', 'Maya', 'Unreal']
 
 export const navItems: NavItem[] = [
-  { href: '#overview', label: 'Overview' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#work', label: 'Public Tools' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/#overview', label: 'Overview' },
+  { href: '/#experience', label: 'Experience' },
+  { href: '/#work', label: 'Public Tools' },
+  { href: '/#skills', label: 'Skills' },
+  { href: '/#contact', label: 'Contact' },
+  { href: '/blog/', label: 'Blog' },
 ]
 
 export const summary: SummaryItem[] = [
