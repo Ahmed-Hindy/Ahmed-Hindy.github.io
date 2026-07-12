@@ -20,48 +20,11 @@ bunx serve .output/public
 
 ## Write an article
 
-Create a draft from a lowercase kebab-case slug:
-
 ```sh
 bun run new:post usd-publishing-workflows
 ```
 
-The command creates `content/blog/usd-publishing-workflows.md`, rejects duplicate or invalid slugs, uses the current Cairo date, and keeps the article unpublished with `draft: true`.
-
-```md
----
-title: "Article title"
-description: "A concise summary for readers and search engines."
-date: "2026-07-11"
-updated: "2026-07-11"
-tags:
-  - Houdini
-  - USD
-draft: true
----
-
-Article content goes here.
-```
-
-Required fields are `title`, `description`, `date`, `tags`, and `draft`. Dates use `YYYY-MM-DD`. Drafts are excluded from the blog index, sitemap, RSS feed, and production output. Set `draft: false` only when the article is ready to publish. Put article images in `public/blog/images/` and use root-relative paths such as `/blog/images/example.webp`.
-
-Use semantic figure markup when an image needs a caption. Include intrinsic dimensions to prevent layout shift, use `decoding="async"`, and add `loading="lazy"` for below-the-fold figures:
-
-```html
-<figure>
-  <img
-    src="/blog/images/example.webp"
-    alt="A concise description of the image"
-    width="1600"
-    height="900"
-    loading="lazy"
-    decoding="async"
-  >
-  <figcaption>Explain what the reader should notice.</figcaption>
-</figure>
-```
-
-Changing a published filename changes its URL, so keep published slugs stable. Draft filtering reads only the leading frontmatter block, so examples in the article body may safely contain text such as `draft: true`.
+See [Blog Authoring](docs/blog-authoring.md) for frontmatter, publishing, image, and figure guidance.
 
 ## Deployment and indexing
 
