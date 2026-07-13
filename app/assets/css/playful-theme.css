@@ -138,7 +138,7 @@ h4,
   z-index: 0;
   width: 312px;
   height: 180px;
-  background: url('/theme/josh-rainbow.svg') center / contain no-repeat;
+  background: url('/theme/pipeline-spectrum.svg') center / contain no-repeat;
   content: '';
   pointer-events: none;
 }
@@ -511,7 +511,7 @@ h2 {
     z-index: 0;
     width: min(520px, 92vw);
     height: 190px;
-    background: url('/theme/josh-rainbow.svg') center / contain no-repeat;
+    background: url('/theme/pipeline-spectrum.svg') center / contain no-repeat;
     content: '';
     pointer-events: none;
   }
