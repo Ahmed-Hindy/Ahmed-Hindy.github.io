@@ -35,7 +35,10 @@ export default defineContentConfig({
   collections: {
     blog: defineCollection({
       type: 'page',
-      source: publishedBlogSource,
+      // Nuxt Content watches standard filesystem sources in development. The
+      // custom source remains necessary in production to exclude draft files
+      // from the generated content database.
+      source: includeDrafts ? 'blog/**/*.md' : publishedBlogSource,
       schema: z.object({
         title: z.string(),
         description: z.string(),
