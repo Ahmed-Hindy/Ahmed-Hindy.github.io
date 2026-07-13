@@ -18,12 +18,14 @@ useSiteSeo({
 <template>
   <div class="blog-shell">
     <BlogMobileSiteHeader />
-    <main id="main-content" class="blog-content">
+    <BlogHero class="blog-index-hero">
       <header class="blog-index-header">
         <p class="section-kicker">Blog</p>
         <h1>Technical notes from production.</h1>
         <p>Practical Houdini, USD, pipeline, and production-tooling notes grounded in real artist and studio problems.</p>
       </header>
+    </BlogHero>
+    <main id="main-content" class="blog-content blog-index-content">
       <section v-if="articles?.length" class="article-list" aria-label="Articles">
         <BlogArticleCard v-for="article in articles" :key="article.path" :article="article" />
       </section>
