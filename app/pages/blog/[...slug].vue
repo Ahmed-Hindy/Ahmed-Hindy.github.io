@@ -60,17 +60,18 @@ useSeoMeta({
 <template>
   <div class="blog-shell">
     <BlogMobileSiteHeader />
-    <main id="main-content" class="blog-content">
-      <NuxtLink to="/blog/" class="blog-back-link">← All blog posts</NuxtLink>
+    <BlogHero class="blog-article-hero">
+      <BlogArticleHeader
+        :title="article!.title"
+        :description="article!.description"
+        :date="article!.date"
+        :updated="article!.updated"
+        :tags="article!.tags"
+        :draft="article!.draft"
+      />
+    </BlogHero>
+    <main id="main-content" class="blog-content blog-article-content">
       <article class="prose">
-        <BlogArticleHeader
-          :title="article!.title"
-          :description="article!.description"
-          :date="article!.date"
-          :updated="article!.updated"
-          :tags="article!.tags"
-          :draft="article!.draft"
-        />
         <BlogTableOfContents :links="article!.body.toc?.links ?? []" />
         <ContentRenderer :value="article!" />
       </article>

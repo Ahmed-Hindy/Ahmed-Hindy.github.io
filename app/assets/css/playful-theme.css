@@ -831,3 +831,651 @@ html[data-theme='dark'] .blog-shell {
     transform: none;
   }
 }
+
+/* Blog: an editorial field guide, with the hero as its own landscape. */
+.blog-shell {
+  --blog-night: #0b1422;
+  --blog-deep: #07101c;
+  --blog-ink: #eaf1f8;
+  --blog-mist: #aebdcd;
+  --blog-signal: #8ca8ff;
+
+  background: var(--blog-deep);
+}
+
+html[data-theme='light'] .blog-shell {
+  --blog-deep: #f6f8fb;
+  --blog-ink: #152235;
+  --blog-mist: #526174;
+  --blog-signal: #4055b6;
+}
+
+.blog-site-header {
+  position: relative;
+  z-index: 3;
+  overflow: visible;
+  background: var(--blog-night);
+}
+
+.blog-site-header::after {
+  display: none;
+}
+
+.blog-site-header-inner {
+  width: min(100% - 40px, 1080px);
+  padding: 13px 0;
+}
+
+.blog-brand {
+  display: block;
+}
+
+.blog-brand p {
+  display: none;
+}
+
+.blog-site-name,
+.blog-site-header nav a,
+.rss-icon-link,
+.blog-header-actions .theme-toggle {
+  color: #eaf1f8;
+}
+
+.blog-site-name {
+  font-family: "Trebuchet MS", "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  letter-spacing: -0.035em;
+}
+
+.blog-site-header nav {
+  gap: 12px;
+}
+
+.blog-site-header nav a {
+  min-height: 32px;
+  padding-inline: 8px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+}
+
+.blog-site-header nav a.router-link-active,
+.blog-site-header nav a.is-section-active {
+  box-shadow: inset 0 -2px var(--playful-pink);
+}
+
+.blog-site-header nav a:hover,
+.blog-site-header nav a:focus-visible,
+.blog-site-name:hover,
+.blog-site-name:focus-visible,
+.rss-icon-link:hover,
+.rss-icon-link:focus-visible {
+  color: #fff;
+  background: rgb(255 255 255 / 10%);
+}
+
+.rss-icon-link {
+  width: 32px;
+  height: 32px;
+  padding: 7px;
+}
+
+.blog-header-actions {
+  gap: 10px;
+}
+
+.blog-header-actions .theme-toggle {
+  min-height: 32px;
+  padding: 4px 8px;
+  border-width: 1px;
+  border-color: rgb(255 255 255 / 24%);
+  background: rgb(255 255 255 / 8%);
+  box-shadow: none;
+}
+
+.blog-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 390px;
+  overflow: hidden;
+  color: #f4f7fb;
+  background: linear-gradient(155deg, #172b42 0%, #0c1a2a 78%);
+}
+
+.blog-hero-inner {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 40px, 1080px);
+  margin: 0 auto;
+  padding: 82px 0 150px;
+}
+
+.blog-hero-landscape span {
+  position: absolute;
+  display: block;
+  border-radius: 52% 48% 0 0 / 100% 100% 0 0;
+  pointer-events: none;
+}
+
+.blog-hero-ridge-far {
+  right: -10%;
+  bottom: 52px;
+  z-index: -1;
+  width: 62%;
+  height: 190px;
+  background: #132234;
+  transform: rotate(-7deg);
+}
+
+.blog-hero-ridge-mid {
+  right: 22%;
+  bottom: -21px;
+  z-index: -1;
+  width: 68%;
+  height: 180px;
+  background: #0c1725;
+  transform: rotate(5deg);
+}
+
+.blog-hero-ridge-near {
+  right: -13%;
+  bottom: -80px;
+  z-index: 1;
+  width: 84%;
+  height: 210px;
+  background: var(--blog-deep);
+  transform: rotate(-9deg);
+}
+
+.blog-index-header,
+.article-header,
+.error-page {
+  max-width: 690px;
+  padding: 0;
+  border: 0;
+}
+
+.blog-index-header .section-kicker,
+.error-page .section-kicker {
+  margin-bottom: 16px;
+  color: #aebeff;
+}
+
+.blog-index-header h1,
+.article-header h1,
+.error-page h1 {
+  max-width: 680px;
+  margin: 0;
+  color: #f4f7fb;
+  font-family: "Trebuchet MS", "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(2.5rem, 5.3vw, 4.35rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.blog-index-header > p:last-child,
+.article-description,
+.error-page > p:not(.section-kicker) {
+  max-width: 62ch;
+  margin-top: 22px;
+  color: #c4d0dd;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.article-published-date {
+  margin-top: 22px;
+  color: #c4d0dd;
+  font-size: 0.82rem;
+}
+
+.article-header > ul {
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.article-header > ul li {
+  padding: 3px 0;
+  border: 0;
+  background: transparent;
+  color: #aebeff;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.article-header > ul li + li::before {
+  display: inline;
+  margin: 0 8px;
+  color: rgb(234 241 248 / 42%);
+}
+
+.blog-content {
+  width: min(100% - 40px, 760px);
+  padding: 42px 0 94px;
+}
+
+.blog-index-content {
+  padding-top: 28px;
+}
+
+.blog-article-content {
+  padding-top: 34px;
+}
+
+.article-toc {
+  max-width: 62ch;
+  margin: 0 0 34px;
+  padding: 0 0 0 18px;
+  border: 0;
+  border-left: 2px solid rgb(140 168 255 / 48%);
+  border-radius: 0;
+  color: var(--blog-mist);
+  background: transparent;
+}
+
+.article-toc summary {
+  color: var(--blog-mist);
+  font-size: 0.7rem;
+  font-weight: 850;
+  cursor: pointer;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.article-toc summary::-webkit-details-marker {
+  display: none;
+}
+
+.article-toc summary::after {
+  margin-left: 0.65em;
+  color: var(--blog-signal);
+  content: '+';
+}
+
+.article-toc[open] summary::after {
+  content: '−';
+}
+
+.article-toc nav {
+  padding-top: 10px;
+}
+
+.article-toc ol {
+  gap: 5px;
+}
+
+.article-toc a {
+  color: var(--blog-mist);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.article-toc a:hover,
+.article-toc a:focus-visible {
+  color: var(--blog-signal);
+}
+
+.prose {
+  color: var(--blog-ink);
+}
+
+.prose > :not(.article-header) {
+  max-width: 62ch;
+}
+
+.prose > p,
+.prose > ul,
+.prose > ol {
+  font-size: 1.06rem;
+  line-height: 1.82;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--blog-ink);
+  font-family: "Trebuchet MS", "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.035em;
+}
+
+.prose h2 {
+  margin-top: 70px;
+  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+  line-height: 1.06;
+}
+
+.prose h3 {
+  margin-top: 52px;
+}
+
+.prose a,
+.heading-permalink {
+  color: var(--blog-signal);
+}
+
+.prose code,
+.prose pre,
+.prose figure img,
+.prose th {
+  border-color: rgb(140 168 255 / 23%);
+  background: color-mix(in srgb, var(--blog-deep) 90%, #8ca8ff);
+}
+
+.prose blockquote {
+  border-color: #f3c66b;
+  color: var(--blog-ink);
+  background: color-mix(in srgb, #f3c66b 7%, var(--blog-deep));
+}
+
+.article-list {
+  gap: 0;
+  margin: 0;
+}
+
+.article-card {
+  padding: 30px 0 34px;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--blog-mist) 28%, transparent);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.article-card:nth-child(even) {
+  box-shadow: none;
+}
+
+.article-card-meta {
+  align-items: center;
+}
+
+.article-card-meta ul {
+  gap: 8px;
+}
+
+.article-card-meta li {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blog-signal);
+  font-size: 0.68rem;
+}
+
+.article-card-meta li + li::before {
+  margin-right: 8px;
+  color: var(--blog-mist);
+  content: '·';
+}
+
+.article-date {
+  color: var(--blog-mist);
+}
+
+.article-card-link {
+  margin: 10px 0 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+.article-card-link:hover,
+.article-card-link:focus-visible {
+  background: transparent;
+}
+
+.article-card-link h2 {
+  color: var(--blog-ink);
+  font-size: clamp(1.65rem, 3vw, 2.2rem);
+  line-height: 1.08;
+}
+
+.article-card-link:hover h2,
+.article-card-link:focus-visible h2 {
+  color: var(--blog-signal);
+}
+
+.article-card-link p {
+  color: var(--blog-mist);
+}
+
+.article-card-action {
+  display: inline-flex;
+  gap: 0.45em;
+  margin-top: 18px;
+  color: var(--blog-signal);
+  font-size: 0.82rem;
+  font-weight: 850;
+  letter-spacing: 0.01em;
+}
+
+.article-card-link:hover .article-card-action,
+.article-card-link:focus-visible .article-card-action {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.article-navigation,
+.blog-site-footer-inner {
+  border-color: color-mix(in srgb, var(--blog-mist) 28%, transparent);
+}
+
+.article-navigation-item {
+  border-color: color-mix(in srgb, var(--blog-mist) 28%, transparent);
+  color: var(--blog-ink);
+  background: transparent;
+}
+
+.article-navigation-item:hover,
+.article-navigation-item:focus-visible {
+  border-color: var(--blog-signal);
+  background: color-mix(in srgb, var(--blog-deep) 92%, #8ca8ff);
+}
+
+.article-navigation-item span,
+.article-all-posts-link a {
+  color: var(--blog-signal);
+}
+
+.blog-empty-state {
+  padding: 42px 0;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--blog-mist) 28%, transparent);
+  border-radius: 0;
+  color: var(--blog-ink);
+  background: transparent;
+  box-shadow: none;
+}
+
+.blog-empty-state p {
+  color: var(--blog-mist);
+}
+
+.blog-site-footer {
+  color: var(--blog-mist);
+  background: var(--blog-deep);
+}
+
+.blog-site-footer p,
+.blog-site-footer a {
+  color: var(--blog-mist);
+}
+
+.blog-site-footer a:hover,
+.blog-site-footer a:focus-visible {
+  color: var(--blog-signal);
+}
+
+.error-page-links {
+  display: flex;
+  gap: 18px;
+  width: min(100% - 40px, 760px);
+  margin: 0 auto;
+  padding: 42px 0 94px;
+}
+
+.error-page-links a {
+  color: var(--blog-signal);
+  font-weight: 800;
+  text-decoration-thickness: 2px;
+}
+
+/* The index is a library: its entries should arrive before the fold. */
+.blog-index-hero {
+  min-height: 285px;
+}
+
+.blog-index-hero .blog-hero-inner {
+  padding: 56px 0 88px;
+}
+
+.blog-index-hero .blog-index-header h1 {
+  max-width: 560px;
+  font-size: clamp(2.3rem, 4.3vw, 3.5rem);
+}
+
+.blog-index-hero .blog-index-header > p:last-child {
+  max-width: 58ch;
+  margin-top: 14px;
+  font-size: 0.98rem;
+}
+
+.blog-index-content {
+  width: min(100% - 40px, 1080px);
+  padding-top: 34px;
+}
+
+.blog-index-content .article-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 30px;
+}
+
+.blog-index-content .article-card {
+  min-height: 270px;
+  padding: 25px 28px 27px;
+  border: 1px solid color-mix(in srgb, var(--blog-mist) 34%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--blog-deep) 92%, #253a56);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.blog-index-content .article-card:hover,
+.blog-index-content .article-card:focus-within {
+  border-color: color-mix(in srgb, var(--blog-signal) 65%, transparent);
+  background: color-mix(in srgb, var(--blog-deep) 85%, #253a56);
+  transform: translateY(-3px);
+}
+
+.blog-index-content .article-card-link {
+  display: flex;
+  height: calc(100% - 24px);
+  flex-direction: column;
+}
+
+.blog-index-content .article-card-action {
+  margin-top: auto;
+}
+
+/* The article is a reading surface: enter the first paragraph sooner. */
+.blog-article-hero {
+  min-height: 340px;
+}
+
+.blog-article-hero .blog-hero-inner {
+  padding: 62px 0 112px;
+}
+
+.blog-article-hero .article-header h1 {
+  max-width: 620px;
+  font-size: clamp(2.45rem, 4.6vw, 3.8rem);
+}
+
+.blog-article-hero .article-description {
+  margin-top: 17px;
+  font-size: 1rem;
+}
+
+.blog-article-hero .article-published-date {
+  margin-top: 16px;
+}
+
+@media (max-width: 720px) {
+  .blog-site-header-inner,
+  .blog-hero-inner {
+    width: min(100% - 32px, 1080px);
+  }
+
+  .blog-site-header-inner {
+    padding: 11px 0;
+  }
+
+  .blog-site-header nav a {
+    padding-inline: 5px;
+  }
+
+  .blog-hero {
+    min-height: 410px;
+  }
+
+  .blog-hero-inner {
+    padding: 62px 0 158px;
+  }
+
+  .blog-hero-ridge-far {
+    right: -52%;
+    bottom: 72px;
+    width: 126%;
+  }
+
+  .blog-hero-ridge-mid {
+    right: -35%;
+    width: 132%;
+  }
+
+  .blog-hero-ridge-near {
+    right: -56%;
+    width: 154%;
+  }
+
+  .blog-index-header h1,
+  .article-header h1,
+  .error-page h1 {
+    font-size: clamp(2.45rem, 12.5vw, 3.5rem);
+  }
+
+  .article-toc-desktop {
+    display: block;
+  }
+
+  .article-toc-mobile {
+    display: none;
+    margin-bottom: 36px;
+  }
+
+  .blog-index-hero {
+    min-height: 300px;
+  }
+
+  .blog-index-hero .blog-hero-inner {
+    padding: 42px 0 78px;
+  }
+
+  .blog-index-content .article-list {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-index-content .article-card {
+    min-height: 0;
+  }
+
+  .blog-article-hero {
+    min-height: 360px;
+  }
+
+  .blog-article-hero .blog-hero-inner {
+    padding: 52px 0 118px;
+  }
+}
