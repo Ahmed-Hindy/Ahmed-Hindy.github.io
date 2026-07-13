@@ -67,6 +67,11 @@ I generally pick one style per tuple. Mixing `r` and `ry` in the same dictionary
 The pattern becomes more useful when the values come from a preset, project configuration, or UI option.
 
 ```python
+import hou
+
+geo = hou.node("/obj").createNode("geo", "pyro_preset_example")
+simulation_node = geo.createNode("pyrosolver", "pyro_solver1")
+
 simulation_settings = {
     "startframe": int(hou.playbar.frameRange()[0]),
     "substeps": 2,
@@ -75,6 +80,10 @@ simulation_settings = {
 
 simulation_node.setParms(simulation_settings)
 ```
+
+![Houdini 21 Pyro Solver with Start Frame, Time Scale, and Max Substeps visible](/blog/houdini-pyro-solver-setparms.png)
+
+*The Houdini 21 Pyro Solver SOP using the values from this example: Start Frame `1001`, Time Scale `1`, and Max Substeps `2`.*
 
 Because the settings are data rather than a sequence of calls, I can merge overrides, print the final state for debugging, or save it elsewhere.
 
@@ -97,6 +106,8 @@ The override is visible instead of being hidden several lines later in the funct
 ## Validate parameter names before setting them
 
 `setParms()` raises `hou.OperationFailed` when a key is not a valid parameter or parameter tuple. That catches the mistake, but in a production tool I still want the error to name the missing fields and the node that received them.
+
+One important detail: `setParms()` is not atomic. If an invalid key appears after valid keys in the dictionary, Houdini can apply the earlier values before raising the exception. Validate the complete dictionary first whenever a partial update would be unsafe.
 
 I usually validate the dictionary first:
 
@@ -140,31 +151,31 @@ values = {
 set_existing_parameters(node, values)
 ```
 
-This has saved time when a node interface changed between Houdini versions, and when a callback was handed the wrong node type.
+This has saved time when a node interface changed between Houdini versions, and when a callback was handed the wrong node type. For example, the settings above are real parameter names on Houdini 21's **Pyro Solver** SOP: *Start Frame*, *Max Substeps*, and *Time Scale*.
 
 ## Be deliberate with animated parameters
 
-My original note came from a Pyro setup script that did this before calling `setParms()`:
+My original note came from a Pyro Solver setup script that did this before calling `setParms()`:
 
 ```python
-pyro_source.parm("startframe").deleteAllKeyframes()
+pyro_solver.parm("startframe").deleteAllKeyframes()
 ```
 
-That line is easy to overlook. Setting a value is not the same as saying, "This parameter should no longer be animated."
+That line is easy to overlook. Setting a value is not the same as saying, "This parameter should no longer be animated." On an animated parameter, `setParms()` keeps the channel and adds or updates a key at the current frame.
 
 If the tool is supposed to replace animation with a static value, remove the keyframes explicitly first.
 
 ```python
-start_frame = pyro_source.parm("startframe")
+start_frame = pyro_solver.parm("startframe")
 
 if start_frame is None:
-    raise hou.NodeError(f"{pyro_source.path()} has no startframe parameter")
+    raise hou.NodeError(f"{pyro_solver.path()} has no startframe parameter")
 
 start_frame.deleteAllKeyframes()
-pyro_source.setParms({"startframe": int(hou.playbar.frameRange()[0])})
+pyro_solver.setParms({"startframe": int(hou.playbar.frameRange()[0])})
 ```
 
-`deleteAllKeyframes()` leaves the parameter at the value it evaluates to on the current frame, after which `setParms()` applies the new value.
+`deleteAllKeyframes()` leaves the parameter at the value it evaluates to on the current frame. After that, `setParms()` applies a static value rather than modifying an animated channel.
 
 For a tuple, use `parmTuple()` and clear the complete tuple:
 
@@ -280,10 +291,10 @@ For ordinary node presets and setup scripts, a dictionary passed to `setParms()`
 
 ## WIP checklist
 
-- [ ] Test every code sample inside Houdini 21.
-- [ ] Add a real HDA or Pyro preset example with current parameter names.
-- [ ] Confirm and document the behavior when one dictionary key is invalid.
-- [ ] Add a screenshot showing internal parameter names versus UI labels.
+- [x] Double check everything.
+- [x] Add a Pyro Solver preset example with current parameter names.
+- [x] Confirm and document the behavior when one dictionary key is invalid.
+- [x] Add a Pyro Solver screenshot showing the UI labels and configured values.
 
 ## References
 
