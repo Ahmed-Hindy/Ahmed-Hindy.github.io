@@ -10,13 +10,12 @@ tags:
 draft: false
 ---
 
-Most of my development work happens inside VFX pipelines: Python tools, Houdini, PySide interfaces, publishing systems, validation, and production support.
-
+Most of my development work happens inside python pipelines.
 Rust was outside my usual stack.
 
-I had been curious about Tauri, so I decided to test it on a real problem instead of building another tutorial app: could I turn [CGWire Kitsu](https://www.cg-wire.com/kitsu) into a useful Windows desktop application?
+I had been curious about Tauri, so I decided to test it on a real problem instead of building another tutorial app: could I turn [CGWire Kitsu](https://www.cg-wire.com/kitsu) into a Windows desktop application?
 
-Kitsu already works well in a browser. I was not trying to rewrite it. I wanted to find out what a native shell could add around it: a dedicated window, system tray integration, autostart, connection checks, notifications, and a cleaner entry point for artists.
+Kitsu already works well in a browser. I was not trying to rewrite it. I wanted to find out what a native shell could add around it: a dedicated window, system tray integration, system autostart, connection checks, and notifications.
 
 ## Starting with the wrong question
 
@@ -26,7 +25,7 @@ My first question was simple:
 
 The answer was yes, but the first version still felt like a launcher placed in front of another web app. It had navigation sections, shortcuts, settings, and several ways to open Kitsu.
 
-At one point I described it as a "glorified Chrome tab." Wrapping a website in a window did not make it feel native.
+At one point it felt like a "glorified Chrome tab." Wrapping a website in a window did not make it feel OS-native.
 
 That changed the direction of the project. Instead of asking how much interface I could add, I started asking what Windows could provide that the browser could not.
 
@@ -34,7 +33,7 @@ That changed the direction of the project. Instead of asking how much interface 
 
 The application initially drifted toward Docker and local Kitsu management. I removed that early.
 
-Artists should not be starting containers, managing backups, or inspecting server infrastructure from this app. I also avoided turning it into a DCC launcher. Opening Houdini, Nuke, workfiles, or project environments is closer to the role of AYON or another pipeline launcher.
+Artists should not be starting containers, managing backups, or inspecting server infrastructure from this app. I also avoided turning it into a DCC launcher. this is closer to the role of AYON or another pipeline launcher, not Kitsu.
 
 The boundary became straightforward:
 
@@ -54,7 +53,7 @@ The app uses:
 
 I kept the frontend in plain TypeScript. The settings UI was small enough that adding Vue or another framework would not have solved the interesting problems.
 
-Most of the learning happened on the Rust and Tauri side: application lifecycle, plugins, native events, window management, and the boundary between local code and remote web content.
+Most of the experimenting happened on the Rust and Tauri side: application lifecycle, plugins, and native events.
 
 ## What made it feel native
 
@@ -62,11 +61,7 @@ The biggest improvements were not visual.
 
 The app stays available in the Windows system tray, can start quietly with Windows, and enforces single-instance behavior. Launching it twice focuses the existing application instead of creating duplicate windows.
 
-Kitsu opens in a separate work window, while profiles, diagnostics, and native settings stay in a smaller settings window. Both remember their previous size and maximized state.
-
-I also removed the floating console window that appeared beside early builds. The release build uses the Windows GUI subsystem, and browser-opening processes use `CREATE_NO_WINDOW`.
-
-These were small details individually, but together they did far more than the original launcher UI to make the app feel like a desktop tool.
+Kitsu opens in a separate work window, while profiles, diagnostics, and native settings stay in a smaller settings window.
 
 ## Moving connection checks into Rust
 
@@ -79,7 +74,7 @@ The backend checks both the Kitsu site and the Zou API:
 
 The root endpoint confirms that the site responds. The API check also verifies that the response looks like Zou rather than an unrelated page.
 
-Running these checks through Rust avoids browser cross-origin restrictions and gives the app control over timeouts and error reporting.
+Running these checks through Rust gives the app control over timeouts and error reporting.
 
 Instead of showing a generic network failure, it can provide more useful messages for connection refusal, DNS problems, certificate failures, timeouts, incorrect ports, or missing VPN access.
 
@@ -107,13 +102,13 @@ For quick scripts, that can feel slow. For a desktop application, I started to a
 
 The compiler catches assumptions that might otherwise become runtime bugs, and Tauri encourages a clean boundary: the frontend owns interface state while Rust owns privileged native behavior.
 
-I did not need to become a Rust expert to build something practical. Most of the backend is made of small functions, Tauri commands, plugin setup, and operating-system integration.
+I did not need to become a Rust expert to build something practical. Most of the backend is made of small functions and Tauri commands.
 
 That made this project a good introduction. It was complex enough to expose real Rust concepts without also requiring me to design a large backend system.
 
 ## The app improved as I removed things
 
-I removed Docker management, unnecessary launcher sections, duplicate Open Kitsu buttons, and frontend bundling that did not justify its maintenance cost.
+I removed Docker stuff, unnecessary launcher options and frontend bundling that did not justify its maintenance cost.
 
 I moved secondary actions into the tray and stopped treating the settings window as the main product.
 
@@ -121,6 +116,9 @@ The final app is smaller than the original idea, but more useful.
 
 For me, this project was less about making Kitsu "native" and more about learning where a desktop shell can add value around an existing web application.
 
-It was also a practical introduction to Rust and Tauri from the perspective of a Pipeline TD: not as abstract technologies, but as another set of tools for solving production-facing problems.
+my initial opinions about Rust from all the googling and reading I did, was that it's an over-hyped new-kid-on-the-block next-big-thing language with some serious fanboyism issues in the dev community.
+It was also a practical introduction to Rust and Tauri from the perspective of a Pipeline TD.
+
+I don't think I will need it much in my journey. The VFX, Animation and Gaming industries are all dominated by C++ and python (I don't like Unity)
 
 The source is available in the [Kitsu Desktop repository](https://github.com/Ahmed-Hindy/kitsu-desktop-launcher).
