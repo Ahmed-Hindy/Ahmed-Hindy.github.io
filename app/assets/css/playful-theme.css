@@ -839,6 +839,7 @@ html[data-theme='dark'] .blog-shell {
   --blog-ink: #eaf1f8;
   --blog-mist: #aebdcd;
   --blog-signal: #8ca8ff;
+  --blog-section-heading: #e6b3ff;
 
   background: var(--blog-deep);
 }
@@ -848,6 +849,7 @@ html[data-theme='light'] .blog-shell {
   --blog-ink: #152235;
   --blog-mist: #526174;
   --blog-signal: #4055b6;
+  --blog-section-heading: #5d3c99;
 }
 
 .blog-site-header {
@@ -1120,32 +1122,53 @@ html[data-theme='light'] .blog-shell {
 }
 
 .prose > :not(.article-header) {
-  max-width: 62ch;
+  max-width: 686px;
+  margin-inline: auto;
 }
 
-.prose > p,
-.prose > ul,
-.prose > ol {
-  font-size: 1.06rem;
-  line-height: 1.82;
+.prose > div > p {
+  margin-top: 24px;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.prose > div > h2 + p {
+  margin-top: 8px;
+}
+
+.prose > div > ul,
+.prose > div > ol {
+  margin-top: 26px;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.prose > div > blockquote,
+.prose > div > pre,
+.prose > div > table,
+.prose > div > figure {
+  margin-top: 32px;
 }
 
 .prose h2,
-.prose h3,
-.prose h4 {
-  color: var(--blog-ink);
+.prose h3 {
+  color: var(--blog-section-heading);
   font-family: "Trebuchet MS", "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif;
   letter-spacing: -0.035em;
 }
 
 .prose h2 {
-  margin-top: 70px;
-  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
-  line-height: 1.06;
+  margin-top: 72px;
+  margin-bottom: 2px;
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  line-height: 1.2;
 }
 
 .prose h3 {
-  margin-top: 52px;
+  margin-top: 44px;
+  margin-bottom: 22px;
+  font-size: clamp(1.3rem, 2vw, 1.55rem);
+  line-height: 1.2;
 }
 
 .prose a,
