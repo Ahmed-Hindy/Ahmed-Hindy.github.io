@@ -5,7 +5,7 @@ import sharp from 'sharp'
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const profileJpg = path.join(rootDir, 'src', 'assets', 'profile.jpg')
-const openGraphImage = path.join(rootDir, 'public', 'og-image-portrait.jpg')
+const openGraphImage = path.join(rootDir, 'public', 'og-image-2026-07-14.jpg')
 const profileJpgTemp = path.join(rootDir, 'src', 'assets', 'profile.tmp.jpg')
 const projectMediaReport = path.join(rootDir, 'docs', 'project-media-optimization.md')
 const projectMedia = [

@@ -44,7 +44,7 @@ useHead({
       author: { '@type': 'Person', name: site.authorName },
       datePublished: article.value.date,
       dateModified: article.value.updated ?? article.value.date,
-      image: absoluteUrl(article.value.image ?? '/og-image-portrait.jpg'),
+      image: absoluteUrl(article.value.image ?? '/og-image-2026-07-14.jpg'),
       mainEntityOfPage: absoluteUrl(`${article.value.path}/`),
       url: absoluteUrl(`${article.value.path}/`),
     }),
