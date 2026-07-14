@@ -257,10 +257,14 @@ h4 {
 }
 
 .profile-link-github {
-  --profile-link-brand: #bfc8d6;
+  --profile-link-brand: #29303b;
   --profile-link-soft: rgba(191, 200, 214, 0.12);
   --profile-link-hover: rgba(191, 200, 214, 0.19);
   --profile-link-ring: rgba(191, 200, 214, 0.24);
+}
+
+[data-theme='dark'] .profile-link-github {
+  --profile-link-brand: #f0f6fc;
 }
 
 .profile-link-linkedin {
