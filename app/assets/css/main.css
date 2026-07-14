@@ -189,6 +189,41 @@ html[data-theme='dark'] .blog-shell {
   margin-top: 24px;
 }
 
+.blog-portfolio-callout {
+  margin-top: 48px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+}
+
+.blog-portfolio-callout h2 {
+  margin-top: 10px;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+}
+
+.blog-portfolio-callout p:not(.section-kicker) {
+  max-width: 620px;
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.blog-portfolio-callout a {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--accent);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.blog-portfolio-callout a:hover,
+.blog-portfolio-callout a:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
 .article-card {
   padding: 30px 0;
   border-bottom: 1px solid var(--line);

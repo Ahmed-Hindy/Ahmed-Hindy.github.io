@@ -30,6 +30,12 @@ useSiteSeo({
         <BlogArticleCard v-for="article in articles" :key="article.path" :article="article" />
       </section>
       <BlogEmptyState v-else />
+      <aside class="blog-portfolio-callout" aria-labelledby="portfolio-callout-title">
+        <p class="section-kicker">Portfolio</p>
+        <h2 id="portfolio-callout-title">See the tools behind the notes.</h2>
+        <p>Explore my pipeline tools, DCC integrations, and production workflows.</p>
+        <NuxtLink to="/">View the Portfolio <span aria-hidden="true">→</span></NuxtLink>
+      </aside>
     </main>
     <BlogSiteFooter />
   </div>

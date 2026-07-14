@@ -106,6 +106,16 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
       </section>
 
       <ContactSection :profile-links="profileLinks" />
+
+      <aside class="blog-callout blog-callout-bottom" aria-label="Blog">
+        <div>
+          <p class="section-kicker">Notes from the pipeline</p>
+          <p>Practical write-ups on my Pipeline journey...</p>
+        </div>
+        <NuxtLink class="blog-callout-link" to="/blog/">
+          Browse the Blog <span aria-hidden="true">→</span>
+        </NuxtLink>
+      </aside>
     </main>
   </div>
 </template>
