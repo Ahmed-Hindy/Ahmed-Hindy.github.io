@@ -997,42 +997,44 @@ html[data-theme='light'] .blog-shell {
 }
 
 .blog-hero-cloud-one {
-  bottom: -60px;
-  left: -35%;
+  bottom: clamp(-20px, -1.953125vw, -8px);
+  left: -30%;
   z-index: 1;
   width: 55%;
   height: 120px;
-  background: #182939;
+  background: var(--blog-deep);
+  /* background: #182939; */
   transform: rotate(10deg);
 }
 
 .blog-hero-cloud-two {
-  bottom: -65px;
-  left: 7%;
+  bottom: clamp(-55px, -5.371094vw, -28px);
+  left: 12%;
   z-index: 2;
-  width: 30%;
-  height: 80px;
+  width: 35%;
+  height: clamp(46px, 6.835938vw, 70px);
   background: var(--blog-deep);
   transform: rotate(-4deg);
 }
 
 .blog-hero-cloud-three {
-  bottom: -115px;
-  left: 17%;
+  bottom: clamp(-65px, -6.347656vw, -32px);
+  left: 35%;
   z-index: 3;
   width: 60%;
-  height: 10px;
+  height: clamp(80px, 11.71875vw, 120px);
   background: var(--blog-deep);
   transform: rotate(4deg);
 }
 
 .blog-hero-cloud-four {
-  right: -14%;
-  bottom: -50px;
+  right: -30%;
+  bottom: clamp(-40px, -3.90625vw, -18px);
   z-index: 4;
   width: 60%;
-  height: 180px;
-  background: #182939;
+  height: clamp(120px, 17.578125vw, 180px);
+  background: var(--blog-deep);
+  /* background: #182939; */
   transform: rotate(-3deg);
 }
 
