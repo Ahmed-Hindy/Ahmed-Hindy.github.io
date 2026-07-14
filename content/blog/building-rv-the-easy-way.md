@@ -135,7 +135,7 @@ There is one more limitation in the current branch: I changed the top-level work
 
 ## Where I ended up
 
-My [OpenRV fork](https://github.com/Ahmed-Hindy/OpenRV) does not change much inside RV itself. Most of this work is CI plumbing: select a useful build slice, preserve `_install`, archive it correctly per platform, and record enough information to know what was built.
+My [OpenRV fork](https://github.com/Ahmed-Hindy/OpenRV/tree/dev/windows-artifact-manual-ci) does not change much inside RV itself. Most of this work is CI plumbing: select a useful build slice, preserve `_install`, archive it correctly per platform, and record enough information to know what was built.
 
 That was enough for what I wanted. I can ask GitHub Actions for a current RV build, download the installed result, and avoid turning my Windows workstation into a permanent OpenRV build environment.
 
