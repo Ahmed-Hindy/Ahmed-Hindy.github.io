@@ -75,31 +75,51 @@ const writeOpenGraphImage = async () => {
   const svg = `
     <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
       <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#111b27" />
+          <stop offset="1" stop-color="#265973" />
+        </linearGradient>
+        <linearGradient id="portraitBackdrop" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#4242fa" />
+          <stop offset="1" stop-color="#9a6bff" />
+        </linearGradient>
         <clipPath id="profileClip">
-          <circle cx="930" cy="315" r="170" />
+          <path d="M858 131C937 94 1042 121 1074 197C1106 272 1073 370 1012 421C955 469 859 452 820 384C783 319 789 163 858 131Z" />
         </clipPath>
       </defs>
-      <rect width="1200" height="630" fill="#0f1724" />
-      <rect x="0" y="0" width="376" height="630" fill="#142033" />
-      <rect x="78" y="92" width="92" height="7" rx="3.5" fill="#67c6e3" />
-      <text x="78" y="188" fill="#86c6dc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="800">Pipeline TD / VFX Pipeline Developer</text>
-      <text x="78" y="282" fill="#f4f7fb" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="84" font-weight="800">Ahmed Hindy</text>
-      <text x="78" y="354" fill="#d7e4f2" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="34" font-weight="650">Houdini / Solaris/USD / Maya / Unreal</text>
-      <text x="78" y="408" fill="#a8b7ca" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="27" font-weight="500">Artist-facing tools, publishing, validation, render handoff,</text>
-      <text x="78" y="446" fill="#a8b7ca" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="27" font-weight="500">farm debugging, and cross-DCC production workflows.</text>
-      <g font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="800">
-        <rect x="78" y="505" width="136" height="46" rx="23" fill="#132b38" stroke="#2b5261" />
-        <text x="112" y="536" fill="#b7e8f7">Python</text>
-        <rect x="230" y="505" width="104" height="46" rx="23" fill="#132b38" stroke="#2b5261" />
-        <text x="263" y="536" fill="#b7e8f7">USD</text>
-        <rect x="350" y="505" width="142" height="46" rx="23" fill="#132b38" stroke="#2b5261" />
-        <text x="382" y="536" fill="#b7e8f7">Pipeline</text>
+      <rect width="1200" height="630" fill="url(#sky)" />
+      <g fill="none" stroke-linecap="round" stroke-width="12" stroke-dasharray="18 20" opacity=".28">
+        <path d="M724 90Q963 -91 1170 92" stroke="#ff1981" />
+        <path d="M750 107Q963 -47 1145 107" stroke="#ffd500" />
+        <path d="M779 124Q963 -3 1117 124" stroke="#00aa77" />
+        <path d="M809 141Q963 41 1087 141" stroke="#4242fa" />
+        <path d="M839 158Q963 85 1058 158" stroke="#9a6bff" />
       </g>
-      <circle cx="930" cy="315" r="186" fill="#1e2a3a" />
-      <image href="data:image/png;base64,${profileData}" x="760" y="145" width="340" height="340" preserveAspectRatio="xMidYMid slice" clip-path="url(#profileClip)" />
-      <circle cx="930" cy="315" r="170" fill="none" stroke="#67c6e3" stroke-width="8" />
-      <circle cx="930" cy="315" r="188" fill="none" stroke="#26364a" stroke-width="2" />
-      <text x="760" y="548" fill="#92a2b7" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">ahmed-hindy.github.io</text>
+      <path d="M0 472C188 410 351 543 560 493C763 444 939 365 1200 453V630H0Z" fill="#0d0f12" />
+      <path d="M0 500C200 439 356 570 567 519C778 468 976 393 1200 479" fill="none" stroke="#182939" stroke-width="8" />
+      <g transform="rotate(-4 588 174)">
+        <rect x="519" y="113" width="146" height="92" rx="18" fill="#182939" opacity=".82" />
+        <rect x="541" y="136" width="53" height="10" rx="5" fill="#809fff" />
+        <rect x="541" y="159" width="93" height="8" rx="4" fill="#8fc7df" />
+        <rect x="541" y="179" width="70" height="8" rx="4" fill="#8fc7df" opacity=".65" />
+      </g>
+      <text x="76" y="122" fill="#a7baff" font-family="Trebuchet MS, Segoe UI, Arial, sans-serif" font-size="25" font-weight="800" letter-spacing="3">PIPELINE TD / VFX PIPELINE DEVELOPER</text>
+      <text x="76" y="227" fill="#f2f5f7" font-family="Trebuchet MS, Segoe UI, Arial, sans-serif" font-size="88" font-weight="900" letter-spacing="-4">Ahmed</text>
+      <text x="76" y="314" fill="#f2f5f7" font-family="Trebuchet MS, Segoe UI, Arial, sans-serif" font-size="88" font-weight="900" letter-spacing="-4">Hindy</text>
+      <text x="76" y="374" fill="#c6d1dc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="650">Artist-facing tools for Houdini, USD,</text>
+      <text x="76" y="416" fill="#c6d1dc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="650">Maya, rendering, and production workflows.</text>
+      <path d="M858 131C937 94 1042 121 1074 197C1106 272 1073 370 1012 421C955 469 859 452 820 384C783 319 789 163 858 131Z" fill="url(#portraitBackdrop)" />
+      <image href="data:image/png;base64,${profileData}" x="790" y="104" width="320" height="360" preserveAspectRatio="xMidYMid slice" clip-path="url(#profileClip)" />
+      <path d="M858 131C937 94 1042 121 1074 197C1106 272 1073 370 1012 421C955 469 859 452 820 384C783 319 789 163 858 131Z" fill="none" stroke="#fff" stroke-width="9" opacity=".9" />
+      <g font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">
+        <rect x="76" y="516" width="116" height="43" rx="21.5" fill="#18203b" stroke="#809fff" stroke-width="2" />
+        <text x="108" y="544" fill="#a7baff">Python</text>
+        <rect x="207" y="516" width="92" height="43" rx="21.5" fill="#35182b" stroke="#ff70b0" stroke-width="2" />
+        <text x="235" y="544" fill="#ff9bca">USD</text>
+        <rect x="314" y="516" width="140" height="43" rx="21.5" fill="#102d29" stroke="#00cc88" stroke-width="2" />
+        <text x="344" y="544" fill="#64e2b5">Pipeline</text>
+      </g>
+      <text x="858" y="565" fill="#b9c4d0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="21" font-weight="800">ahmed-hindy.github.io</text>
     </svg>
   `
 
