@@ -1,6 +1,6 @@
 ---
-title: "Building RV the Easy Way: Letting GitHub Actions Handle the Toolchain"
-description: "How I used OpenRV's existing CI to produce downloadable cross-platform builds without recreating its native toolchain locally."
+title: "Building RV the Easy Way: Abusing CI Minutes Instead of Downloading the World"
+description: "How I turned OpenRV's existing GitHub Actions workflows into a remote build machine for downloadable Windows, Linux, and macOS artifacts."
 date: "2026-07-13"
 tags:
   - OpenRV
@@ -10,29 +10,29 @@ tags:
 draft: true
 ---
 
-The build passed, but I could not find the thing I built.
+I wanted to build [OpenRV](https://github.com/AcademySoftwareFoundation/OpenRV), but I did not want to turn my workstation into an OpenRV build machine.
 
-That was one of the more confusing parts of working on my [OpenRV fork](https://github.com/Ahmed-Hindy/OpenRV).
+RV is not a small Python utility. It is a large C++ application built around CMake, Conan, Qt, Python, FFmpeg, native compilers, and a long list of media and image libraries.
 
-I did not start by trying to compile RV locally. My first question was simpler:
+Building it locally means downloading all of that, compiling a large dependency tree, keeping the toolchain compatible, and using a lot of disk space for files I may only need once.
 
-> How would I run the CI on GitHub for Windows? What will it build? Does it output an artifact?
+OpenRV already had another option: GitHub Actions.
 
-OpenRV is a large C++ VFX application. Its build includes CMake, Conan, Qt, Python, FFmpeg, native compilers, platform-specific dependencies, and VFX Reference Platform configurations.
+The upstream project maintains CI workflows for Windows, Linux, and macOS. Those workflows already know which compiler, Qt version, Python version, CMake version, VFX Platform configuration, and dependencies RV needs.
 
-I could try to reconstruct that toolchain on my Windows machine, but OpenRV's GitHub Actions already knew how to do it.
+Instead of recreating that environment locally, I forked the repository and used GitHub's runners as remote build machines.
 
-The missing part was keeping the result.
+## Let CI download the dependencies
 
-## Reusing the existing build system
+The important part was already there.
 
-OpenRV already had reusable CI workflows for Windows, Linux, and macOS. They handled the compiler setup, dependency builds, tests, and CMake install step.
+OpenRV's CI could configure the toolchain, build the dependencies, compile RV, run its tests, and install the result into an `_install` directory.
 
-I did not want to create another build script beside them. That would give me another version of the build process to maintain and eventually let drift away from upstream.
+That saved me from manually setting up and downloading the same dependency stack on Windows.
 
-Instead, I changed the top-level workflow in my fork into a manual entry point.
+It also gave me a clean environment for every build. There were no leftover environment variables, old libraries, or unrelated tools on my machine affecting the result.
 
-For now, it targets:
+For my fork, I reduced the build to the configuration I actually cared about:
 
 ```text
 VFX Platform: CY2025
@@ -40,141 +40,113 @@ Build type: Release
 FFmpeg: 8
 ```
 
-Debug builds and the older platform matrix are still supported by the reusable workflows, but I do not need to run all of them whenever I want a build.
+I disabled the larger debug and historical matrices at the manual entry point. They are useful for upstream validation, but unnecessary when I only want a current release build.
 
-This keeps the expensive part focused on the configuration I actually want to test.
+This still consumes CI time, but that was the trade: GitHub spends the compute and bandwidth instead of my workstation.
 
-## A successful CI job can still leave you with nothing
+## A green build is not a downloadable build
 
-The existing workflows compiled, tested, and installed RV.
+The first problem was that the workflows built RV successfully and then threw the result away.
 
-Then the runner disappeared.
+GitHub Actions runners are temporary. When a job ends, their filesystem disappears unless the workflow uploads something.
 
-GitHub Actions does not preserve the runner filesystem unless the workflow uploads something. A green build only proves that the commands completed. It does not automatically give me a downloadable application.
+The build output I wanted was not the raw `_build` directory. That contains intermediate files, generated projects, object files, and build-machine state.
 
-The useful output was the CMake install tree:
+CMake had already created a cleaner boundary:
 
 ```text
 cmake --build _build
 cmake --install _build --prefix _install
 ```
 
-I chose `_install` instead of uploading `_build`.
+I added artifact upload steps after `cmake --install` and preserved `_install` instead.
 
-The build directory contains intermediate files, generated projects, object files, and machine-specific state. The install directory is the runtime layout that CMake intentionally produced.
+Windows uploads the installed tree directly. Linux and macOS archive it as `.tar.gz` first, which better preserves executable permissions and symlinks.
 
-The Windows workflow now uploads that install tree as a GitHub Actions artifact.
+The final workflow produces builds for:
 
-## “I can't find the artifact”
+- Windows CY2025 Release;
+- Rocky Linux 8 and 9;
+- macOS Intel;
+- macOS Apple Silicon.
 
-The first manual Windows run succeeded and uploaded the files.
+These are CI artifacts, not proper installers. There is no MSI, DMG, signing, updater, or Start menu integration. They are simply the installed application trees that survived after the runners were deleted.
 
-I still could not find them.
+## CI caching makes the abuse more reasonable
 
-I was looking inside the individual job page, where GitHub shows the steps and logs. The artifacts were on the overall workflow run summary page.
+Rebuilding every dependency from scratch on every run would be wasteful.
 
-The files existed. I was simply looking at the wrong level of the Actions UI.
+OpenRV's workflows already support dependency caching. Once the expensive dependency build is cached, later runs can reuse it instead of downloading and compiling the complete stack again.
 
-I also found that running the workflow by name through the GitHub CLI did not work:
+I kept a manual `SKIP_DEPS_CACHE` input so I can choose between:
 
-```text
-could not find any workflows named OpenRV
-```
+- reusing the cached dependencies for a normal build;
+- ignoring the cache when I need to verify a clean dependency build.
 
-Dispatching it by workflow ID worked instead:
+For personal experimentation, the cached path is usually the useful one. I am interested in getting an RV build, not repeatedly proving that Qt and FFmpeg can compile.
 
-```powershell
-gh workflow run 301990144 \
-    --ref dev/windows-artifact-manual-ci \
-    -f SKIP_DEPS_CACHE=false
-```
+## Knowing which RV I built
 
-Small problems, but they are the kind that make a working CI setup feel broken.
+A folder containing `rv.exe` is useful, but media support depends heavily on how FFmpeg and the other dependencies were configured.
 
-## Recording what was actually built
-
-For a media application, a downloadable folder is not enough.
-
-I also wanted to know which codecs and dependencies were included. The Windows workflow now generates a JSON manifest from the build's own `CMakeCache.txt`.
+I added a Windows JSON manifest generated from the build's `CMakeCache.txt`.
 
 It records:
 
 - the source commit and workflow run;
 - compiler and runner information;
 - the VFX Platform configuration;
-- Qt, Python, and CMake versions;
-- the selected FFmpeg version;
-- disabled decoders, encoders, parsers, filters, and protocols;
+- Qt, Python, CMake, and FFmpeg versions;
+- disabled FFmpeg decoders, encoders, parsers, filters, and protocols;
 - optional SDK availability;
 - resolved dependency versions.
 
-The successful Windows build used FFmpeg 8, resolved as `n8.0`.
+The manifest describes the configuration CMake actually resolved, rather than a dependency list copied into documentation and forgotten.
 
-The manifest also showed that optional Apple ProRes and Blackmagic DeckLink SDK support was not enabled, along with the exact FFmpeg components excluded from that build.
+There is also a small manifest-only artifact, so I can inspect a build without downloading the complete Windows package.
 
-That is more useful than maintaining a separate list in the documentation. The manifest describes the configuration CMake actually resolved.
+For a media-review application, this is more useful than naming the ZIP `RV-final-final-2` and hoping I remember what is inside it.
 
-There is also a small manifest-only artifact, so I can inspect the build without downloading the full Windows package.
+## The jobs ran, but where were the files?
 
-## Linux and macOS built successfully, but produced nothing
+After Windows worked, I expected the Linux and macOS jobs to produce artifacts too.
 
-After the Windows artifact worked, I noticed something else:
+They did not.
 
-> Why is there no Linux or macOS artifacts even though the CI actions ran?
+The jobs had compiled, tested, and installed RV successfully, but only the Windows build action contained an upload step. A successful platform job and a downloadable platform build are separate things.
 
-The answer was straightforward. Their jobs built and installed OpenRV, but only the Windows action had an upload step.
+I added equivalent archive and upload steps to the Linux and macOS actions. The next manual run produced all of the expected artifacts.
 
-Running a platform job and preserving its output are separate decisions.
+I also briefly thought the Windows artifact was missing because I was looking inside the individual job log. GitHub shows artifacts on the overall workflow-run summary instead.
 
-I added upload steps to the Linux and macOS actions as well. Both archive their `_install` trees as `.tar.gz` files, which is a better fit for preserving executable permissions and symlinks than treating them as ordinary folders.
+CI had done exactly what I asked. The UI just made the result easy to overlook.
 
-The final manual run produced:
+## What this does not solve
 
-- Windows CY2025 Release;
-- Linux Rocky 8 CY2025 Release;
-- Linux Rocky 9 CY2025 Release;
-- macOS Intel CY2025 Release;
-- macOS Apple Silicon CY2025 Release;
-- a separate Windows codec and dependency manifest.
+A successful CI build is not the same as a finished release.
 
-The Windows and macOS jobs passed their test suites, as did both Linux builds.
+I still need to validate the downloaded artifacts outside GitHub's runners:
 
-## These are artifacts, not installers
+- launch RV from the extracted Windows tree;
+- check required DLLs and Qt plugins;
+- test images, sequences, and expected codecs;
+- verify Linux runtime dependencies;
+- deal with macOS signing and quarantine if I want to distribute it properly.
 
-I am deliberately not calling these releases or installers.
+The current workflow solves a narrower problem: it gives me repeatable, traceable OpenRV builds without downloading and maintaining the complete native toolchain locally.
 
-They are downloadable CMake install trees produced by CI.
+That was the part I wanted.
 
-I have not yet confirmed that the Windows artifact launches on a clean machine, that every required DLL and Qt plugin is included, or that expected media formats work at runtime.
+## The easy way
 
-The same applies to Linux and macOS outside their CI environments.
+I did not simplify OpenRV's build system.
 
-Compilation and tests are meaningful, but they are not the same as validating a user-facing package.
+I reused it somewhere else.
 
-A proper distribution would still need runtime testing and possibly platform-specific packaging, signing, and installation behavior.
+The upstream CI workflows are effectively executable build documentation. They already contain the platform knowledge that would be painful to reproduce manually.
 
-## Useful for my fork, not automatically right for upstream
+My fork turns that existing work into a manually triggered remote build service and keeps the installed result before the runner disappears.
 
-The workflow works well for what I wanted: a manually triggered way to produce current release artifacts.
+It may be a slight abuse of CI minutes, but it is much easier than downloading the world onto my workstation for one build.
 
-It is less obviously suitable as an upstream change.
-
-Changing the top-level workflow to manual-only also removes automatic push, pull-request, and scheduled validation. That trade-off makes sense for avoiding unnecessary builds on my fork, but it would be risky for the main OpenRV repository.
-
-A cleaner upstream proposal would probably preserve the existing validation workflow and add manual artifact generation separately.
-
-That was a useful reminder that a good personal workflow is not automatically a good project-wide policy.
-
-## What I learned
-
-The easiest way to build RV was not to simplify OpenRV's toolchain.
-
-It was to use the toolchain the project already maintains.
-
-The upstream workflows were the most accurate build documentation available. They already contained the platform knowledge I needed. My changes only made the successful install output survive after the runner finished, and added enough provenance to understand what was inside it.
-
-The fork does not substantially change RV itself.
-
-It gives me controlled, traceable builds that I can inspect and experiment with later.
-
-For a large native project, that is already useful.
+The fork is available on [GitHub](https://github.com/Ahmed-Hindy/OpenRV).
