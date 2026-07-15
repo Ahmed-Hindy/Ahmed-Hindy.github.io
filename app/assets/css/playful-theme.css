@@ -133,13 +133,14 @@ h4,
 
 .sidebar::before {
   position: absolute;
-  top: 18px;
+  top: 4px;
   left: 4px;
   z-index: 0;
   width: 312px;
-  height: 180px;
-  background: url('/theme/pipeline-spectrum.svg') center / contain no-repeat;
+  height: 220px;
+  background: url('/theme/pipeline-spectrum.svg') center top / contain no-repeat;
   content: '';
+  opacity: 0.3;
   pointer-events: none;
 }
 
@@ -513,6 +514,7 @@ h2 {
     height: 190px;
     background: url('/theme/pipeline-spectrum.svg') center / contain no-repeat;
     content: '';
+    opacity: 0.3;
     pointer-events: none;
   }
 
