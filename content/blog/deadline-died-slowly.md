@@ -30,7 +30,7 @@ That simplicity was also its strength. A pipeline TD could create a submitter, r
 
 AWS acquired Thinkbox in 2017. A few months later, [Deadline 10 launched](https://aws.amazon.com/about-aws/whats-new/2017/08/thinkbox-deadline-10/) with a strong hybrid-cloud pitch.
 
-The idea was simple but brilliant. You could keep your already-established local farm and use AWS when a show needed more capacity. Deadline 10 added AWS Portal, usage-based licensing, asset synchronization, EC2 Spot support, and a Remote Connection Server. AWS described it as the first step toward making cloud rendering simpler while still supporting on-premises farms.
+Deadline 10 let studios keep an established local farm and use AWS when a show needed more capacity. It added AWS Portal, usage-based licensing, asset synchronization, EC2 Spot support, and a Remote Connection Server. AWS described it as the first step toward making cloud rendering simpler while still supporting on-premises farms.
 
 [Deadline 10.1 arrived in October 2019](https://aws.amazon.com/blogs/media/aws-thinkbox-releases-deadline-10-1/) with scaling improvements and a move away from Mono to .NET Core. AWS called it a major step forward and said the change would allow more frequent updates. That release also improved AWS Portal and expanded DCC support.
 
@@ -38,11 +38,11 @@ For a while, Deadline still looked like a product moving somewhere.
 
 ## Then the pace changed
 
-The problem was not that Deadline stopped receiving releases. It did not.
+Deadline kept receiving releases, but their purpose changed.
 
 The release history is long, and the late versions contain useful work. DCC integrations were updated. Security problems were fixed. New operating systems were supported. Installers changed. Python moved forward. Bugs were patched.
 
-This was progress for integrating AWS into their newly bought toy. Problem was they were building on top of a legacy codebase that was held by duct tape and prayers from the Adeptus Mechanicus. Praise the Omnissiah 🙌
+This work tied Deadline more closely to AWS. The product still sat on a legacy codebase held together by duct tape and prayers from the Adeptus Mechanicus. Praise the Omnissiah 🙌
 
 Deadline 10.1 launched in 2019. [Deadline 10.2.1 was announced in March 2023](https://aws.amazon.com/about-aws/whats-new/2023/03/aws-thinkbox-deadline-10-2/), nearly four years later. Its headline addition was multi-region Spot Fleet management through the existing Spot Event Plugin.
 
@@ -50,7 +50,7 @@ Deadline 10.3 moved the bundled Python runtime to 3.10, removed old Python versi
 
 These were valuable releases. They also looked increasingly like the work required to keep an established system alive.
 
-The [current release history](https://docs.thinkboxsoftware.com/products/deadline/10.4/1_User%20Manual/manual/release-notes.html) makes the direction clearer. Recent updates are dominated by DCC compatibility, hotfixes, security updates, installer behavior, AWS Portal images, and a bridge from the old usage-based licensing system to Deadline Cloud licensing.
+The [current release history](https://docs.thinkboxsoftware.com/products/deadline/10.4/1_User%20Manual/manual/release-notes.html) shows a product in maintenance. Recent updates focus on DCC compatibility, hotfixes, security updates, installer behavior, AWS Portal images, and a bridge from the old usage-based licensing system to Deadline Cloud licensing.
 Still, the future was no longer being built inside Deadline 10.
 
 ## Making Deadline free did not make it young again
@@ -81,9 +81,9 @@ The [Deadline Cloud integration guide](https://docs.aws.amazon.com/deadline-clou
 
 AWS even calls out a specific migration trap: a Deadline 10 post-task callback should not be copied into an environment exit action because the scopes are different. It may need to become a dependent step instead.
 
-That is a small example of the larger change, a new operational model that everyone has to get accustomed to :(
+That is one example of the new operational model that TDs now need to learn :(
 
-For pipeline TDs, Repository maintenance becomes IAM policy and fleet configuration as a starter. Increased complexity with barely anything of value gained from the transition.
+For pipeline TDs, Repository maintenance becomes IAM policy and fleet configuration. The transition adds complexity with little obvious value.
 
 ## Deadline 10 finally entered maintenance mode
 
@@ -91,13 +91,13 @@ AWS made the situation official on November 7, 2025: [Deadline 10 entered mainte
 
 AWS says existing farms will continue to work. Deadline 10 remains downloadable. Current workflows, scripts, and AWS Portal remain supported. DCC integration updates will continue according to AWS's release priorities (hint: they have been on life support for a long time).
 
-There will be no natural next version carrying the old architecture forward. AWS chose to preserve Deadline 10 while moving its investment into a service that assumes AWS is the centre of the farm.
+Deadline 10 has no next version that carries its architecture forward. AWS chose to preserve it while investing in a service that assumes AWS is the centre of the farm.
 
 ## Long live Deadline Cloud?
 
-Deadline Cloud has real advantages.
+Deadline Cloud still has clear advantages.
 
-First and foremost, It is a FOSS (Free Open Source Software) that you can customize and develop for your linking. This already alleviates some of the issues I had faced in Deadline10, in that very easy to fix bugs that were fixed by the community never saw the light of day.
+It is FOSS (Free Open Source Software), so you can customize and develop it for your pipeline. That addresses one of my problems with Deadline 10: easy community fixes often never made it into the product.
 
 I fixed a Houdini Solaris issue, where usd caching jobs didn't had a progress bar. It was always stuck at 0%. I fixed it and submitted a very small snippet to the forums but the developers never picked it up. Other users solved similar issues with Hydra Redshift and Arnold. The code snippets were buried for 5+ years in the forums.
 
