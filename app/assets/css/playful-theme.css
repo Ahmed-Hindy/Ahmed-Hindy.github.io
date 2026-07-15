@@ -138,7 +138,7 @@ h4,
   z-index: 0;
   width: 312px;
   height: 220px;
-  background: url('/theme/pipeline-spectrum.svg') center top / 100% 100% no-repeat;
+  background: url('/theme/pipeline-spectrum-desktop.svg') center top / contain no-repeat;
   content: '';
   opacity: 0.3;
   pointer-events: none;
