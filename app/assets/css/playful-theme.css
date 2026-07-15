@@ -133,12 +133,12 @@ h4,
 
 .sidebar::before {
   position: absolute;
-  top: 4px;
-  left: 4px;
+  top: 20px;
+  left: 32px;
   z-index: 0;
   width: 312px;
   height: 220px;
-  background: url('/theme/pipeline-spectrum.svg') center top / contain no-repeat;
+  background: url('/theme/pipeline-spectrum-desktop.svg') center top / contain no-repeat;
   content: '';
   opacity: 0.3;
   pointer-events: none;
