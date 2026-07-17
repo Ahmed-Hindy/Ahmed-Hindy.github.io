@@ -7,7 +7,7 @@ tags:
   - GitHub Actions
   - C++
   - Pipeline
-draft: false
+status: published
 ---
 
 I wanted to try [OpenRV](https://github.com/AcademySoftwareFoundation/OpenRV), so I started by looking for a Windows download.

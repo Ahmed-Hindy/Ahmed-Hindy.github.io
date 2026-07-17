@@ -2,7 +2,7 @@
 import { formatArticleDate } from '~/utils/date'
 
 defineProps<{
-  article: { path: string; title: string; description: string; date: string; tags: string[]; draft: boolean }
+  article: { path: string; title: string; description: string; date: string; tags: string[]; status: 'published' | 'draft' }
 }>()
 </script>
 
@@ -10,7 +10,7 @@ defineProps<{
   <article class="article-card">
     <div class="article-card-meta">
       <div class="article-card-date">
-        <span v-if="article.draft" class="article-draft-label">Draft</span>
+        <span v-if="article.status === 'draft'" class="article-draft-label">Draft</span>
         <time :datetime="article.date" class="article-date">{{ formatArticleDate(article.date) }}</time>
       </div>
       <ul aria-label="Article topics">

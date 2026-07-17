@@ -6,7 +6,7 @@ tags:
   - Houdini
   - Python
   - Pipeline
-draft: false
+status: published
 ---
 
 This started as a note to myself after another Houdini setup script turned into a wall of repeated parameter calls:

@@ -7,7 +7,7 @@ tags:
   - SOPs
   - VDB
   - Modeling
-draft: true
+status: draft
 ---
 
 I first wrote this note after a set of chain links kept breaking apart in VDB From Polygons. The polygons were fine; the links were simply too thin for the voxel size I wanted to use.

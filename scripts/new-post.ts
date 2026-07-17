@@ -37,7 +37,7 @@ title: ${JSON.stringify(titleFromSlug(slug))}
 description: ""
 date: "${getCairoDate()}"
 tags: []
-draft: true
+status: draft
 ---
 
 Write the article here.

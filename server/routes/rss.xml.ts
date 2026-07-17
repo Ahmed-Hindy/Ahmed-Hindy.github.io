@@ -3,7 +3,7 @@ import { queryCollection } from '@nuxt/content/server'
 import { absoluteUrl, site } from '~~/app/data/site'
 
 export default defineEventHandler(async (event) => {
-  const articles = await queryCollection(event, 'blog').where('draft', '=', false).order('date', 'DESC').all()
+  const articles = await queryCollection(event, 'blog').where('status', '=', 'published').order('date', 'DESC').all()
   const feed = new Feed({
     title: 'Ahmed Hindy — Blog',
     description: 'Technical notes about Houdini, USD, pipeline tooling, and production workflows.',

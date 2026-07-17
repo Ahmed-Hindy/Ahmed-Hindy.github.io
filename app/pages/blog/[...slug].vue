@@ -67,7 +67,7 @@ useSeoMeta({
         :date="article!.date"
         :updated="article!.updated"
         :tags="article!.tags"
-        :draft="article!.draft"
+        :status="article!.status"
       />
     </BlogHero>
     <main id="main-content" class="blog-content blog-article-content">

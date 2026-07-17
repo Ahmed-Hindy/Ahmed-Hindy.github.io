@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { PageCollections } from '@nuxt/content'
 
-type BlogIndexArticle = Pick<PageCollections['blog'], 'path' | 'title' | 'description' | 'date' | 'tags' | 'draft'>
+type BlogIndexArticle = Pick<PageCollections['blog'], 'path' | 'title' | 'description' | 'date' | 'tags' | 'status'>
 
 const { data: articles } = await useAsyncData<BlogIndexArticle[]>(
-  'published-blog-index',
+  'blog-index',
   () => $fetch<BlogIndexArticle[]>('/api/blog'),
 )
 

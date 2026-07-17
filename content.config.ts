@@ -1,10 +1,10 @@
 import { defineCollection, defineCollectionSource, defineContentConfig, z } from '@nuxt/content'
 import { readFile, readdir } from 'node:fs/promises'
 import { join } from 'node:path'
-import { isDraftArticleSource, normalizeBlogRelativePath } from './shared/blog-content'
+import { getBlogArticleStatus, normalizeBlogRelativePath } from './shared/blog-content'
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a YYYY-MM-DD date.')
-const includeDrafts = process.env.NODE_ENV !== 'production'
+const isDevelopment = process.env.NODE_ENV === 'development'
 let blogRoot = ''
 
 const publishedBlogSource = defineCollectionSource({
@@ -14,10 +14,6 @@ const publishedBlogSource = defineCollectionSource({
   getKeys: async () => {
     const entries = await readdir(blogRoot, { recursive: true })
     const markdownFiles = entries.filter((entry) => entry.endsWith('.md')).sort()
-    if (includeDrafts) {
-      return markdownFiles.map((file) => `blog/${file}`)
-    }
-
     const publicationStates = await Promise.all(
       markdownFiles.map(async (file) => ({
         file,
@@ -25,7 +21,7 @@ const publishedBlogSource = defineCollectionSource({
       })),
     )
     return publicationStates
-      .filter(({ source }) => !isDraftArticleSource(source))
+      .filter(({ source }) => getBlogArticleStatus(source) === 'published')
       .map(({ file }) => `blog/${normalizeBlogRelativePath(file)}`)
   },
   getItem: (file) => readFile(join(blogRoot, file.replace(/^blog\//, '')), 'utf8'),
@@ -35,17 +31,20 @@ export default defineContentConfig({
   collections: {
     blog: defineCollection({
       type: 'page',
-      // Nuxt Content watches standard filesystem sources in development. The
-      // custom source remains necessary in production to exclude draft files
-      // from the generated content database.
-      source: includeDrafts ? 'blog/**/*.md' : publishedBlogSource,
+      // Standard filesystem sources retain Nuxt Content hot reload in development.
+      // The ignored holding area is never loaded; production additionally admits
+      // only published content into its generated database.
+      source: isDevelopment
+        ? { include: 'blog/**/*.md', exclude: ['blog/_ignored/**'] }
+        : publishedBlogSource,
       schema: z.object({
         title: z.string(),
         description: z.string(),
         date: isoDate,
         updated: isoDate.optional(),
         tags: z.array(z.string()),
-        draft: z.boolean(),
+        status: z.enum(['published', 'draft']),
+        draft: z.never().optional(),
         image: z.string().optional(),
         imageAlt: z.string().optional(),
         canonical: z.string().url().optional(),
