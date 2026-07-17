@@ -47,22 +47,13 @@ The roadmap was clear and the work was being done, so what's the problem?
 
 the releases slowed down to a crawl with no indication or official word on how it is going, then nearly 3.5 years later [Deadline 10.2.1 was announced in March 2023](https://aws.amazon.com/about-aws/whats-new/2023/03/aws-thinkbox-deadline-10-2/). Its headline addition was multi-region Spot Fleet management through the existing Spot Event Plugin.
 
-This felt like AWS integration update instead of addressing the maintenance work needed
+This felt like AWS integration update instead of addressing the maintenance work it needed. The product still sat on a legacy codebase held together by duct tape and prayers from the Adeptus Mechanicus. Praise the Omnissiah 🙌
 
- to compete against it's new contender: [ASWF's OpenCUE](https://docs.opencue.io/). The product still sat on a legacy codebase held together by duct tape and prayers from the Adeptus Mechanicus. Praise the Omnissiah 🙌
+On August 2, 2022, [AWS made Deadline and the other Thinkbox products free](https://awsthinkbox.zendesk.com/hc/en-us/articles/7865096598551-AWS-Thinkbox-products-are-now-available-free-of-charge). That was good for small studios, students, freelancers, and anyone who wanted a capable render manager without paying per node.
 
-Deadline 10.3 moved the bundled Python runtime to 3.10, removed old Python versions, added Unreal Engine 5 support, and caught up with current DCC releases. Deadline 10.4 followed in October 2024 with support for Maya 2025, 3ds Max 2025, Houdini 20.5, RHEL 9, a newer .NET SDK, MongoDB 6, installer changes, and security improvements.
+On August 2023, Deadline 10.3 released and moved the bundled Python runtime to 3.10, removed old Python versions, added Unreal Engine 5 support, and caught up with current DCC releases. Deadline 10.4 followed in October 2024 with support for Maya 2025, 3ds Max 2025, Houdini 20.5, RHEL 9, a newer .NET SDK, MongoDB 6, installer changes, and security improvements.
 
-These were valuable releases. They also looked increasingly like the work required to keep an established system alive.
-
-The [current release history](https://docs.thinkboxsoftware.com/products/deadline/10.4/1_User%20Manual/manual/release-notes.html) shows a product in maintenance. Recent updates focus on DCC compatibility, hotfixes, security updates, installer behavior, AWS Portal images, and a bridge from the old usage-based licensing system to Deadline Cloud licensing.
-Still, the future was no longer being built inside Deadline 10.
-
-## Making Deadline free did not make it young again
-
-On August 2, 2022, [AWS made Deadline and the other Thinkbox products free](https://awsthinkbox.zendesk.com/hc/en-us/articles/7865096598551-AWS-Thinkbox-products-are-now-available-free-of-charge).
-
-That was good for small studios, students, freelancers, and anyone who wanted a capable render manager without paying per node. It also made Deadline harder to compete with on price.
+The [current release history](https://docs.thinkboxsoftware.com/products/deadline/10.4/1_User%20Manual/manual/release-notes.html) shows a product in maintenance. Recent updates focus on DCC compatibility, hotfixes, security updates, installer behavior, AWS Portal images, and a bridge from the old usage-based licensing system to Deadline Cloud licensing. Still, the future was no longer being built inside Deadline 10.
 
 By that point, Deadline had become useful legacy infrastructure. Studios could continue building around it, but there was little sign that AWS intended to produce a Deadline 11 without a complete modern rewrite of that codebase. AWS was already doing that in parallel.
 
@@ -90,9 +81,9 @@ That is one example of the new operational model that TDs now need to learn :(
 
 For pipeline TDs, Repository maintenance becomes IAM policy and fleet configuration. The transition adds complexity with little obvious value.
 
-## Deadline 10 finally entered maintenance mode
+## Deadline 10 on life support
 
-AWS made the situation official on November 7, 2025: [Deadline 10's Obituary](https://docs.thinkboxsoftware.com/products/deadline/latest/1_User%20Manual/manual/maintenance-mode-faq.html).
+on November 7 2025, AWS made the situation official: [Deadline 10's Obituary](https://docs.thinkboxsoftware.com/products/deadline/latest/1_User%20Manual/manual/maintenance-mode-faq.html).
 
 AWS says existing farms will continue to work. Deadline 10 remains downloadable. Current workflows, scripts, and AWS Portal remain supported. DCC integration updates will continue according to AWS's release priorities (hint: they have been on life support for a long time).
 
@@ -108,4 +99,6 @@ I fixed a Houdini Solaris issue, where usd caching jobs didn't had a progress ba
 
 A studio can avoid maintaining the central Deadline infrastructure, scale from no workers to large fleets, and track render spending per project. For a new cloud-first pipeline, that may be much cleaner than building a traditional Deadline farm and attaching AWS capacity to it later.
 
-Deadline 10 could be deeply customized while remaining a piece of studio infrastructure.
+ This is good and all but not enough to compete against it's new contender: [ASWF's OpenCUE](https://docs.opencue.io/) which is also FOSS and can be hosted completely offline.
+
+ We will see how both apps evolve in the next 1-2 years, and my predications say that OpenCUE will be integrated into AWS's Deadline but with AWS services added.
