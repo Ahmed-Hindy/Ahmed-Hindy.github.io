@@ -3,7 +3,7 @@ import path from 'node:path'
 import { gunzipSync } from 'node:zlib'
 import {
   blogRouteFromRelativeFile,
-  isDraftArticleSource,
+  getBlogArticleStatus,
   normalizeBlogRelativePath,
 } from '../shared/blog-content.ts'
 
@@ -60,16 +60,17 @@ const outputFileForRoute = (route) => {
 }
 const absoluteRoute = (route) => new URL(route, `${siteUrl}/`).toString()
 
-const draftDetectionCases = [
-  { name: 'lowercase draft', source: '---\ndraft: true\n---\n', expected: true },
-  { name: 'title-case draft', source: '---\ndraft: True\n---\n', expected: true },
-  { name: 'uppercase draft', source: '---\ndraft: TRUE # unpublished\n---\n', expected: true },
-  { name: 'body-only draft text', source: '---\ndraft: false\n---\n\n```yaml\ndraft: true\n```\n', expected: false },
+const statusDetectionCases = [
+  { name: 'published status', source: '---\nstatus: published\n---\n', expected: 'published' },
+  { name: 'draft status', source: '---\nstatus: draft # local preview\n---\n', expected: 'draft' },
+  { name: 'ignored status', source: '---\nstatus: ignored\n---\n', expected: 'ignored' },
+  { name: 'body-only status text', source: '---\nstatus: published\n---\n\n```yaml\nstatus: draft\n```\n', expected: 'published' },
+  { name: 'legacy draft field', source: '---\ndraft: true\n---\n', expected: null },
 ]
 
-for (const { name, source, expected } of draftDetectionCases) {
-  if (isDraftArticleSource(source) !== expected) {
-    fail(`draft detection failed for ${name}`)
+for (const { name, source, expected } of statusDetectionCases) {
+  if (getBlogArticleStatus(source) !== expected) {
+    fail(`status detection failed for ${name}`)
   }
 }
 
@@ -88,11 +89,17 @@ const articles = await Promise.all(markdownFiles.map(async (relativePath) => {
     relativePath,
     route,
     outputFile: outputFileForRoute(route),
-    draft: isDraftArticleSource(source),
+    status: getBlogArticleStatus(source),
   }
 }))
-const publishedArticles = articles.filter(({ draft }) => !draft)
-const draftArticles = articles.filter(({ draft }) => draft)
+for (const { relativePath, status } of articles) {
+  if (!status) {
+    fail(`${relativePath} is missing a valid status`)
+  }
+}
+const publishedArticles = articles.filter(({ status }) => status === 'published')
+const draftArticles = articles.filter(({ status }) => status === 'draft')
+const ignoredArticles = articles.filter(({ status }) => status === 'ignored')
 
 for (const { outputFile } of publishedArticles) {
   await requireFile(outputFile)
@@ -227,13 +234,13 @@ for (const { relativePath, route, outputFile } of publishedArticles) {
     fail(`${route} was not prerendered`)
   }
 }
-for (const { relativePath, route, outputFile } of draftArticles) {
+for (const { relativePath, route, outputFile, status } of [...draftArticles, ...ignoredArticles]) {
   const expectedContentId = `blog/blog/${relativePath}`
   if (contentIds.has(expectedContentId)) {
     fail(`${relativePath} leaked into the generated content database`)
   }
   if (await fileExists(outputFile)) {
-    fail(`${relativePath} was prerendered despite being a draft`)
+    fail(`${relativePath} was prerendered despite being ${status}`)
   }
   const publicUrl = absoluteRoute(route)
   if (blogIndex.includes(`href="${route}"`) || sitemap.includes(publicUrl) || rss.includes(publicUrl)) {

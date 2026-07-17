@@ -7,44 +7,49 @@ tags:
   - AWS
   - Render Farm
   - Pipeline
-draft: true
+status: draft
 ---
 
 For years, Deadline was the sort of software you barely thought about until an artist's job failed.
 
-A Houdini job went to the farm, Workers picked up frames, and the Monitor filled with green tasks. When something broke, the usual suspects were familiar: a missing plugin, a mapped path, a bad environment variable, a machine that needed restarting, or a submitter written years ago and understood by nobody.
+A Houdini job went to the farm, Workers picked up frames, and the Deadline Monitor filled with grey tasks, suddenly 50 of them got picked up by workers and the UI turned green.
+When something broke, the usual suspects were familiar: a missing DCC installation, bad mixed path resolutions, a wrong env, or a stalled worker.
 
-Deadline was not elegant, but it was dependable enough to become part of the studio itself. Pipelines grew around its Repository, event plugins, application plugins, scripts, groups, pools, limits, and strange local rules. Replacing it was never just a software upgrade. It meant touching the machinery that finished shots.
+Deadline was not elegant, but it was dependable enough to become part of the studio itself. Pipelines grew around its Repo, event plugins, application plugins, scripts, groups, pools, limits. It was the machinery that touched shots. It was irreplaceable.
 
 ## Thinkbox built a render manager for real studios
 
-Traditional Deadline made sense because it worked with the mess studios already had.
+Traditional Deadline was three pieces bolted together. A Repository held plugins, scripts, and job data on a shared file system. A Database tracked jobs, settings, and worker state. Clients, Launcher, Monitor, Worker, and the optional Pulse service, ran on every machine that touched the farm and talked to both.
 
-The farm could contain Windows and Linux machines, different DCC versions, several renderers, shared storage, floating licenses, and nodes carrying years of production baggage. Deadline sat in the middle and scheduled work without demanding that the whole studio adopt a new infrastructure model first.
+None of that was exciting. It didn't need to be. Deadline was renderer-neutral and DCC-neutral by design, with plugins for well over eighty applications, a Python API you could actually build on, and event hooks that let every studio bend it to their own pipeline instead of the other way around. That combination, not any single feature, is what let a render manager become something teams stopped questioning. You didn't pick Deadline every project. You picked it once, then spent years writing automation on top of it.
 
-Its architecture was easy to understand. The Repository held the configuration and plugins. The database held the jobs. Workers ran on render nodes. Artists and TDs used the Monitor. Python scripts filled the gaps.
+That simplicity was also its strength. A pipeline TD could create a submitter, read the job reports to see why his plugin is failing, and keep bugfixing iteratively till the complains stop (spoiler alert: they never do). The failing job reports were an undocumented behavioural mess, but atleast it has a patternthat you will inadvertntly learn.
 
-That simplicity was also its strength. A pipeline TD could create a submitter, read the job reports to see why his plugin is failing,and keep bugfixing iteratively till no one complains again (for a couple of days only ofc). The failing job reports were an undocumented behavioural mess, but atleast it has a patternthat you will inadvertntly learn.
+## From Frantic Films to Thinkbox
 
-## AWS bought the path into the render farm
+Deadline's earliest version came out of a research and development unit that Frantic Films opened in 2001, and by 2002 it was already managing renders on *The Core*, a 2003 sci-fi film. Prime Focus Group acquired Frantic in 2007. In 2010, Chris Bond reacquired the Deadline product on its own and launched Thinkbox Software around it.
 
-AWS acquired Thinkbox in 2017. A few months later, [Deadline 10 launched](https://aws.amazon.com/about-aws/whats-new/2017/08/thinkbox-deadline-10/) with a strong hybrid-cloud pitch.
+Thinkbox spent the next several years building more than a queue manager. Krakatoa, Frost, Draft, XMesh, Sequoia, and Stoke shipped alongside Deadline, giving the company a real identity in VFX tooling rather than a single utility. Deadline 2.0 added power management in 2006. Deadline 3.0 brought Linux, macOS, and 64-bit support in 2008. Deadline 4.0 focused on reducing network load in 2010. By 2011 it integrated with Shotgun, tying render management to production tracking. This was a small company shipping features that mattered to the studios using it, at a pace you could feel from one year to the next.
 
-Deadline 10 let studios keep an established local farm and use AWS when a show needed more capacity. It added AWS Portal, usage-based licensing, asset synchronization, EC2 Spot support, and a Remote Connection Server. AWS described it as the first step toward making cloud rendering simpler while still supporting on-premises farms.
+## AWS buying the farm
+
+AWS acquired Thinkbox in 2017. Deadline 9.0 shipped the same month, adding a Pipeline Tools interface and native syncing to S3. Deadline 10.0 followed later that year [Deadline 10 launched](https://aws.amazon.com/about-aws/whats-new/2017/08/thinkbox-deadline-10/) with AWS Portal and dynamic license switching between floating and usage-based licenses.
+
+The logic is easy to see in hindsight: rendering is bursty and compute-hungry, which maps directly onto what EC2 sells, and Deadline already sat inside studio pipelines in a way AWS had no other way to reach.
+
+Deadline 10 let studios keep an established local farm and use AWS when a show needed more capacity. It added AWS Portal, usage-based licensing, EC2 Spot support, and a Remote Connection Server. AWS described it as the first step toward making cloud rendering simpler while still supporting on-premises farms.
 
 [Deadline 10.1 arrived in October 2019](https://aws.amazon.com/blogs/media/aws-thinkbox-releases-deadline-10-1/) with scaling improvements and a move away from Mono to .NET Core. AWS called it a major step forward and said the change would allow more frequent updates. That release also improved AWS Portal and expanded DCC support.
 
-For a while, Deadline still looked like a product moving somewhere.
+The roadmap was clear and the work was being done, so what's the problem?
 
 ## Then the pace changed
 
-Deadline kept receiving releases, but their purpose changed.
+the releases slowed down to a crawl with no indication or official word on how it is going, then nearly 3.5 years later [Deadline 10.2.1 was announced in March 2023](https://aws.amazon.com/about-aws/whats-new/2023/03/aws-thinkbox-deadline-10-2/). Its headline addition was multi-region Spot Fleet management through the existing Spot Event Plugin.
 
-The release history is long, and the late versions contain useful work. DCC integrations were updated. Security problems were fixed. New operating systems were supported. Installers changed. Python moved forward. Bugs were patched.
+This felt like AWS integration update instead of addressing the maintenance work needed
 
-This work tied Deadline more closely to AWS. The product still sat on a legacy codebase held together by duct tape and prayers from the Adeptus Mechanicus. Praise the Omnissiah 🙌
-
-Deadline 10.1 launched in 2019. [Deadline 10.2.1 was announced in March 2023](https://aws.amazon.com/about-aws/whats-new/2023/03/aws-thinkbox-deadline-10-2/), nearly four years later. Its headline addition was multi-region Spot Fleet management through the existing Spot Event Plugin.
+ to compete against it's new contender: [ASWF's OpenCUE](https://docs.opencue.io/). The product still sat on a legacy codebase held together by duct tape and prayers from the Adeptus Mechanicus. Praise the Omnissiah 🙌
 
 Deadline 10.3 moved the bundled Python runtime to 3.10, removed old Python versions, added Unreal Engine 5 support, and caught up with current DCC releases. Deadline 10.4 followed in October 2024 with support for Maya 2025, 3ds Max 2025, Houdini 20.5, RHEL 9, a newer .NET SDK, MongoDB 6, installer changes, and security improvements.
 
@@ -87,7 +92,7 @@ For pipeline TDs, Repository maintenance becomes IAM policy and fleet configurat
 
 ## Deadline 10 finally entered maintenance mode
 
-AWS made the situation official on November 7, 2025: [Deadline 10 entered maintenance mode](https://docs.thinkboxsoftware.com/products/deadline/latest/1_User%20Manual/manual/maintenance-mode-faq.html).
+AWS made the situation official on November 7, 2025: [Deadline 10's Obituary](https://docs.thinkboxsoftware.com/products/deadline/latest/1_User%20Manual/manual/maintenance-mode-faq.html).
 
 AWS says existing farms will continue to work. Deadline 10 remains downloadable. Current workflows, scripts, and AWS Portal remain supported. DCC integration updates will continue according to AWS's release priorities (hint: they have been on life support for a long time).
 

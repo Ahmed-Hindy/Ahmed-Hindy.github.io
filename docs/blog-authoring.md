@@ -8,7 +8,7 @@ Create a draft from a lowercase kebab-case slug:
 bun run new:post usd-publishing-workflows
 ```
 
-The command creates `content/blog/usd-publishing-workflows.md`, rejects duplicate or invalid slugs, uses the current Cairo date, and keeps the article unpublished with `draft: true`.
+The command creates `content/blog/usd-publishing-workflows.md`, rejects duplicate or invalid slugs, uses the current Cairo date, and creates a dev-only draft with `status: draft`.
 
 ## Frontmatter
 
@@ -21,17 +21,23 @@ updated: "2026-07-11"
 tags:
   - Houdini
   - USD
-draft: true
+status: draft
 ---
 
 Article content goes here.
 ```
 
-Required fields are `title`, `description`, `date`, `tags`, and `draft`. Dates use `YYYY-MM-DD`.
+Required loaded-article fields are `title`, `description`, `date`, `tags`, and `status`. Dates use `YYYY-MM-DD`.
 
-Drafts are excluded from the blog index, sitemap, RSS feed, and production output. Set `draft: false` only when the article is ready to publish.
+Use one of these publication states:
 
-Changing a published filename changes its URL, so keep published slugs stable. Draft filtering reads only the leading frontmatter block, so examples in the article body may safely contain text such as `draft: true`.
+- `status: published` renders locally and in production, including the sitemap and RSS feed.
+- `status: draft` renders only through `bun run dev`, with a Draft badge; it is excluded from production output, sitemap, and RSS.
+- `status: ignored` is for incomplete or abandoned work. Place ignored files in `content/blog/_ignored/`; they are never loaded or rendered.
+
+Set a draft to `status: published` only when it is ready to publish. The legacy `draft: true/false` field is rejected.
+
+Changing a published filename changes its URL, so keep published slugs stable. Publication status is read only from the leading frontmatter block, so examples in the article body may safely contain text such as `status: draft`.
 
 ## Article images
 

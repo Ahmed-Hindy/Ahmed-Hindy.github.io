@@ -1477,6 +1477,14 @@ html[data-theme='light'] .blog-shell {
     min-height: 0;
   }
 
+  .blog-index-content .article-card-link {
+    height: auto;
+  }
+
+  .blog-index-content .article-card-action {
+    margin-top: 18px;
+  }
+
   .blog-article-hero {
     min-height: 360px;
   }

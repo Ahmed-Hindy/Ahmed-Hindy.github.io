@@ -7,7 +7,7 @@ tags:
   - Tauri
   - Pipeline
   - Kitsu
-draft: false
+status: published
 ---
 
 Most of my development work happens inside python pipelines.
