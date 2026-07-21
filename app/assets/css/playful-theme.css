@@ -551,6 +551,102 @@ h2 {
   }
 }
 
+@media (max-width: 1020px) and (prefers-reduced-motion: no-preference) {
+  .mobile-intro > * {
+    animation: mobile-intro-enter 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .mobile-intro .mobile-photo {
+    animation-name: mobile-photo-enter;
+  }
+
+  .mobile-intro .role {
+    animation-delay: 60ms;
+  }
+
+  .mobile-intro .mobile-name {
+    animation-delay: 110ms;
+  }
+
+  .mobile-intro .focus-chips {
+    animation-delay: 160ms;
+  }
+
+  .mobile-intro .mobile-blog-link {
+    animation-delay: 210ms;
+  }
+
+  .mobile-intro .mobile-links {
+    animation-delay: 260ms;
+  }
+
+  .mobile-intro .theme-toggle {
+    animation-delay: 310ms;
+  }
+}
+
+@media (min-width: 1021px) and (prefers-reduced-motion: no-preference) {
+  .sidebar > * {
+    animation: mobile-intro-enter 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .sidebar > :first-child {
+    animation: none;
+  }
+
+  .sidebar .sidebar-photo {
+    animation: mobile-photo-enter 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .sidebar .role {
+    animation-delay: 60ms;
+  }
+
+  .sidebar h1 {
+    animation-delay: 110ms;
+  }
+
+  .sidebar .focus-chips {
+    animation-delay: 160ms;
+  }
+
+  .sidebar .sidebar-links {
+    animation-delay: 210ms;
+  }
+
+  .sidebar .sidebar-nav {
+    animation-delay: 260ms;
+  }
+
+  .sidebar .theme-toggle {
+    animation-delay: 310ms;
+  }
+}
+
+@keyframes mobile-intro-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-photo-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) rotate(-4deg) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+}
+
 .blog-shell {
   --muted: #66717c;
 }
