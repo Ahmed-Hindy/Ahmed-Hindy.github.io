@@ -1723,4 +1723,12 @@ html[data-theme='light'] .blog-shell {
   .blog-page-layout {
     grid-template-columns: 1fr;
   }
+
+  .blog-index-hero {
+    padding-bottom: 24px;
+  }
+
+  .blog-index-hero .blog-hero-cloud-seam {
+    bottom: -25px;
+  }
 }
