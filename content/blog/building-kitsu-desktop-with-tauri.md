@@ -17,6 +17,16 @@ I had been curious about Tauri, so I decided to test it on a real problem instea
 
 Kitsu already works well in a browser. I was not trying to rewrite it. I wanted to find out what a native shell could add around it: a dedicated window, system tray integration, system autostart, connection checks, and notifications.
 
+## Screenshots
+
+| Kitsu workspace | Connection settings |
+| --- | --- |
+| ![Kitsu workspace open in Kitsu Desktop](/blog/kitsu-task-view.png) | ![Kitsu Desktop connection settings](/blog/kitsu-settings-connection-status.png) |
+
+| System tray menu |
+| --- |
+| ![Kitsu Desktop system tray menu](/blog/kitsu-desktop-windows-thumbnail.png) |
+
 ## Starting with the wrong question
 
 My first question was simple:
@@ -61,15 +71,7 @@ The biggest improvements were not visual.
 
 The app stays available in the Windows system tray, can start quietly with Windows, and enforces single-instance behavior. Launching it twice focuses the existing application instead of creating duplicate windows.
 
-![Kitsu Desktop running independently in Windows](/blog/kitsu-desktop-windows-thumbnail.png)
-
-*Kitsu Desktop running as its own Windows application, separate from the Kitsu browser view.*
-
 Kitsu opens in a separate work window, while profiles, diagnostics, and native settings stay in a smaller settings window.
-
-![Kitsu Desktop showing an asset task view in its dedicated work window](/blog/kitsu-task-view.png)
-
-*Kitsu Desktop keeps the production view in a dedicated work window while native settings and diagnostics stay separate.*
 
 ## Moving connection checks into Rust
 
@@ -85,10 +87,6 @@ The root endpoint confirms that the site responds. The API check also verifies t
 Running these checks through Rust gives the app control over timeouts and error reporting.
 
 Instead of showing a generic network failure, it can provide more useful messages for connection refusal, DNS problems, certificate failures, timeouts, incorrect ports, or missing VPN access.
-
-![Kitsu Desktop settings showing a selected profile and connected status](/blog/kitsu-settings-connection-status.png)
-
-*The settings window keeps profile selection and connection status visible, with a save-and-check action before opening Kitsu.*
 
 It also produces copyable diagnostics with the application version, platform, configured URL, site status, and API status. That is much more useful when an artist sends a problem to pipeline support.
 
