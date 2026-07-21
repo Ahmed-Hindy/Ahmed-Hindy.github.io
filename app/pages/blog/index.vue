@@ -16,27 +16,30 @@ useSiteSeo({
 </script>
 
 <template>
-  <div class="blog-shell">
-    <BlogMobileSiteHeader />
-    <BlogHero class="blog-index-hero">
-      <header class="blog-index-header">
-        <p class="section-kicker">Blog</p>
-        <h1>Technical notes from production.</h1>
-        <p>Practical Houdini, USD, pipeline, and production-tooling notes grounded in real artist and studio problems.</p>
-      </header>
-    </BlogHero>
-    <main id="main-content" class="blog-content blog-index-content">
-      <section v-if="articles?.length" class="article-list" aria-label="Articles">
-        <BlogArticleCard v-for="article in articles" :key="article.path" :article="article" />
-      </section>
-      <BlogEmptyState v-else />
-      <aside class="blog-portfolio-callout" aria-labelledby="portfolio-callout-title">
-        <p class="section-kicker">Portfolio</p>
-        <h2 id="portfolio-callout-title">See the tools behind the notes.</h2>
-        <p>Explore my pipeline tools, DCC integrations, and production workflows.</p>
-        <NuxtLink to="/">View the Portfolio <span aria-hidden="true">→</span></NuxtLink>
-      </aside>
-    </main>
-    <BlogSiteFooter />
+  <div class="blog-page-layout">
+    <BlogDesktopSidebar />
+    <div class="blog-shell">
+      <BlogMobileSiteHeader />
+      <BlogHero class="blog-index-hero">
+        <header class="blog-index-header">
+          <p class="section-kicker">Blog</p>
+          <h1>Technical notes from production.</h1>
+          <p>Practical Houdini, USD, pipeline, and production-tooling notes grounded in real artist and studio problems.</p>
+        </header>
+      </BlogHero>
+      <main id="main-content" class="blog-content blog-index-content">
+        <section v-if="articles?.length" class="article-list" aria-label="Articles">
+          <BlogArticleCard v-for="article in articles" :key="article.path" :article="article" />
+        </section>
+        <BlogEmptyState v-else />
+        <aside class="blog-portfolio-callout" aria-labelledby="portfolio-callout-title">
+          <p class="section-kicker">Portfolio</p>
+          <h2 id="portfolio-callout-title">See the tools behind the notes.</h2>
+          <p>Explore my pipeline tools, DCC integrations, and production workflows.</p>
+          <NuxtLink to="/">View the Portfolio <span aria-hidden="true">→</span></NuxtLink>
+        </aside>
+      </main>
+      <BlogSiteFooter />
+    </div>
   </div>
 </template>
