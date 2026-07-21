@@ -142,6 +142,10 @@ li {
   min-height: 100vh;
 }
 
+.portfolio-main {
+  min-width: 0;
+}
+
 .sidebar {
   position: sticky;
   top: 0;
@@ -1084,6 +1088,11 @@ h4 {
 
   .sidebar {
     display: none;
+  }
+
+  .portfolio-main {
+    width: min(100%, 760px);
+    margin: 0 auto;
   }
 
   .content {

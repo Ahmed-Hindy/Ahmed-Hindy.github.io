@@ -58,28 +58,31 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="blog-shell">
-    <BlogMobileSiteHeader />
-    <BlogHero class="blog-article-hero">
-      <BlogArticleHeader
-        :title="article!.title"
-        :description="article!.description"
-        :date="article!.date"
-        :updated="article!.updated"
-        :tags="article!.tags"
-        :status="article!.status"
-      />
-    </BlogHero>
-    <main id="main-content" class="blog-content blog-article-content">
-      <article class="prose">
-        <BlogTableOfContents :links="article!.body.toc?.links ?? []" />
-        <ContentRenderer :value="article!" />
-      </article>
-      <BlogArticleNavigation :newer="newerArticle" :older="olderArticle" />
-      <p class="article-all-posts-link">
-        <NuxtLink to="/blog/">View all blog posts →</NuxtLink>
-      </p>
-    </main>
-    <BlogSiteFooter />
+  <div class="blog-page-layout">
+    <BlogDesktopSidebar />
+    <div class="blog-shell">
+      <BlogMobileSiteHeader />
+      <BlogHero class="blog-article-hero">
+        <BlogArticleHeader
+          :title="article!.title"
+          :description="article!.description"
+          :date="article!.date"
+          :updated="article!.updated"
+          :tags="article!.tags"
+          :status="article!.status"
+        />
+      </BlogHero>
+      <main id="main-content" class="blog-content blog-article-content">
+        <article class="prose">
+          <BlogTableOfContents :links="article!.body.toc?.links ?? []" />
+          <ContentRenderer :value="article!" />
+        </article>
+        <BlogArticleNavigation :newer="newerArticle" :older="olderArticle" />
+        <p class="article-all-posts-link">
+          <NuxtLink to="/blog/">View all blog posts →</NuxtLink>
+        </p>
+      </main>
+      <BlogSiteFooter />
+    </div>
   </div>
 </template>

@@ -8,6 +8,7 @@ import ProjectGrid from './components/ProjectGrid.vue'
 import SkillCloud from './components/SkillCloud.vue'
 import SummaryGrid from './components/SummaryGrid.vue'
 import { useTheme } from './composables/useTheme'
+import BlogSiteFooter from '../app/components/blog/SiteFooter.vue'
 import {
   experience,
   focusChips,
@@ -34,14 +35,15 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
       @toggle-theme="toggleTheme"
     />
 
-    <main class="content">
-      <MobileIntro
-        :focus-chips="focusChips"
-        :is-dark-theme="isDarkTheme"
-        :profile-links="profileLinks"
-        :theme-toggle-label="themeToggleLabel"
-        @toggle-theme="toggleTheme"
-      />
+    <div class="portfolio-main">
+      <main class="content">
+        <MobileIntro
+          :focus-chips="focusChips"
+          :is-dark-theme="isDarkTheme"
+          :profile-links="profileLinks"
+          :theme-toggle-label="themeToggleLabel"
+          @toggle-theme="toggleTheme"
+        />
 
       <section class="section" id="overview">
         <p class="section-kicker">Overview</p>
@@ -107,15 +109,17 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
 
       <ContactSection :profile-links="profileLinks" />
 
-      <aside class="blog-callout blog-callout-bottom" aria-label="Blog">
-        <div>
-          <p class="section-kicker">Notes from the pipeline</p>
-          <p>Practical write-ups on my Pipeline journey...</p>
-        </div>
-        <NuxtLink class="blog-callout-link" to="/blog/">
-          Browse the Blog <span aria-hidden="true">→</span>
-        </NuxtLink>
-      </aside>
-    </main>
+        <aside class="blog-callout blog-callout-bottom" aria-label="Blog">
+          <div>
+            <p class="section-kicker">Notes from the pipeline</p>
+            <p>Practical write-ups on my Pipeline journey...</p>
+          </div>
+          <NuxtLink class="blog-callout-link" to="/blog/">
+            Browse the Blog <span aria-hidden="true">→</span>
+          </NuxtLink>
+        </aside>
+      </main>
+      <BlogSiteFooter />
+    </div>
   </div>
 </template>
