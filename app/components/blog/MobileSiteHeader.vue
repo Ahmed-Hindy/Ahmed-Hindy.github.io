@@ -5,42 +5,36 @@ import { site } from '~/data/site'
 
 const route = useRoute()
 const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
-const isBlogSection = computed(() => route.path.startsWith('/blog'))
-const blogAriaCurrent = computed(() => {
-  if (!isBlogSection.value) {
-    return undefined
-  }
-
-  return route.path.replace(/\/$/, '') === '/blog' ? 'page' : 'location'
-})
+const isBlogIndex = computed(() => route.path.replace(/\/$/, '') === '/blog')
 </script>
 
 <template>
   <header class="blog-site-header">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <div class="blog-site-header-inner">
-      <div class="blog-brand">
-        <NuxtLink to="/" class="blog-site-name">{{ site.authorName }}</NuxtLink>
-        <p>{{ site.authorRole }}</p>
+    <nav class="blog-site-header-inner" aria-label="Primary navigation">
+      <NuxtLink to="/" class="blog-brand" aria-label="Ahmed Hindy portfolio">
+        <span class="blog-brand-mark" aria-hidden="true">AH</span>
+        <span>
+          <strong>{{ site.authorName }}</strong>
+          <small>{{ site.authorRole }}</small>
+        </span>
+      </NuxtLink>
+
+      <div class="blog-header-links">
+        <NuxtLink to="/blog/" :aria-current="isBlogIndex ? 'page' : undefined">
+          All posts
+        </NuxtLink>
+        <BlogRssLink />
       </div>
+
       <div class="blog-header-actions">
-        <nav aria-label="Primary navigation">
-          <NuxtLink to="/">Portfolio</NuxtLink>
-          <NuxtLink
-            to="/blog/"
-            :class="{ 'is-section-active': isBlogSection }"
-            :aria-current="blogAriaCurrent"
-          >
-            Blog
-          </NuxtLink>
-          <BlogRssLink />
-        </nav>
         <ThemeToggle
           :is-dark-theme="isDarkTheme"
           :label="themeToggleLabel"
           @toggle-theme="toggleTheme"
         />
+        <NuxtLink class="blog-nav-cta" to="/">Portfolio</NuxtLink>
       </div>
-    </div>
+    </nav>
   </header>
 </template>

@@ -89,6 +89,10 @@ export const summary: SummaryItem[] = [
     label: 'Departments supported',
     value: 'FX, Character, Groom, Lighting and Compositing.',
   },
+  {
+    label: 'Production perspective',
+    value: 'Experience working as both a Houdini FX artist and Pipeline TD.',
+  },
 ]
 
 export const experience: ExperienceItem[] = [

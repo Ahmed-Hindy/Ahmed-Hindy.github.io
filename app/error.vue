@@ -4,9 +4,8 @@ useHead({ title: 'Page not found', meta: [{ name: 'robots', content: 'noindex' }
 
 <template>
   <div class="blog-page-layout">
-    <BlogDesktopSidebar />
+    <BlogMobileSiteHeader />
     <div class="blog-shell">
-      <BlogMobileSiteHeader />
       <BlogHero>
         <header class="error-page">
           <p class="section-kicker">404</p>
