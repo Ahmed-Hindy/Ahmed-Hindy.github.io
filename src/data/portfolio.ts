@@ -97,12 +97,12 @@ export const summary: SummaryItem[] = [
   },
   {
     label: 'Departments supported',
-    value: 'FX, Lighting, Character, Groom, and related teams.',
+    value: 'FX, Character, Groom, Lighting and Compositing.',
   },
   {
     label: 'Current direction',
     value:
-      'A generalist Pipeline TD, with most experience being with Houdini, USD, Unreal and Substance',
+      'A generalist Pipeline TD, with most experience being with USD, AYON, and Kitsu',
   },
 ]
 

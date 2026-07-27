@@ -15,6 +15,8 @@ For years, Deadline was the sort of software you barely thought about until an a
 A Houdini job went to the farm, Workers picked up frames, and the Deadline Monitor filled with grey tasks, suddenly 50 of them got picked up by workers and the UI turned green.
 When something broke, the usual suspects were familiar: a missing DCC installation, bad mixed path resolutions, a wrong env, or a stalled worker.
 
+![Deadline Monitor showing Houdini render jobs and completed tasks](/blog/deadline-monitor.png)
+
 Deadline was not elegant, but it was dependable enough to become part of the studio itself. Pipelines grew around its Repo, event plugins, application plugins, scripts, groups, pools, limits. It was the machinery that touched shots. It was irreplaceable.
 
 ## Thinkbox built a render manager for real studios
