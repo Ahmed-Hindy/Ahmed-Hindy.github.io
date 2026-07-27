@@ -80,7 +80,7 @@ const toolbenchGroups = [
   },
 ]
 
-const { data: articles } = await useAsyncData<BlogPreview[]>(
+const { data: articles, error: articlesError } = await useAsyncData<BlogPreview[]>(
   'portfolio-latest-articles',
   async () => (await $fetch<BlogPreview[]>('/api/blog')).slice(0, 3),
 )
@@ -264,7 +264,7 @@ useHead({
                 controls
                 muted
                 playsinline
-                preload="metadata"
+                preload="none"
               >
                 <source :src="project.media.video.src" type="video/mp4" />
               </video>
@@ -281,6 +281,7 @@ useHead({
                   :width="project.media.image.width"
                   :height="project.media.image.height"
                   loading="lazy"
+                  decoding="async"
                 />
               </picture>
               <span class="fusion-project-index" aria-hidden="true">
@@ -317,7 +318,7 @@ useHead({
           </div>
         </header>
 
-        <ol class="fusion-timeline">
+        <ol class="fusion-timeline" role="list">
           <li v-for="(item, index) in experience" :key="item.title">
             <div class="fusion-timeline-marker" aria-hidden="true">
               <span>{{ String(index + 1).padStart(2, '0') }}</span>
@@ -345,6 +346,23 @@ useHead({
             <h3>{{ section.title }}</h3>
             <div class="fusion-directory-list">
               <article v-for="project in section.projects" :key="project.title">
+                <picture v-if="project.media?.image" hidden aria-hidden="true">
+                  <source
+                    v-for="source in project.media.image.webp.slice().reverse()"
+                    :key="source.src"
+                    :srcset="source.src"
+                    type="image/webp"
+                    :media="`(min-width: ${source.width}px)`"
+                  >
+                  <img
+                    :src="project.media.image.src"
+                    alt=""
+                    :width="project.media.image.width"
+                    :height="project.media.image.height"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                </picture>
                 <div>
                   <h4>{{ project.title }}</h4>
                   <p>{{ project.summary }}</p>
@@ -392,6 +410,13 @@ useHead({
             </div>
           </NuxtLink>
         </div>
+        <p v-else class="fusion-articles-empty">
+          {{
+            articlesError
+              ? 'Articles are unavailable right now. Visit the blog directly for the latest notes.'
+              : 'No articles are published yet.'
+          }}
+        </p>
       </section>
 
       <section id="contact" class="fusion-contact" aria-labelledby="contact-title">

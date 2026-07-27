@@ -901,6 +901,7 @@ body.fusion-body {
 
 .fusion-experience {
   position: relative;
+  isolation: isolate;
 }
 
 .fusion-experience::before {
@@ -1062,6 +1063,13 @@ body.fusion-body {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid var(--fusion-line-strong);
   border-left: 1px solid var(--fusion-line-strong);
+}
+
+.fusion-articles-empty {
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid var(--fusion-line-strong);
+  color: var(--fusion-body);
+  background: color-mix(in srgb, var(--fusion-surface-raised) 45%, transparent);
 }
 
 .fusion-article-card {
