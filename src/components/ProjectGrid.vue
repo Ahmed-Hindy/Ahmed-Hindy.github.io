@@ -43,6 +43,7 @@ defineProps<{
             </video>
             <picture v-else-if="project.media.image">
               <source
+                v-if="project.media.image.webp.length"
                 type="image/webp"
                 :srcset="project.media.image.webp.map(({ src, width }) => `${src} ${width}w`).join(', ')"
                 sizes="(min-width: 1021px) 456px, calc(100vw - 44px)"
