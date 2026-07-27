@@ -237,6 +237,29 @@ export const projectSections: ProjectSection[] = [
     title: 'Pipeline / USD utilities',
     projects: [
       {
+        title: 'USD Optimize App',
+        summary:
+          'Standalone CLI and GUI for inspecting and optimizing OpenUSD stages.',
+        tags: ['OpenUSD', 'Optimization', 'NVIDIA', 'PySide6', 'CLI'],
+        href: 'https://github.com/Ahmed-Hindy/usd-optimize-app',
+      },
+      {
+        title: 'Universal Scene Converter',
+        summary:
+          'Standalone CLI for converting between OpenUSD, FBX, OBJ, STL, and glTF files.',
+        tags: ['OpenUSD', 'FBX', 'OBJ', 'STL', 'glTF', 'CLI'],
+        href: 'https://github.com/Ahmed-Hindy/universal-scene-converter',
+        media: {
+          image: {
+            src: 'https://raw.githubusercontent.com/Ahmed-Hindy/universal-scene-converter/9a4244b81ee29fc217ff0ab6fe0bcba899a353c0/docs/images/universal-scene-converter-format-cycle.png',
+            alt: 'Universal Scene Converter format cycle between OpenUSD, FBX, OBJ, STL, and glTF',
+            width: 360,
+            height: 360,
+            webp: [],
+          },
+        },
+      },
+      {
         title: 'Materials Processor',
         summary:
           'Material ingestion and conversion tool for standardizing networks across USD and MaterialX.',
@@ -269,17 +292,17 @@ export const projectSections: ProjectSection[] = [
         tags: ['Docker', 'Kitsu', 'Postgres', 'Traefik', 'Pipeline'],
         href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
       },
+    ],
+  },
+  {
+    title: 'Side quests',
+    projects: [
       {
         title: 'Homelab / Local LLMs',
         summary:
           'Docker-based homelab for self-hosted tools and local LLM workflows.',
         tags: ['Docker', 'Homelab', 'Local LLMs', 'Self-hosting'],
       },
-    ],
-  },
-  {
-    title: 'Side quests',
-    projects: [
       {
         title: 'Hitman ItemSpawner',
         summary:
