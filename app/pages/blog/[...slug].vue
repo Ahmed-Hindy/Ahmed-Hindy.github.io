@@ -54,6 +54,7 @@ useHead({
 useSeoMeta({
   articlePublishedTime: article.value.date,
   articleModifiedTime: article.value.updated ?? article.value.date,
+  robots: article.value.status === 'draft' ? 'noindex, nofollow' : undefined,
 })
 </script>
 

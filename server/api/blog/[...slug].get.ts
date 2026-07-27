@@ -5,10 +5,7 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, 'slug')
   const path = `/blog/${slug}`
-  const articleQuery = queryCollection(event, 'blog').path(path)
-  const article = await (isDevelopment
-    ? articleQuery.first()
-    : articleQuery.where('status', '=', 'published').first())
+  const article = await queryCollection(event, 'blog').path(path).first()
 
   if (!article) {
     throw createError({ statusCode: 404, statusMessage: 'Article not found' })
@@ -24,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
   return {
     article,
-    newer: navigation[articleIndex - 1] ?? null,
-    older: navigation[articleIndex + 1] ?? null,
+    newer: articleIndex > 0 ? navigation[articleIndex - 1] : null,
+    older: articleIndex >= 0 ? navigation[articleIndex + 1] ?? null : null,
   }
 })

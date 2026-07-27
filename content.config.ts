@@ -7,7 +7,7 @@ const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a YYYY-MM-DD date.'
 const isDevelopment = process.env.NODE_ENV === 'development'
 let blogRoot = ''
 
-const publishedBlogSource = defineCollectionSource({
+const deployableBlogSource = defineCollectionSource({
   prepare: ({ rootDir }) => {
     blogRoot = join(rootDir, 'content', 'blog')
   },
@@ -21,7 +21,11 @@ const publishedBlogSource = defineCollectionSource({
       })),
     )
     return publicationStates
-      .filter(({ source }) => getBlogArticleStatus(source) === 'published')
+      .filter(({ file }) => !normalizeBlogRelativePath(file).startsWith('_ignored/'))
+      .filter(({ source }) => {
+        const status = getBlogArticleStatus(source)
+        return status === 'published' || status === 'draft'
+      })
       .map(({ file }) => `blog/${normalizeBlogRelativePath(file)}`)
   },
   getItem: (file) => readFile(join(blogRoot, file.replace(/^blog\//, '')), 'utf8'),
@@ -32,11 +36,11 @@ export default defineContentConfig({
     blog: defineCollection({
       type: 'page',
       // Standard filesystem sources retain Nuxt Content hot reload in development.
-      // The ignored holding area is never loaded; production additionally admits
-      // only published content into its generated database.
+      // The ignored holding area is never loaded. Production includes published and
+      // draft content so drafts can be shared by direct URL without being indexed.
       source: isDevelopment
         ? { include: 'blog/**/*.md', exclude: ['blog/_ignored/**'] }
-        : publishedBlogSource,
+        : deployableBlogSource,
       schema: z.object({
         title: z.string(),
         description: z.string(),

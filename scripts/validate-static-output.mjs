@@ -101,7 +101,7 @@ const publishedArticles = articles.filter(({ status }) => status === 'published'
 const draftArticles = articles.filter(({ status }) => status === 'draft')
 const ignoredArticles = articles.filter(({ status }) => status === 'ignored')
 
-for (const { outputFile } of publishedArticles) {
+for (const { outputFile } of [...publishedArticles, ...draftArticles]) {
   await requireFile(outputFile)
 }
 
@@ -111,8 +111,8 @@ const notFound = await readOutput('404.html')
 const sitemap = await readOutput('sitemap.xml')
 const rss = await readOutput('rss.xml')
 const pages = [
-  { filePath: 'index.html', route: '/', html: homepage, article: false },
-  { filePath: 'blog/index.html', route: '/blog/', html: blogIndex, article: false },
+  { filePath: 'index.html', route: '/', html: homepage, article: false, status: null },
+  { filePath: 'blog/index.html', route: '/blog/', html: blogIndex, article: false, status: null },
 ]
 
 const projectWebpSources = [
@@ -141,23 +141,29 @@ if (!getTags(homepage, 'video').some((tag) => getAttribute(tag, 'preload') === '
 if (!getTags(homepage, 'video').some((tag) => getAttribute(tag, 'poster') === '/projects/h-denoise-utils/demo-poster-640w.webp')) {
   fail('homepage video is missing the optimized poster')
 }
-for (const article of publishedArticles) {
+for (const article of [...publishedArticles, ...draftArticles]) {
   pages.push({
     filePath: article.outputFile,
     route: article.route,
     html: await readOutput(article.outputFile),
     article: true,
+    status: article.status,
   })
 }
 
-for (const { filePath, route, html, article } of pages) {
+for (const { filePath, route, html, article, status } of pages) {
   if (!/<title>[^<]+<\/title>/.test(html)) {
     fail(`${filePath} has no title`)
   }
   if (!getMetaContent(html, 'description')) {
     fail(`${filePath} has no description`)
   }
-  if (/noindex/i.test(getMetaContent(html, 'robots') ?? '')) {
+  const robots = getMetaContent(html, 'robots') ?? ''
+  if (status === 'draft') {
+    if (!/noindex/i.test(robots) || !/nofollow/i.test(robots)) {
+      fail(`${filePath} is a draft without noindex, nofollow`)
+    }
+  } else if (/noindex/i.test(robots)) {
     fail(`${filePath} is marked noindex`)
   }
 
@@ -183,14 +189,23 @@ for (const { filePath, route, html, article } of pages) {
     if (!html.includes('BlogPosting') || !html.includes('<article class="prose">')) {
       fail(`${filePath} is missing prerendered article metadata or content`)
     }
-    if (!blogIndex.includes(`href="${route}"`)) {
-      fail(`${filePath} is missing from the blog index`)
-    }
-    if (!sitemap.includes(expectedUrl)) {
-      fail(`${filePath} is missing from the sitemap`)
-    }
-    if (!rss.includes(expectedUrl)) {
-      fail(`${filePath} is missing from RSS`)
+    if (status === 'draft') {
+      if (!html.includes('article-draft-label')) {
+        fail(`${filePath} is missing its visible draft label`)
+      }
+      if (blogIndex.includes(`href="${route}"`) || sitemap.includes(expectedUrl) || rss.includes(expectedUrl)) {
+        fail(`${filePath} leaked into a public index`)
+      }
+    } else {
+      if (!blogIndex.includes(`href="${route}"`)) {
+        fail(`${filePath} is missing from the blog index`)
+      }
+      if (!sitemap.includes(expectedUrl)) {
+        fail(`${filePath} is missing from the sitemap`)
+      }
+      if (!rss.includes(expectedUrl)) {
+        fail(`${filePath} is missing from RSS`)
+      }
     }
   }
 }
@@ -225,7 +240,7 @@ const contentDump = gunzipSync(Buffer.from(encodedDump.trim(), 'base64')).toStri
 const contentIds = new Set(
   [...contentDump.matchAll(/INSERT INTO _content_blog VALUES \('([^']+)'/g)].map((match) => match[1]),
 )
-for (const { relativePath, route, outputFile } of publishedArticles) {
+for (const { relativePath, route, outputFile } of [...publishedArticles, ...draftArticles]) {
   const expectedContentId = `blog/blog/${relativePath}`
   if (!contentIds.has(expectedContentId)) {
     fail(`${route} is missing from the generated content database`)
@@ -234,13 +249,13 @@ for (const { relativePath, route, outputFile } of publishedArticles) {
     fail(`${route} was not prerendered`)
   }
 }
-for (const { relativePath, route, outputFile, status } of [...draftArticles, ...ignoredArticles]) {
+for (const { relativePath, route, outputFile } of ignoredArticles) {
   const expectedContentId = `blog/blog/${relativePath}`
   if (contentIds.has(expectedContentId)) {
     fail(`${relativePath} leaked into the generated content database`)
   }
   if (await fileExists(outputFile)) {
-    fail(`${relativePath} was prerendered despite being ${status}`)
+    fail(`${relativePath} was prerendered despite being ignored`)
   }
   const publicUrl = absoluteRoute(route)
   if (blogIndex.includes(`href="${route}"`) || sitemap.includes(publicUrl) || rss.includes(publicUrl)) {
@@ -281,5 +296,5 @@ for (const filePath of htmlFiles) {
 }
 
 console.log(
-  `Static output validation passed for ${publishedArticles.length} published article(s): ${runtimeAssetBytes} JavaScript/WASM bytes.`,
+  `Static output validation passed for ${publishedArticles.length} published and ${draftArticles.length} unlisted draft article(s): ${runtimeAssetBytes} JavaScript/WASM bytes.`,
 )
