@@ -1,12 +1,14 @@
 ---
 title: "Deadline Died Slowly. AWS Deadline Cloud Rose in Its Place."
 description: "Deadline spent years becoming a maintenance product while AWS built its successor as a managed cloud service. The name survived, but the render farm underneath it changed completely."
-date: "2026-07-14"
+date: "2026-07-27"
 tags:
   - Deadline
   - AWS
   - Render Farm
   - Pipeline
+  - Cloud Rendering
+  - OpenCue
 status: draft
 ---
 
