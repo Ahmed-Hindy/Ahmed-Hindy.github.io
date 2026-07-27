@@ -87,7 +87,7 @@ export const navItems: NavItem[] = [
 export const summary: SummaryItem[] = [
   {
     label: 'Departments supported',
-    value: 'FX, Lighting, Character, Groom, and related teams.',
+    value: 'FX, Character, Groom, Lighting and Compositing.',
   },
 ]
 
