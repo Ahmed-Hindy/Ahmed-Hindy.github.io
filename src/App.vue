@@ -50,15 +50,17 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
         <p class="section-kicker">Overview</p>
         <h2 id="overview-title">Pipeline Technical Director</h2>
         <p class="intro">
-          I build pipelines and cross-DCC workflows for publishing, validation, render and compositing.
+          I build pipelines and cross-DCC workflows for VFX and Animation.
         </p>
         <p class="credibility-line">
           5+ years of VFX experience and 3+ years focused on pipeline work.
         </p>
         <p class="intro">
-          I started in Houdini FX before moving into pipeline development. That background gives me
-          practical experience with heavy scenes, caches, render failures, bad paths, missing versions,
-          and asset handoff problems.
+          I started as an Effect Artist before moving into pipeline development. That background gives me
+          practical experience with Artists and what they face in production on a daily bases.
+          <br />
+          In my free time, I like tinkering with C++ game mods, small Rust apps, Vue JS,
+          self hosted Docker homelabs and local LLMs.
         </p>
 
         <SummaryGrid :items="summary" />
