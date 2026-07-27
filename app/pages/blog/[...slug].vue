@@ -23,6 +23,7 @@ if (!article.value) {
 
 const newerArticle = computed(() => blogPage.value?.newer ?? null)
 const olderArticle = computed(() => blogPage.value?.older ?? null)
+const isDraft = article.value.status === 'draft'
 
 useSiteSeo({
   title: article.value.title,
@@ -30,13 +31,23 @@ useSiteSeo({
   path: `${article.value.path}/`,
   image: article.value.image,
   imageAlt: article.value.imageAlt,
-  type: 'article',
+  type: isDraft ? 'website' : 'article',
 })
 
-useHead({
-  script: [{
-    type: 'application/ld+json',
-    innerHTML: JSON.stringify({
+const pageUrl = absoluteUrl(`${article.value.path}/`)
+const pageImage = absoluteUrl(article.value.image ?? '/og-image-2026-07-14.jpg')
+const structuredData = isDraft
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: article.value.title,
+      description: article.value.description,
+      author: { '@type': 'Person', name: site.authorName },
+      dateModified: article.value.updated ?? article.value.date,
+      image: pageImage,
+      url: pageUrl,
+    }
+  : {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
       headline: article.value.title,
@@ -44,17 +55,24 @@ useHead({
       author: { '@type': 'Person', name: site.authorName },
       datePublished: article.value.date,
       dateModified: article.value.updated ?? article.value.date,
-      image: absoluteUrl(article.value.image ?? '/og-image-2026-07-14.jpg'),
-      mainEntityOfPage: absoluteUrl(`${article.value.path}/`),
-      url: absoluteUrl(`${article.value.path}/`),
-    }),
+      image: pageImage,
+      mainEntityOfPage: pageUrl,
+      url: pageUrl,
+    }
+
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify(structuredData),
   }],
 })
 
 useSeoMeta({
-  articlePublishedTime: article.value.date,
-  articleModifiedTime: article.value.updated ?? article.value.date,
-  robots: article.value.status === 'draft' ? 'noindex, nofollow' : undefined,
+  robots: isDraft ? 'noindex, nofollow' : undefined,
+  ...(!isDraft && {
+    articlePublishedTime: article.value.date,
+    articleModifiedTime: article.value.updated ?? article.value.date,
+  }),
 })
 </script>
 
