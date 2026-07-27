@@ -77,8 +77,8 @@ export const focusChips = ['Pipeline', 'Houdini', 'USD', 'Maya', 'Unreal']
 
 export const navItems: NavItem[] = [
   { href: '/#overview', label: 'Overview' },
-  { href: '/#experience', label: 'Experience' },
   { href: '/#work', label: 'Public Tools' },
+  { href: '/#experience', label: 'Experience' },
   { href: '/#skills', label: 'Skills' },
   { href: '/#contact', label: 'Contact' },
   { href: '/blog/', label: 'Blog' },
@@ -86,23 +86,8 @@ export const navItems: NavItem[] = [
 
 export const summary: SummaryItem[] = [
   {
-    label: 'Primary focus',
-    value:
-      'All things 3D pipeline related: Houdini, Solaris/USD, Maya, Unreal, Deadline, and PySide/PyQt GUIs',
-  },
-  {
-    label: 'Production work',
-    value:
-      'Cross-DCC pipelines involving Publishing, Farm Rendering, Validation, and Scene Debugging',
-  },
-  {
     label: 'Departments supported',
     value: 'FX, Character, Groom, Lighting and Compositing.',
-  },
-  {
-    label: 'Current direction',
-    value:
-      'A generalist Pipeline TD, with most experience being with USD, AYON, and Kitsu',
   },
 ]
 
@@ -132,9 +117,57 @@ export const projectSections: ProjectSection[] = [
     title: 'Featured tools',
     projects: [
       {
+        title: 'USD Optimize App',
+        summary:
+          'Standalone CLI and GUI for inspecting, validating, and optimizing OpenUSD stages.',
+        tags: ['OpenUSD', 'Optimization', 'NVIDIA', 'PySide6', 'CLI'],
+        href: 'https://github.com/Ahmed-Hindy/usd-optimize-app',
+        media: {
+          image: {
+            src: 'https://raw.githubusercontent.com/Ahmed-Hindy/usd-optimize-app/main/a.png',
+            alt: 'USD Optimize App interface showing the Safe Cleanup workflow and scene hierarchy',
+            width: 1181,
+            height: 858,
+            webp: [],
+          },
+        },
+      },
+      {
+        title: 'Universal Scene Converter',
+        summary:
+          'Standalone CLI for converting between OpenUSD, FBX, OBJ, STL, and glTF files.',
+        tags: ['OpenUSD', 'FBX', 'OBJ', 'STL', 'glTF', 'CLI'],
+        href: 'https://github.com/Ahmed-Hindy/universal-scene-converter',
+        media: {
+          image: {
+            src: 'https://raw.githubusercontent.com/Ahmed-Hindy/universal-scene-converter/9a4244b81ee29fc217ff0ab6fe0bcba899a353c0/docs/images/universal-scene-converter-format-cycle.png',
+            alt: 'Universal Scene Converter format cycle between OpenUSD, FBX, OBJ, STL, and glTF',
+            width: 360,
+            height: 360,
+            webp: [],
+          },
+        },
+      },
+      {
+        title: 'Kitsu Docker Prod',
+        summary:
+          'Production-style Kitsu deployment with separated services, persistent data, and automated backups.',
+        tags: ['Docker', 'Kitsu', 'Postgres', 'Traefik', 'Pipeline'],
+        href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
+        media: {
+          image: {
+            src: 'https://raw.githubusercontent.com/Ahmed-Hindy/Kitsu-Docker-Prod/418480d9f4f24e50bb5a4adee15a3d792b3e29ec/docs/images/kitsu-running.png',
+            alt: 'Kitsu running from the production Docker stack',
+            width: 996,
+            height: 926,
+            webp: [],
+          },
+        },
+      },
+      {
         title: 'RenderKit',
         summary:
-          'image-sequence conversion tool. supports burn-ins and contact sheets.',
+          'Image-sequence conversion tool with burn-ins and contact-sheet support.',
         tags: ['PySide6', 'OpenImageIO', 'OpenColorIO', 'FFmpeg'],
         href: 'https://github.com/Ahmed-Hindy/renderkit',
         media: {
@@ -153,7 +186,7 @@ export const projectSections: ProjectSection[] = [
       {
         title: 'h_denoise_utils',
         summary:
-          'Standalone denoising GUI, with bundled OptiX and OIDN. Support multi-AOV EXRs',
+          'Standalone denoising GUI with bundled OptiX and OIDN, including multi-AOV EXR support.',
         tags: ['Nvidia', 'OptiX', 'CLI', 'Intel', 'OIDN', 'PySide6', 'EXR'],
         href: 'https://github.com/Ahmed-Hindy/h_denoise_utils',
         media: {
@@ -169,6 +202,30 @@ export const projectSections: ProjectSection[] = [
           video: {
             src: '/projects/h-denoise-utils/demo.mp4',
             poster: '/projects/h-denoise-utils/demo-poster-640w.webp',
+          },
+        },
+      },
+    ],
+  },
+  {
+    title: 'Pipeline / USD utilities',
+    projects: [
+      {
+        title: 'Kitsu Desktop',
+        summary:
+          'Windows desktop client for artists using Kitsu, with connection checks and system-tray actions.',
+        tags: ['Tauri', 'TypeScript', 'Kitsu', 'Desktop'],
+        href: 'https://github.com/Ahmed-Hindy/kitsu-desktop-launcher',
+        media: {
+          image: {
+            src: '/projects/kitsu-desktop/kitsu-dashboard.png',
+            alt: 'Kitsu dashboard open in the Kitsu Desktop application',
+            width: 1397,
+            height: 927,
+            webp: [
+              { src: '/projects/kitsu-desktop/kitsu-dashboard-640w.webp', width: 640 },
+              { src: '/projects/kitsu-desktop/kitsu-dashboard-960w.webp', width: 960 },
+            ],
           },
         },
       },
@@ -213,53 +270,6 @@ export const projectSections: ProjectSection[] = [
         },
       },
       {
-        title: 'Kitsu Desktop',
-        summary:
-          'Windows desktop client for artists using Kitsu, with connection checks and system-tray actions.',
-        tags: ['Tauri', 'TypeScript', 'Kitsu', 'Desktop'],
-        href: 'https://github.com/Ahmed-Hindy/kitsu-desktop-launcher',
-        media: {
-          image: {
-            src: '/projects/kitsu-desktop/kitsu-dashboard.png',
-            alt: 'Kitsu dashboard open in the Kitsu Desktop application',
-            width: 1397,
-            height: 927,
-            webp: [
-              { src: '/projects/kitsu-desktop/kitsu-dashboard-640w.webp', width: 640 },
-              { src: '/projects/kitsu-desktop/kitsu-dashboard-960w.webp', width: 960 },
-            ],
-          },
-        },
-      },
-    ],
-  },
-  {
-    title: 'Pipeline / USD utilities',
-    projects: [
-      {
-        title: 'USD Optimize App',
-        summary:
-          'Standalone CLI and GUI for inspecting and optimizing OpenUSD stages.',
-        tags: ['OpenUSD', 'Optimization', 'NVIDIA', 'PySide6', 'CLI'],
-        href: 'https://github.com/Ahmed-Hindy/usd-optimize-app',
-      },
-      {
-        title: 'Universal Scene Converter',
-        summary:
-          'Standalone CLI for converting between OpenUSD, FBX, OBJ, STL, and glTF files.',
-        tags: ['OpenUSD', 'FBX', 'OBJ', 'STL', 'glTF', 'CLI'],
-        href: 'https://github.com/Ahmed-Hindy/universal-scene-converter',
-        media: {
-          image: {
-            src: 'https://raw.githubusercontent.com/Ahmed-Hindy/universal-scene-converter/9a4244b81ee29fc217ff0ab6fe0bcba899a353c0/docs/images/universal-scene-converter-format-cycle.png',
-            alt: 'Universal Scene Converter format cycle between OpenUSD, FBX, OBJ, STL, and glTF',
-            width: 360,
-            height: 360,
-            webp: [],
-          },
-        },
-      },
-      {
         title: 'Materials Processor',
         summary:
           'Material ingestion and conversion tool for standardizing networks across USD and MaterialX.',
@@ -269,7 +279,7 @@ export const projectSections: ProjectSection[] = [
       {
         title: 'USD Scene Audit',
         summary:
-          'OpenUSD audit tools for mesh prims: naming, hierarchy, materials, layers',
+          'OpenUSD audit tools for mesh naming, hierarchy, materials, and layer structure.',
         tags: ['Python', 'OpenUSD', 'SanityCheck', 'CLI'],
         href: 'https://github.com/Ahmed-Hindy/usd-scene-audit',
       },
@@ -286,23 +296,16 @@ export const projectSections: ProjectSection[] = [
     title: 'Infrastructure & experiments',
     projects: [
       {
-        title: 'Kitsu Docker Prod',
+        title: 'Homelab / Local LLMs',
         summary:
-          'Production-ready Kitsu docker stack.',
-        tags: ['Docker', 'Kitsu', 'Postgres', 'Traefik', 'Pipeline'],
-        href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
+          'Docker-based homelab for self-hosted tools and local LLM workflows.',
+        tags: ['Docker', 'Homelab', 'Local LLMs', 'Self-hosting'],
       },
     ],
   },
   {
     title: 'Side quests',
     projects: [
-      {
-        title: 'Homelab / Local LLMs',
-        summary:
-          'Docker-based homelab for self-hosted tools and local LLM workflows.',
-        tags: ['Docker', 'Homelab', 'Local LLMs', 'Self-hosting'],
-      },
       {
         title: 'Hitman ItemSpawner',
         summary:
