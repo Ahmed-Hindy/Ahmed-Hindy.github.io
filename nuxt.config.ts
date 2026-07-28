@@ -1,11 +1,5 @@
-import { readFileSync, readdirSync } from 'node:fs'
-import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import {
-  blogRouteFromRelativeFile,
-  getBlogArticleStatus,
-  normalizeBlogRelativePath,
-} from './shared/blog-content'
+import { getDraftBlogRoutes } from './shared/blog-manifest'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const buildDirectory = isDevelopment ? '.nuxt-dev' : '.nuxt'
@@ -13,11 +7,7 @@ const contentDatabaseFilename = isDevelopment
   ? '.data/content/development.sqlite'
   : '.data/content/build.sqlite'
 const blogContentDirectory = fileURLToPath(new URL('./content/blog/', import.meta.url))
-const draftBlogRoutes = readdirSync(blogContentDirectory, { recursive: true, encoding: 'utf8' })
-  .map(normalizeBlogRelativePath)
-  .filter((filePath) => filePath.toLowerCase().endsWith('.md') && !filePath.startsWith('_ignored/'))
-  .filter((filePath) => getBlogArticleStatus(readFileSync(join(blogContentDirectory, filePath), 'utf8')) === 'draft')
-  .map(blogRouteFromRelativeFile)
+const draftBlogRoutes = getDraftBlogRoutes(blogContentDirectory)
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-11',

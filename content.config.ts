@@ -1,7 +1,7 @@
 import { defineCollection, defineCollectionSource, defineContentConfig, z } from '@nuxt/content'
-import { readFile, readdir } from 'node:fs/promises'
+import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { getBlogArticleStatus, normalizeBlogRelativePath } from './shared/blog-content'
+import { getDeployableBlogEntries } from './shared/blog-manifest'
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a YYYY-MM-DD date.')
 const isDevelopment = process.env.NODE_ENV === 'development'
@@ -11,23 +11,8 @@ const deployableBlogSource = defineCollectionSource({
   prepare: ({ rootDir }) => {
     blogRoot = join(rootDir, 'content', 'blog')
   },
-  getKeys: async () => {
-    const entries = await readdir(blogRoot, { recursive: true })
-    const markdownFiles = entries.filter((entry) => entry.endsWith('.md')).sort()
-    const publicationStates = await Promise.all(
-      markdownFiles.map(async (file) => ({
-        file,
-        source: await readFile(join(blogRoot, file), 'utf8'),
-      })),
-    )
-    return publicationStates
-      .filter(({ file }) => !normalizeBlogRelativePath(file).startsWith('_ignored/'))
-      .filter(({ source }) => {
-        const status = getBlogArticleStatus(source)
-        return status === 'published' || status === 'draft'
-      })
-      .map(({ file }) => `blog/${normalizeBlogRelativePath(file)}`)
-  },
+  getKeys: () =>
+    getDeployableBlogEntries(blogRoot).map(({ relativePath }) => `blog/${relativePath}`),
   getItem: (file) => readFile(join(blogRoot, file.replace(/^blog\//, '')), 'utf8'),
 })
 

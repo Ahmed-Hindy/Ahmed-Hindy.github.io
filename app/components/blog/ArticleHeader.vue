@@ -18,10 +18,15 @@ const showUpdatedDate = computed(() => Boolean(props.updated && props.updated !=
     <h1>{{ title }}</h1>
     <p class="article-description">{{ description }}</p>
     <p class="article-date article-published-date">
-      <span v-if="status === 'draft'" class="article-draft-label">Draft</span>
-      Published <time :datetime="date">{{ formatArticleDate(date) }}</time>
-      <template v-if="showUpdatedDate">
-        · Updated <time :datetime="updated">{{ formatArticleDate(updated!) }}</time>
+      <template v-if="status === 'draft'">
+        <span class="article-draft-label">Draft</span>
+        <time :datetime="date">{{ formatArticleDate(date) }}</time>
+      </template>
+      <template v-else>
+        Published <time :datetime="date">{{ formatArticleDate(date) }}</time>
+        <template v-if="showUpdatedDate">
+          · Updated <time :datetime="updated">{{ formatArticleDate(updated!) }}</time>
+        </template>
       </template>
     </p>
     <ul aria-label="Article topics"><li v-for="tag in tags" :key="tag">{{ tag }}</li></ul>

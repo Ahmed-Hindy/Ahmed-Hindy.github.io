@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /__nuxt_content/
 
 Sitemap: https://ahmed-hindy.github.io/sitemap.xml

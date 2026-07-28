@@ -1,11 +1,14 @@
-import { access, readFile, readdir, stat } from 'node:fs/promises'
+import { readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
-import { gunzipSync } from 'node:zlib'
+import { normalizeBlogRelativePath } from '../shared/blog-content.ts'
 import {
-  blogRouteFromRelativeFile,
-  getBlogArticleStatus,
-  normalizeBlogRelativePath,
-} from '../shared/blog-content.ts'
+  createStaticOutputContext,
+  fail,
+  getAssetReferences,
+  getAttribute,
+  getTags,
+} from './lib/static-output-helpers.mjs'
+import { validateBlogOutput } from './lib/validate-blog-output.mjs'
 
 const siteUrl = 'https://ahmed-hindy.github.io'
 const outputDirectory = path.resolve('.output/public')
@@ -23,97 +26,21 @@ const requiredFiles = [
   contentDumpPath,
 ]
 
-const fail = (message) => {
-  throw new Error(`Static output validation failed: ${message}`)
-}
-
-const outputPath = (filePath) => path.join(outputDirectory, filePath)
-const fileExists = async (filePath) => access(outputPath(filePath)).then(() => true).catch(() => false)
-const requireFile = async (filePath) => {
-  if (!await fileExists(filePath)) {
-    fail(`missing ${filePath}`)
-  }
-}
-const readOutput = (filePath) => readFile(outputPath(filePath), 'utf8')
-const getTags = (html, tagName) => html.match(new RegExp(`<${tagName}\\b[^>]*>`, 'g')) ?? []
-const getAttribute = (tag, attribute) => tag.match(new RegExp(`\\b${attribute}="([^"]*)"`))?.[1]
-const decodeHtmlAttribute = (value) => value.replaceAll('&amp;', '&')
-const getAssetReferences = (html) => {
-  const directReferences = [...html.matchAll(/<(?:script|link|img|source|video)\b[^>]*(?:src|href|poster)="([^"]+)"/g)]
-    .map((match) => decodeHtmlAttribute(match[1]))
-  const srcsetReferences = [...html.matchAll(/\bsrcset="([^"]+)"/g)]
-    .flatMap((match) => decodeHtmlAttribute(match[1]).split(','))
-    .map((candidate) => candidate.trim().split(/\s+/, 1)[0])
-    .filter(Boolean)
-
-  return [...directReferences, ...srcsetReferences]
-}
-const getMetaContent = (html, key) => {
-  const tag = getTags(html, 'meta').find((metaTag) =>
-    getAttribute(metaTag, 'name') === key || getAttribute(metaTag, 'property') === key,
-  )
-  return tag ? getAttribute(tag, 'content') : undefined
-}
-const outputFileForRoute = (route) => {
-  const routePath = route.replace(/^\//, '').replace(/\/$/, '')
-  return routePath ? `${routePath}/index.html` : 'index.html'
-}
-const absoluteRoute = (route) => new URL(route, `${siteUrl}/`).toString()
-
-const statusDetectionCases = [
-  { name: 'published status', source: '---\nstatus: published\n---\n', expected: 'published' },
-  { name: 'draft status', source: '---\nstatus: draft # local preview\n---\n', expected: 'draft' },
-  { name: 'ignored status', source: '---\nstatus: ignored\n---\n', expected: 'ignored' },
-  { name: 'body-only status text', source: '---\nstatus: published\n---\n\n```yaml\nstatus: draft\n```\n', expected: 'published' },
-  { name: 'legacy draft field', source: '---\ndraft: true\n---\n', expected: null },
-]
-
-for (const { name, source, expected } of statusDetectionCases) {
-  if (getBlogArticleStatus(source) !== expected) {
-    fail(`status detection failed for ${name}`)
-  }
-}
+const context = createStaticOutputContext({ outputDirectory, siteUrl })
 
 for (const filePath of requiredFiles) {
-  await requireFile(filePath)
+  await context.requireFile(filePath)
 }
 
-const markdownFiles = (await readdir(contentDirectory, { recursive: true }))
-  .filter((filePath) => filePath.toLowerCase().endsWith('.md'))
-  .map(normalizeBlogRelativePath)
-  .sort()
-const articles = await Promise.all(markdownFiles.map(async (relativePath) => {
-  const source = await readFile(path.join(contentDirectory, relativePath), 'utf8')
-  const route = blogRouteFromRelativeFile(relativePath)
-  return {
-    relativePath,
-    route,
-    outputFile: outputFileForRoute(route),
-    status: getBlogArticleStatus(source),
-  }
-}))
-for (const { relativePath, status } of articles) {
-  if (!status) {
-    fail(`${relativePath} is missing a valid status`)
-  }
-}
-const publishedArticles = articles.filter(({ status }) => status === 'published')
-const draftArticles = articles.filter(({ status }) => status === 'draft')
-const ignoredArticles = articles.filter(({ status }) => status === 'ignored')
+const homepage = await context.readOutput('index.html')
+const blogIndex = await context.readOutput('blog/index.html')
+const notFound = await context.readOutput('404.html')
+const robots = await context.readOutput('robots.txt')
+const sitemap = await context.readOutput('sitemap.xml')
+const rss = await context.readOutput('rss.xml')
 
-for (const { outputFile } of [...publishedArticles, ...draftArticles]) {
-  await requireFile(outputFile)
-}
-
-const homepage = await readOutput('index.html')
-const blogIndex = await readOutput('blog/index.html')
-const notFound = await readOutput('404.html')
-const sitemap = await readOutput('sitemap.xml')
-const rss = await readOutput('rss.xml')
-const pages = [
-  { filePath: 'index.html', route: '/', html: homepage, article: false, status: null },
-  { filePath: 'blog/index.html', route: '/blog/', html: blogIndex, article: false, status: null },
-]
+context.validatePageMetadata({ filePath: 'index.html', route: '/', html: homepage })
+context.validatePageMetadata({ filePath: 'blog/index.html', route: '/blog/', html: blogIndex })
 
 const projectWebpSources = [
   '/projects/renderkit/renderkit-ui-screenshot-640w.webp',
@@ -141,74 +68,16 @@ if (!getTags(homepage, 'video').some((tag) => getAttribute(tag, 'preload') === '
 if (!getTags(homepage, 'video').some((tag) => getAttribute(tag, 'poster') === '/projects/h-denoise-utils/demo-poster-640w.webp')) {
   fail('homepage video is missing the optimized poster')
 }
-for (const article of [...publishedArticles, ...draftArticles]) {
-  pages.push({
-    filePath: article.outputFile,
-    route: article.route,
-    html: await readOutput(article.outputFile),
-    article: true,
-    status: article.status,
-  })
-}
 
-for (const { filePath, route, html, article, status } of pages) {
-  if (!/<title>[^<]+<\/title>/.test(html)) {
-    fail(`${filePath} has no title`)
-  }
-  if (!getMetaContent(html, 'description')) {
-    fail(`${filePath} has no description`)
-  }
-  const robots = getMetaContent(html, 'robots') ?? ''
-  if (status === 'draft') {
-    if (!/noindex/i.test(robots) || !/nofollow/i.test(robots)) {
-      fail(`${filePath} is a draft without noindex, nofollow`)
-    }
-  } else if (/noindex/i.test(robots)) {
-    fail(`${filePath} is marked noindex`)
-  }
-
-  const canonicalTags = getTags(html, 'link').filter((tag) => getAttribute(tag, 'rel') === 'canonical')
-  const expectedUrl = absoluteRoute(route)
-  if (canonicalTags.length !== 1 || getAttribute(canonicalTags[0], 'href') !== expectedUrl) {
-    fail(`${filePath} has an invalid canonical`)
-  }
-  if (getMetaContent(html, 'og:url') !== expectedUrl) {
-    fail(`${filePath} has an invalid Open Graph URL`)
-  }
-
-  const urlReferences = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((match) => match[1])
-  if (urlReferences.some((reference) => reference.includes('/Ahmed-Hindy.github.io/'))) {
-    fail(`${filePath} contains a repository-subpath deployment URL`)
-  }
-  const assetReferences = getAssetReferences(html)
-  if (assetReferences.some((reference) => /^https?:\/\/localhost(?::|\/|$)/i.test(reference))) {
-    fail(`${filePath} references a localhost asset`)
-  }
-
-  if (article) {
-    if (!html.includes('BlogPosting') || !html.includes('<article class="prose">')) {
-      fail(`${filePath} is missing prerendered article metadata or content`)
-    }
-    if (status === 'draft') {
-      if (!html.includes('article-draft-label')) {
-        fail(`${filePath} is missing its visible draft label`)
-      }
-      if (blogIndex.includes(`href="${route}"`) || sitemap.includes(expectedUrl) || rss.includes(expectedUrl)) {
-        fail(`${filePath} leaked into a public index`)
-      }
-    } else {
-      if (!blogIndex.includes(`href="${route}"`)) {
-        fail(`${filePath} is missing from the blog index`)
-      }
-      if (!sitemap.includes(expectedUrl)) {
-        fail(`${filePath} is missing from the sitemap`)
-      }
-      if (!rss.includes(expectedUrl)) {
-        fail(`${filePath} is missing from RSS`)
-      }
-    }
-  }
-}
+const { draftCount, publishedCount } = await validateBlogOutput({
+  blogIndex,
+  contentDirectory,
+  contentDumpPath,
+  outputDirectory,
+  rss,
+  sitemap,
+  siteUrl,
+})
 
 if (!/noindex/i.test(notFound)) {
   fail('404 page is indexable')
@@ -219,8 +88,11 @@ if (!sitemap.includes(`${siteUrl}/`) || !sitemap.includes(`${siteUrl}/blog/`)) {
 if (!rss.includes('<rss')) {
   fail('RSS feed is not valid RSS output')
 }
-if (!/Sitemap: https:\/\/ahmed-hindy\.github\.io\/sitemap\.xml/.test(await readOutput('robots.txt'))) {
+if (!/Sitemap: https:\/\/ahmed-hindy\.github\.io\/sitemap\.xml/.test(robots)) {
   fail('robots.txt has the wrong sitemap URL')
+}
+if (!/Disallow:\s*\/__nuxt_content\//.test(robots)) {
+  fail('robots.txt does not block the generated content database')
 }
 if (!homepage.includes('rel="alternate"') || !homepage.includes('type="application/rss+xml"')) {
   fail('RSS discovery metadata is missing')
@@ -235,34 +107,6 @@ if (profileImageHints.length > 1) {
   fail('homepage preloads or prefetches multiple profile image variants')
 }
 
-const encodedDump = await readOutput(contentDumpPath)
-const contentDump = gunzipSync(Buffer.from(encodedDump.trim(), 'base64')).toString('utf8')
-const contentIds = new Set(
-  [...contentDump.matchAll(/INSERT INTO _content_blog VALUES \('([^']+)'/g)].map((match) => match[1]),
-)
-for (const { relativePath, route, outputFile } of [...publishedArticles, ...draftArticles]) {
-  const expectedContentId = `blog/blog/${relativePath}`
-  if (!contentIds.has(expectedContentId)) {
-    fail(`${route} is missing from the generated content database`)
-  }
-  if (!await fileExists(outputFile)) {
-    fail(`${route} was not prerendered`)
-  }
-}
-for (const { relativePath, route, outputFile } of ignoredArticles) {
-  const expectedContentId = `blog/blog/${relativePath}`
-  if (contentIds.has(expectedContentId)) {
-    fail(`${relativePath} leaked into the generated content database`)
-  }
-  if (await fileExists(outputFile)) {
-    fail(`${relativePath} was prerendered despite being ignored`)
-  }
-  const publicUrl = absoluteRoute(route)
-  if (blogIndex.includes(`href="${route}"`) || sitemap.includes(publicUrl) || rss.includes(publicUrl)) {
-    fail(`${relativePath} leaked into a public index`)
-  }
-}
-
 const outputFiles = (await readdir(outputDirectory, { recursive: true })).map(normalizeBlogRelativePath)
 if (!outputFiles.some((filePath) => filePath.startsWith('_nuxt/'))) {
   fail('Nuxt assets are missing')
@@ -275,26 +119,26 @@ if (databaseRuntimeFiles.length) {
   fail(`browser database runtime leaked into output: ${databaseRuntimeFiles.join(', ')}`)
 }
 const runtimeAssetBytes = (await Promise.all(
-  runtimeAssetFiles.map((filePath) => stat(outputPath(filePath)).then((file) => file.size)),
+  runtimeAssetFiles.map((filePath) => stat(context.outputPath(filePath)).then((file) => file.size)),
 )).reduce((total, fileSize) => total + fileSize, 0)
 if (runtimeAssetBytes > maximumRuntimeAssetBytes) {
   fail(`JavaScript/WASM runtime is ${runtimeAssetBytes} bytes; budget is ${maximumRuntimeAssetBytes} bytes`)
 }
+
 const htmlFiles = outputFiles.filter((filePath) => filePath.endsWith('.html'))
 for (const filePath of htmlFiles) {
-  const html = await readOutput(filePath)
-  const references = getAssetReferences(html)
-  for (const reference of references) {
+  const html = await context.readOutput(filePath)
+  for (const reference of getAssetReferences(html)) {
     if (/^(?:https?:|mailto:|tel:|#|\/\/)/.test(reference)) {
       continue
     }
     const localPath = reference.split(/[?#]/, 1)[0].replace(/^\//, '')
     if (localPath) {
-      await requireFile(localPath)
+      await context.requireFile(localPath)
     }
   }
 }
 
 console.log(
-  `Static output validation passed for ${publishedArticles.length} published and ${draftArticles.length} unlisted draft article(s): ${runtimeAssetBytes} JavaScript/WASM bytes.`,
+  `Static output validation passed for ${publishedCount} published and ${draftCount} unlisted draft article(s): ${runtimeAssetBytes} JavaScript/WASM bytes.`,
 )
