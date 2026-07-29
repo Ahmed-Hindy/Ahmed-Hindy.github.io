@@ -94,14 +94,14 @@ Deadline 10 has no next version that carries its architecture forward. AWS chose
 
 ## Long live Deadline Cloud?
 
-Deadline Cloud still has clear advantages.
+Deadline Cloud isn't completely open source. AWS owns the scheduler, the fleets, and the control plane, and you pay for what you use.
 
-It is FOSS (Free Open Source Software), so you can customize and develop it for your pipeline. That addresses one of my problems with Deadline 10: easy community fixes often never made it into the product.
+What is open source is the client side: the submitter plugins and integration code live on AWS's own GitHub org under Apache 2.0. That fixes one of my problems with Deadline 10, where community patches sat in forum threads for years with zero response from maintainers.
 
-I fixed a Houdini Solaris issue, where usd caching jobs didn't had a progress bar. It was always stuck at 0%. I fixed it and submitted a very small snippet to the forums but the developers never picked it up. Other users solved similar issues with Hydra Redshift and Arnold. The code snippets were buried for 5+ years in the forums.
+A small personal example: I fixed a Houdini Solaris issue, where usd cache jobs didn't have a progress bar in DL Monitor. It was always stuck at 0%. I fixed it and submitted a very small snippet to the forums but the developers never picked it up. Other users reported and solved similar issues with Hydra Redshift and Arnold. The code snippets were buried for 5+ years in the forums.
 
-A studio can avoid maintaining the central Deadline infrastructure, scale from no workers to large fleets, and track render spending per project. For a new cloud-first pipeline, that may be much cleaner than building a traditional Deadline farm and attaching AWS capacity to it later.
+Deadline Cloud still has clear advantages, a studio can avoid maintaining the central Deadline infrastructure, have instant access to large fleets of render nodes if a project calls for it. That's probably cleaner than building a traditional Deadline farm and attaching AWS integration to it later.
 
- This is good and all but not enough to compete against it's new contender: [ASWF's OpenCUE](https://docs.opencue.io/) which is also FOSS and can be hosted completely offline.
+But that's not enough to compete with its newest contender: [ASWF's OpenCue](https://docs.opencue.io/) which is fully open source top to bottom and can run completely offline, no AWS account needed.
 
- We will see how both apps evolve in the next 1-2 years, and my predications say that OpenCUE will be integrated into AWS's Deadline but with AWS services added.
+We'll see how both evolve over the next year or two. My prediction: OpenCue gets integrated into AWS Deadline Cloud somehow, with AWS services layered on top of it.
