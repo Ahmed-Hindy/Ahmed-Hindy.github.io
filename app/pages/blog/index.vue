@@ -17,9 +17,8 @@ useSiteSeo({
 
 <template>
   <div class="blog-page-layout">
-    <BlogDesktopSidebar />
+    <BlogMobileSiteHeader />
     <div class="blog-shell">
-      <BlogMobileSiteHeader />
       <BlogHero class="blog-index-hero">
         <header class="blog-index-header">
           <p class="section-kicker">Blog</p>

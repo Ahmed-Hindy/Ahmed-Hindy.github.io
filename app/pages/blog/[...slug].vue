@@ -78,9 +78,8 @@ useSeoMeta({
 
 <template>
   <div class="blog-page-layout">
-    <BlogDesktopSidebar />
+    <BlogMobileSiteHeader />
     <div class="blog-shell">
-      <BlogMobileSiteHeader />
       <BlogHero class="blog-article-hero">
         <BlogArticleHeader
           :title="article!.title"
