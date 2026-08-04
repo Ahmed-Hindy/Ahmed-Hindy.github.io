@@ -30,6 +30,9 @@ That simplicity was also its strength. A pipeline TD could create a submitter, r
 
 ## From Frantic Films to Thinkbox
 
+::deadline-timeline
+::
+
 Deadline's earliest version came out of an R&D unit that Frantic Films opened in 2001, and by 2002 it was already managing renders on *The Core* (yes, the 2003 movie about drilling to the center of the earth). Prime Focus Group bought Frantic in 2007. In 2010, Chris Bond reacquired the Deadline product on its own and launched Thinkbox Software around it.
 
 Thinkbox spent the next several years building side tools that integrated well with Deadline like Krakatoa, Frost, Draft, XMesh, Sequoia, and Stoke. This gave the company a real identity in VFX tooling rather than a single utility. Deadline 2.0 added power management in 2006. Deadline 3.0 brought Linux, macOS, and 64-bit support in 2008. Deadline 4.0 focused on reducing network load. By 2011 it integrated with Shotgun, tying render management to production tracking. Incrementally Thinkbox was establishing itself in a very niche market that barely had any competition.
@@ -72,8 +75,6 @@ AWS's own Deadline 10 documentation describes Deadline Cloud as a newer offering
 
 ## The old pipeline logic does not migrate by itself
 
-This is where the shared name can be misleading.
-
 A studio running Deadline 10 may have years of plugin development that won't translate well into the new structure.
 
 The [Deadline Cloud integration guide](https://docs.aws.amazon.com/deadline-cloud/latest/developerguide/integration-points.html) spreads custom logic across submitter hooks, host configuration scripts, queue environments, job and step environments, dependent steps, EventBridge, Lambda, and CloudWatch. A lot of buzzwords that'll take a lot of time for TDs to get familiar with.
@@ -86,7 +87,7 @@ For pipeline TDs, Repository maintenance becomes IAM policy and fleet configurat
 
 ## Deadline 10 on life support
 
-On November 7, 2025, AWS made the situation official: [Deadline 10's Obituary](https://docs.thinkboxsoftware.com/products/deadline/latest/1_User%20Manual/manual/maintenance-mode-faq.html).
+On November 7, 2025, AWS made the situation official in [Deadline 10's Obituary](https://docs.thinkboxsoftware.com/products/deadline/latest/1_User%20Manual/manual/maintenance-mode-faq.html).
 
 AWS says existing farms will continue to work. Deadline 10 remains downloadable. Current workflows, scripts, and AWS Portal remain supported. DCC integration updates will continue according to AWS's release priorities (hint: they have been on life support for a long time).
 
