@@ -18,11 +18,6 @@ export default defineNuxtConfig({
     '~/assets/css/playful-theme.css',
     '~/assets/css/portfolio-theme.css',
   ],
-  vite: {
-    server: {
-      allowedHosts: ['nzxt.taile55a0d.ts.net'],
-    },
-  },
   app: {
     baseURL: '/',
     head: {
