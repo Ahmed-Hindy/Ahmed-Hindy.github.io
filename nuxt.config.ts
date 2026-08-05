@@ -13,7 +13,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-07-11',
   buildDir: buildDirectory,
   modules: ['@nuxt/content', '@nuxt/image', '@nuxtjs/sitemap'],
-  css: ['~/assets/css/main.css', '~/assets/css/playful-theme.css'],
+  css: [
+    '~/assets/css/main.css',
+    '~/assets/css/playful-theme.css',
+    '~/assets/css/portfolio-theme.css',
+  ],
   app: {
     baseURL: '/',
     head: {
