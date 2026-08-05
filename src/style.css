@@ -161,6 +161,19 @@ li {
   overscroll-behavior: contain;
 }
 
+.profile-photo-home-link {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 50%;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.profile-photo-home-link:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 5px;
+}
+
 .sidebar-photo {
   width: 156px;
   aspect-ratio: 1;
