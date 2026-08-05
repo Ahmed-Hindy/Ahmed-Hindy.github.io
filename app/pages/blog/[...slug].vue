@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PageCollections } from '@nuxt/content'
+import '~/assets/css/blog-article-theme.css'
 import { absoluteUrl, site } from '~/data/site'
 
 type BlogArticle = PageCollections['blog']
@@ -82,6 +83,7 @@ useSeoMeta({
     <div class="blog-shell">
       <BlogMobileSiteHeader />
       <BlogHero class="blog-article-hero">
+        <NuxtLink class="article-back-link" to="/blog/">← All technical notes</NuxtLink>
         <BlogArticleHeader
           :title="article!.title"
           :description="article!.description"
