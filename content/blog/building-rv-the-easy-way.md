@@ -1,6 +1,6 @@
 ---
-title: "Building RV the Easy Way: Abusing CI Minutes Instead of Downloading the World"
-description: "How I used OpenRV's existing GitHub Actions workflows to build downloadable Windows, Linux, and macOS artifacts without recreating the toolchain locally."
+title: "Building RV the Easy Way by Abusing Free CI Minutes on Github"
+description: "How I used OpenRV's existing GitHub Actions workflows to build OpenRV in the cloud."
 date: "2026-07-13"
 tags:
   - OpenRV
@@ -12,17 +12,21 @@ status: published
 
 I wanted to try [OpenRV](https://github.com/AcademySoftwareFoundation/OpenRV), so I started by looking for a Windows download.
 
-I could not find a project website, only a Github repo with no download links. The only ready-made copy I came across was shared in a Discord server. It might have been harmless, but downloading an unofficial build from a random stranger felt fishy. RV is free and open-source software; getting a safe copy should not require asking for fishy zip files.
+I could not find any official websites with a big green `download` button. Only offical thing I found was the Github repo with no download links. I found ready-made copies in a Discord server, posted by an anonymous user who swears the .exe is perfectly safe. I did eventually convince myself the guy only meant good and truly it was clean working build. Thank you random stranger!
+OpenRV is a free and an open-source software (`FOSS`); so why should I beg for the big green `download` button? This is a cyber security nightmare!
 
-I searched the releases for downloadable copies, but found none. The CI was already building RV for several platforms, yet it did not leave behind anything I could download.
+I checked the Github repo's releases for downloadable artifacts, but found none. The CI toolchain was already building it for all major platforms (Windows, MacOS and Linux), yet it did not provide packaged runtimes.
 
 So I forked the repository and started with a narrower question: how could I turn the existing CI into a downloadable artifact?
 
-That seemed more sensible than recreating RV's native build stack on my workstation. The build toolchain was heavy and convulted. Notable build dependecies were CMake, Conan, Qt, Python, FFmpeg, and MSVC. This was too much hassle for a .exr viewer.
+That seemed more sensible than recreating RV's native build stack on my workstation. The build toolchain was already there upstream. It is heavy and convulted but it was there and that was the important part. All I had to do was to add artifact bundling.
+
+This is also where the "abuse" in the title comes from. Why download this large convuluted toolchain when I can just let GitHub do it. while my workstation only downloads the finished .zip.
 
 ## Reusing the build setup that already existed
 
-OpenRV already had reusable CI that handled the full toolchain. why not just fork it?
+The reusable workflows still support larger matrices and debug builds. I just did not need to spend CI time on every historical configuration whenever I wanted one build from a tagged commit.
+
 I added a manual entry point with the most relevant configuration for 2025:
 
 ```text
@@ -31,21 +35,15 @@ Build type: Release
 FFmpeg: 8.0
 ```
 
-The reusable workflows still support larger matrices and debug builds. I just did not need to spend CI time on every historical configuration whenever I wanted one current build.
-
-This is also where the "abuse" in the title comes from. GitHub downloads and compiles the dependency tree, while my workstation only downloads the finished .zip.
-
 The identifiable downloads for this Windows configuration already add up to about 2.34 GiB before counting MSYS2 packages, Rust, Python packages, CMake, JOM, repository submodules, and GitHub Action dependencies. A realistic clean run is probably closer to 3–4 GiB of transfer.
 
 The source archives are not the main problem. OpenRV's non-Qt dependencies total roughly 399 MiB compressed. Qt 6.5.3 accounts for almost 1.95 GiB by itself and expands to about 13.7 GiB on disk.
 
-The biggest single package is Qt's `debug_info`: around 1.41 GiB downloaded and more than 10.4 GiB extracted, even though this is a Release build. I have not yet confirmed that it can be removed safely, but it shows how quickly a native build environment becomes much larger than the final application.
+The biggest single package is Qt's `debug_info`: around 1.41 GiB downloaded and more than 10.4 GiB extracted, even though this is a Release build. I have not yet confirmed that it can be removed safely, but it shows how quickly a local build environment can become bloated.
 
 ## Keeping the thing that was built
 
-The existing jobs could compile, test, and install RV successfully. They did not originally preserve the installed files.
-
-A GitHub runner is deleted when the job finishes, so I added artifact uploads after these commands:
+I added artifact uploads after these commands:
 
 ```text
 cmake --build _build
@@ -84,13 +82,11 @@ Dispatching it by workflow ID worked:
 gh workflow run 301990144 --ref dev/windows-artifact-manual-ci -f SKIP_DEPS_CACHE=false
 ```
 
-Neither problem had anything to do with compiling RV, but both made a working setup look broken for a while.
-
 ## Linux and macOS were green and still produced no files
 
 After fixing Windows, I expected the Linux and macOS jobs to expose artifacts too. Their jobs ran successfully, but nothing appeared in the run summary.
 
-The reason was simple: only the Windows build action contained an upload step. Linux and macOS compiled, tested, and installed RV, then let the runner disappear with `_install` still on its filesystem.
+Only the Windows build action contained an upload step. Linux and macOS compiled, tested, and installed RV, then let the runner disappear with `_install` still on its filesystem.
 
 I added archive and upload steps to both platform actions, and voila, The next run produced builds for the full matrix. Finally something to download and test.
 
@@ -129,7 +125,7 @@ I kept the manual `SKIP_DEPS_CACHE` input because it is still useful for Linux a
 
 These outputs are CI artifacts, not installers or finished releases. There is no MSI, DMG, signing, updater, or Start menu integration.
 
-I have only validated the windows build on my machine. The next check is verifying Linux and macOS artifacts. I would need contributers for that.
+I have only validated the windows build on my machine. The next check is verifying Linux and macOS artifacts, so contributers are welcome to test it.
 
 There is one more limitation in the current branch: I changed the top-level workflow to manual-only. That is convenient for my fork because it avoids expensive automatic runs. It would be a poor upstream change as-is because it removes normal push, pull-request, and scheduled validation. An upstream version should probably keep the existing validation workflow and add manual artifact generation separately.
 
@@ -137,5 +133,4 @@ There is one more limitation in the current branch: I changed the top-level work
 
 My [OpenRV fork](https://github.com/Ahmed-Hindy/OpenRV/tree/dev/windows-artifact-manual-ci) does not change much inside RV itself. Most of this work is CI plumbing: select a useful build slice, preserve `_install`, archive it correctly per platform, and record enough information to know what was built.
 
-That was enough for what I wanted. I can ask GitHub Actions for a current RV build, download the installed result, and avoid turning my Windows workstation into a permanent OpenRV build environment.
-
+That was enough for what I wanted. I can ask GitHub Actions for the big green `download` button, and avoid ruining my ISP's data plan and my local storage.
