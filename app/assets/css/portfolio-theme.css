@@ -10,13 +10,6 @@
   height: 100dvh;
 }
 
-.site-shell .profile-link {
-  --profile-link-brand: var(--accent);
-  --profile-link-soft: var(--accent-soft);
-  --profile-link-hover: color-mix(in srgb, var(--accent) 15%, transparent);
-  --profile-link-ring: var(--accent-border-soft);
-}
-
 .site-shell h1,
 .site-shell h2,
 .site-shell h3,
@@ -221,8 +214,13 @@
 }
 
 .portfolio-main .timeline::before {
-  width: 2px;
-  background: var(--accent);
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    var(--playful-blue),
+    var(--playful-pink) 48%,
+    var(--playful-yellow)
+  );
 }
 
 .portfolio-main .timeline-item {
@@ -244,7 +242,15 @@
   width: 13px;
   height: 13px;
   border-width: 3px;
-  border-color: var(--accent);
+  border-color: var(--playful-blue);
+}
+
+.portfolio-main .timeline-item:nth-child(2)::before {
+  border-color: var(--playful-pink);
+}
+
+.portfolio-main .timeline-item:nth-child(3)::before {
+  border-color: var(--playful-yellow);
 }
 
 .portfolio-main .timeline-item p {
@@ -281,12 +287,29 @@
   font-size: 0.98rem;
 }
 
-.portfolio-main .skill-cloud li,
-.portfolio-main .skill-cloud li:nth-child(n) {
+.portfolio-main .skill-cloud li {
   padding: 9px 12px;
   border-width: 1px;
-  border-color: var(--line);
-  background: var(--surface-muted);
+}
+
+.portfolio-main .skill-cloud li:nth-child(4n + 1) {
+  border-color: rgb(66 66 250 / 30%);
+  background: rgb(66 66 250 / 7%);
+}
+
+.portfolio-main .skill-cloud li:nth-child(4n + 2) {
+  border-color: rgb(255 25 129 / 30%);
+  background: rgb(255 25 129 / 7%);
+}
+
+.portfolio-main .skill-cloud li:nth-child(4n + 3) {
+  border-color: rgb(0 170 119 / 30%);
+  background: rgb(0 170 119 / 7%);
+}
+
+.portfolio-main .skill-cloud li:nth-child(4n) {
+  border-color: rgb(154 107 255 / 28%);
+  background: rgb(154 107 255 / 7%);
 }
 
 .portfolio-main .contact {
