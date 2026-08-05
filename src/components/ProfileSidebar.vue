@@ -34,7 +34,7 @@ defineEmits<{
 
     <NuxtLink class="sidebar-blog-button" :to="primaryHref ?? '/blog/'">
       <span>{{ primaryLabel ?? 'Blog' }}</span>
-      <span aria-hidden="true">→</span>
+      <span class="sidebar-button-arrow" aria-hidden="true"></span>
     </NuxtLink>
 
     <nav class="sidebar-nav" aria-label="Section navigation">

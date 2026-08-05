@@ -245,6 +245,43 @@ h4 {
   transform: translateY(-2px);
 }
 
+.sidebar-button-arrow {
+  position: relative;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 10px;
+  transition: transform 0.16s ease;
+}
+
+.sidebar-button-arrow::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+  content: '';
+  transform: translateY(-50%);
+}
+
+.sidebar-button-arrow::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+  content: '';
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.sidebar-blog-button:hover .sidebar-button-arrow,
+.sidebar-blog-button:focus-visible .sidebar-button-arrow {
+  transform: translateX(2px);
+}
+
 .sidebar-nav {
   display: grid;
   gap: 6px;
