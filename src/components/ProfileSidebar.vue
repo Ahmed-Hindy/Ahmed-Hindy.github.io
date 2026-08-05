@@ -10,6 +10,8 @@ const props = defineProps<{
   navItems: NavItem[]
   profileLinks: ProfileLink[]
   themeToggleLabel: string
+  primaryHref?: string
+  primaryLabel?: string
 }>()
 
 const sectionNavItems = computed(() =>
@@ -25,14 +27,14 @@ defineEmits<{
   <aside class="sidebar" aria-label="Profile sidebar">
     <ProfilePhoto image-class="sidebar-photo" />
     <p class="role">VFX Pipeline TD</p>
-    <h1>Ahmed Hindy</h1>
+    <h1><NuxtLink class="sidebar-home-link" to="/">Ahmed Hindy</NuxtLink></h1>
     <p class="profile-location">Cairo, Egypt</p>
 
     <ProfileLinks :links="profileLinks" list-class="sidebar-links" />
 
-    <NuxtLink class="sidebar-blog-button" to="/blog/">
-      <span>Blog</span>
-      <span aria-hidden="true">→</span>
+    <NuxtLink class="sidebar-blog-button" :to="primaryHref ?? '/blog/'">
+      <span>{{ primaryLabel ?? 'Blog' }}</span>
+      <span class="sidebar-button-arrow" aria-hidden="true"></span>
     </NuxtLink>
 
     <nav class="sidebar-nav" aria-label="Section navigation">

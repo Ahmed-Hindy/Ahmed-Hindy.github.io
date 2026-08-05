@@ -46,21 +46,21 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
           @toggle-theme="toggleTheme"
         />
 
-      <section class="section" id="overview" aria-labelledby="overview-title">
+      <section class="section overview-section" id="overview" aria-labelledby="overview-title">
         <p class="section-kicker">Overview</p>
         <h2 id="overview-title">Pipeline Technical Director</h2>
-        <p class="intro">
-          I build pipelines and cross-DCC workflows for VFX and Animation.
+        <p class="intro overview-lead">
+          I build pipelines and cross-DCC workflows for VFX and animation.
         </p>
         <p class="credibility-line">
-          5+ years of VFX experience and 3+ years focused on pipeline work.
+          5+ years in VFX, with 3+ years focused on pipeline development.
         </p>
-        <p class="intro">
-          I started as an Effect Artist before moving into pipeline development. That background gives me
-          practical experience with Artists and what they face in production on a daily bases.
+        <p class="intro overview-detail">
+          I started as an FX artist before moving into pipeline development. That background gives me
+          practical experience with artists and the problems they face in production every day.
           <br />
-          In my free time, I like tinkering with C++ game mods, small Rust apps, Vue JS,
-          self hosted Docker homelabs and local LLMs.
+          In my free time, I tinker with C++ game mods, small Rust apps, Vue.js,
+          self-hosted Docker homelabs, and local LLMs.
         </p>
 
         <SummaryGrid :items="summary" />
@@ -69,8 +69,7 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
       <section class="section" id="work" aria-labelledby="work-title">
         <div class="section-header">
           <div>
-            <p class="section-kicker">Public Tools</p>
-            <h2 id="work-title">Selected projects.</h2>
+            <h2 id="work-title">Selected public tools.</h2>
           </div>
         </div>
         <ProjectGrid :sections="featuredProjectSections" />
@@ -79,7 +78,6 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
       <section class="section" id="experience" aria-labelledby="experience-title">
         <div class="section-header">
           <div>
-            <p class="section-kicker">Experience</p>
             <h2 id="experience-title">Pipeline work grounded in real production problems.</h2>
           </div>
         </div>
@@ -90,15 +88,14 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
       <section class="section" aria-labelledby="more-tools-title">
         <div class="section-header">
           <div>
-            <p class="section-kicker">More Tools</p>
-            <h2 id="more-tools-title">Pipeline utilities, infrastructure, and side projects.</h2>
+            <p class="section-kicker">More tools</p>
+            <h2 id="more-tools-title">Utilities, infrastructure, and side projects.</h2>
           </div>
         </div>
         <ProjectGrid :sections="secondaryProjectSections" />
       </section>
 
       <section class="section" id="skills" aria-labelledby="skills-title">
-        <p class="section-kicker">Skills</p>
         <h2 id="skills-title">Tools and workflows I use in production.</h2>
         <SkillCloud :skills="skills" />
       </section>
@@ -107,11 +104,11 @@ const { isDarkTheme, themeToggleLabel, toggleTheme } = useTheme()
 
       <aside class="blog-callout blog-callout-bottom" aria-label="Blog">
         <div>
-          <p class="section-kicker">Notes from the pipeline</p>
-          <p>Practical write-ups on my Pipeline journey...</p>
+          <p class="blog-callout-title">Notes from the pipeline</p>
+          <p>Practical write-ups from building tools and solving production problems.</p>
         </div>
         <NuxtLink class="blog-callout-link" to="/blog/">
-          Browse the Blog <span aria-hidden="true">→</span>
+          Blog <span aria-hidden="true">→</span>
         </NuxtLink>
       </aside>
       </main>

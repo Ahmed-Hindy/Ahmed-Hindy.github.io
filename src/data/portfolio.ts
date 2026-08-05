@@ -73,8 +73,6 @@ export const profileLinks: ProfileLink[] = [
   { href: links.youtube, icon: 'youtube', label: 'YouTube', external: true },
 ]
 
-export const focusChips = ['Pipeline', 'Houdini', 'USD', 'Maya', 'Unreal']
-
 export const navItems: NavItem[] = [
   { href: '/#overview', label: 'Overview' },
   { href: '/#work', label: 'Public Tools' },

@@ -9,7 +9,6 @@ defineProps<{
 <template>
   <section class="section contact" id="contact" aria-labelledby="contact-title">
     <div>
-      <p class="section-kicker">Contact</p>
       <h2 id="contact-title">Let's talk pipeline, tools, and production workflows.</h2>
       <p>
         I am open to Pipeline TD, Houdini Pipeline TD, USD Pipeline Developer, and DCC Tools

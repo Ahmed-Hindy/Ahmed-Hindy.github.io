@@ -14,7 +14,7 @@ useHead({
   link: [{
     rel: 'alternate',
     type: 'application/rss+xml',
-    title: 'Ahmed Hindy — Technical Notes',
+    title: 'Ahmed Hindy | Technical Notes',
     href: absoluteUrl('/rss.xml'),
   }],
   meta: publicConfig.googleSiteVerification
