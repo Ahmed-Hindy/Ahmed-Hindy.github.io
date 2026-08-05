@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PageCollections } from '@nuxt/content'
+import '~/assets/css/blog-index-theme.css'
 
 type BlogIndexArticle = Pick<PageCollections['blog'], 'path' | 'title' | 'description' | 'date' | 'tags' | 'status'>
 
@@ -29,14 +30,20 @@ useSiteSeo({
       </BlogHero>
       <main id="main-content" class="blog-content blog-index-content">
         <section v-if="articles?.length" class="article-list" aria-label="Articles">
-          <BlogArticleCard v-for="article in articles" :key="article.path" :article="article" />
+          <BlogArticleCard
+            v-for="(article, index) in articles"
+            :key="article.path"
+            :article="article"
+            :featured="index === 0"
+          />
         </section>
         <BlogEmptyState v-else />
         <aside class="blog-portfolio-callout" aria-labelledby="portfolio-callout-title">
-          <p class="section-kicker">Portfolio</p>
-          <h2 id="portfolio-callout-title">See the tools behind the notes.</h2>
-          <p>Explore my pipeline tools, DCC integrations, and production workflows.</p>
-          <NuxtLink to="/">View the Portfolio <span aria-hidden="true">→</span></NuxtLink>
+          <div>
+            <h2 id="portfolio-callout-title">See the tools behind the notes.</h2>
+            <p>Explore my pipeline tools, DCC integrations, and production workflows.</p>
+          </div>
+          <NuxtLink to="/">View portfolio <span aria-hidden="true">→</span></NuxtLink>
         </aside>
       </main>
       <BlogSiteFooter />
