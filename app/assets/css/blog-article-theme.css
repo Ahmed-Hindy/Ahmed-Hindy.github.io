@@ -220,9 +220,18 @@
 .blog-article-content .prose pre {
   margin-top: 32px;
   padding: 22px;
-  border-color: color-mix(in srgb, var(--blog-mist) 24%, transparent);
+  border: 1px solid color-mix(in srgb, var(--blog-mist) 24%, transparent);
+  border-left: 3px solid color-mix(in srgb, var(--blog-signal) 78%, transparent);
   border-radius: 14px;
+  background: color-mix(in srgb, var(--blog-deep) 88%, #8ca8ff);
   line-height: 1.62;
+}
+
+.blog-article-content .prose pre code {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .blog-article-content .code-copy-button {
@@ -347,6 +356,32 @@
   font-size: 0.84rem;
 }
 
+.blog-article-content + .blog-site-footer {
+  border-top: 1px solid color-mix(in srgb, var(--blog-mist) 32%, transparent);
+  background: color-mix(in srgb, var(--blog-deep) 97%, var(--blog-signal));
+}
+
+.blog-article-content + .blog-site-footer .blog-site-footer-inner {
+  width: min(100% - 40px, 980px);
+  padding: 30px 0 calc(30px + env(safe-area-inset-bottom));
+  border-top: 0;
+}
+
+.blog-article-content + .blog-site-footer p {
+  color: color-mix(in srgb, var(--blog-ink) 78%, var(--blog-mist));
+  font-size: 0.86rem;
+  font-weight: 760;
+}
+
+.blog-article-content + .blog-site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  color: var(--blog-ink);
+  font-size: 0.86rem;
+  font-weight: 780;
+}
+
 @media (min-width: 1300px) {
   .blog-article-content .prose {
     display: grid;
@@ -417,7 +452,7 @@
 
   .blog-article-content {
     width: min(100% - 32px, 980px);
-    padding: 44px 0 78px;
+    padding: 44px 0 58px;
   }
 
   .blog-article-content .article-toc {
@@ -484,6 +519,29 @@
   .blog-article-content .article-all-posts-link {
     margin-top: 22px;
     text-align: left;
+  }
+
+  .blog-article-content + .blog-site-footer .blog-site-footer-inner {
+    width: min(100% - 32px, 980px);
+    gap: 18px;
+    padding: 26px 0 calc(34px + env(safe-area-inset-bottom));
+  }
+
+  .blog-article-content + .blog-site-footer p {
+    color: var(--blog-ink);
+    font-size: 0.9rem;
+  }
+
+  .blog-article-content + .blog-site-footer nav {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 6px 22px;
+    justify-content: start;
+  }
+
+  .blog-article-content + .blog-site-footer a {
+    min-height: 38px;
+    font-size: 0.9rem;
   }
 }
 
