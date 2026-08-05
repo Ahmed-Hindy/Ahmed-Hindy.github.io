@@ -78,7 +78,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="blog-page-layout">
+  <div id="page-start" class="blog-page-layout" tabindex="-1">
     <BlogDesktopSidebar />
     <div class="blog-shell">
       <BlogMobileSiteHeader />
@@ -86,6 +86,7 @@ useSeoMeta({
         <NuxtLink class="article-back-link" to="/blog/">← All technical notes</NuxtLink>
         <BlogArticleHeader
           :title="article!.title"
+          :href="`${article!.path}/`"
           :description="article!.description"
           :date="article!.date"
           :updated="article!.updated"
