@@ -278,7 +278,8 @@
 .blog-article-content .prose table {
   width: 100%;
   margin-top: 36px;
-  overflow: hidden auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   border: 1px solid color-mix(in srgb, var(--blog-mist) 24%, transparent);
   border-radius: 14px;
   background: color-mix(in srgb, var(--blog-deep) 96%, #8ca8ff);
