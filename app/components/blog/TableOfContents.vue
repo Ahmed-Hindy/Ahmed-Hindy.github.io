@@ -28,7 +28,7 @@ const flatLinks = computed(() => {
 </script>
 
 <template>
-  <details v-if="flatLinks.length" class="article-toc" open>
+  <details v-if="flatLinks.length" class="article-toc">
     <summary>On this page</summary>
     <nav aria-label="On this page">
       <ol>
