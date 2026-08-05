@@ -284,6 +284,11 @@
   background: color-mix(in srgb, var(--blog-deep) 96%, #8ca8ff);
 }
 
+.blog-article-content .prose table:has(thead tr > :only-child) {
+  width: fit-content;
+  max-width: 100%;
+}
+
 .blog-article-content .prose th,
 .blog-article-content .prose td {
   padding: 12px 14px;
