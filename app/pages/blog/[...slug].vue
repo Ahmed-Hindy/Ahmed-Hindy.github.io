@@ -78,7 +78,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div id="page-start" class="blog-page-layout" tabindex="-1">
+  <div class="blog-page-layout">
     <BlogDesktopSidebar />
     <div class="blog-shell">
       <BlogMobileSiteHeader />

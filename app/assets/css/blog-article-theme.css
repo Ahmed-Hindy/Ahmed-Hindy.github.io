@@ -1,8 +1,4 @@
 /* Article reading surface: editorial hierarchy, stable measure, and quiet navigation. */
-.blog-page-layout[tabindex='-1']:focus {
-  outline: none;
-}
-
 .blog-article-hero {
   min-height: 360px;
 }
@@ -276,6 +272,7 @@
 }
 
 .blog-article-content .prose table {
+  display: block;
   width: 100%;
   margin-top: 36px;
   overflow-x: auto;

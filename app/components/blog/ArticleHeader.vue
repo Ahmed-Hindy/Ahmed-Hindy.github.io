@@ -16,7 +16,7 @@ const showUpdatedDate = computed(() => Boolean(props.updated && props.updated !=
 
 <template>
   <header class="article-header">
-    <h1><a class="article-title-link" :href="`${href}#page-start`">{{ title }}</a></h1>
+    <h1><a class="article-title-link" :href="href">{{ title }}</a></h1>
     <p class="article-description">{{ description }}</p>
     <p class="article-date article-published-date">
       <template v-if="status === 'draft'">
