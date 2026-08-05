@@ -27,7 +27,7 @@ defineEmits<{
   <aside class="sidebar" aria-label="Profile sidebar">
     <ProfilePhoto image-class="sidebar-photo" />
     <p class="role">VFX Pipeline TD</p>
-    <h1>Ahmed Hindy</h1>
+    <h1><NuxtLink class="sidebar-home-link" to="/">Ahmed Hindy</NuxtLink></h1>
     <p class="profile-location">Cairo, Egypt</p>
 
     <ProfileLinks :links="profileLinks" list-class="sidebar-links" />
