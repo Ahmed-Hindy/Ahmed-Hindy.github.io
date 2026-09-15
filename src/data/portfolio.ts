@@ -117,7 +117,7 @@ export const projectSections: ProjectSection[] = [
       {
         title: 'USD Optimize App',
         summary:
-          'Standalone CLI and GUI for inspecting, validating, and optimizing OpenUSD stages.',
+          'Standalone CLI and GUI for Optimizing OpenUSD stages.',
         tags: ['OpenUSD', 'Optimization', 'NVIDIA', 'PySide6', 'CLI'],
         href: 'https://github.com/Ahmed-Hindy/usd-optimize-app',
         media: {
@@ -129,6 +129,20 @@ export const projectSections: ProjectSection[] = [
             webp: [],
           },
         },
+      },
+      {
+        title: 'AYON Katana',
+        summary:
+          'Katana addon for AYON',
+        tags: ['AYON', 'Katana', 'USD', 'Pipeline'],
+        href: 'https://github.com/Ahmed-Hindy/ayon-katana',
+      },
+      {
+        title: 'Materials Processor',
+        summary:
+          'Cross-DCC material conversion tool that supports Houdini, Maya, Blender, OpenUSD, and MaterialX.',
+        tags: ['Houdini', 'Maya', 'Blender', 'USD', 'MaterialX'],
+        href: 'https://github.com/Ahmed-Hindy/Materials-Processor',
       },
       {
         title: 'Universal Scene Converter',
@@ -147,9 +161,28 @@ export const projectSections: ProjectSection[] = [
         },
       },
       {
+        title: 'Kitsu Desktop',
+        summary:
+          'Windows desktop client for Kitsu built with Tauri, with system-tray actions.',
+        tags: ['Tauri', 'TypeScript', 'Kitsu', 'Desktop'],
+        href: 'https://github.com/Ahmed-Hindy/kitsu-desktop-launcher',
+        media: {
+          image: {
+            src: '/projects/kitsu-desktop/kitsu-dashboard.png',
+            alt: 'Kitsu dashboard open in the Kitsu Desktop application',
+            width: 1397,
+            height: 927,
+            webp: [
+              { src: '/projects/kitsu-desktop/kitsu-dashboard-640w.webp', width: 640 },
+              { src: '/projects/kitsu-desktop/kitsu-dashboard-960w.webp', width: 960 },
+            ],
+          },
+        },
+      },
+      {
         title: 'Kitsu Docker Prod',
         summary:
-          'Production-style Kitsu deployment with separated services, persistent data, and automated backups.',
+          'Production-ready Kitsu Docker stack',
         tags: ['Docker', 'Kitsu', 'Postgres', 'Traefik', 'Pipeline'],
         href: 'https://github.com/Ahmed-Hindy/Kitsu-Docker-Prod',
         media: {
@@ -162,10 +195,15 @@ export const projectSections: ProjectSection[] = [
           },
         },
       },
+    ],
+  },
+  {
+    title: 'Supporting tools',
+    projects: [
       {
         title: 'RenderKit',
         summary:
-          'Image-sequence conversion tool with burn-ins and contact-sheet support.',
+          'Image-sequence to Video tool with burn-ins and contact-sheet support.',
         tags: ['PySide6', 'OpenImageIO', 'OpenColorIO', 'FFmpeg'],
         href: 'https://github.com/Ahmed-Hindy/renderkit',
         media: {
@@ -185,7 +223,7 @@ export const projectSections: ProjectSection[] = [
         title: 'h_denoise_utils',
         summary:
           'Standalone denoising GUI with bundled OptiX and OIDN, including multi-AOV EXR support.',
-        tags: ['Nvidia', 'OptiX', 'CLI', 'Intel', 'OIDN', 'PySide6', 'EXR'],
+        tags: ['NVIDIA', 'OptiX', 'Intel', 'OIDN', 'PySide6', 'EXR'],
         href: 'https://github.com/Ahmed-Hindy/h_denoise_utils',
         media: {
           image: {
@@ -203,34 +241,26 @@ export const projectSections: ProjectSection[] = [
           },
         },
       },
-    ],
-  },
-  {
-    title: 'Pipeline / USD utilities',
-    projects: [
       {
-        title: 'Kitsu Desktop',
+        title: 'Houdini Asset Relinker',
         summary:
-          'Windows desktop client for artists using Kitsu, with connection checks and system-tray actions.',
-        tags: ['Tauri', 'TypeScript', 'Kitsu', 'Desktop'],
-        href: 'https://github.com/Ahmed-Hindy/kitsu-desktop-launcher',
+          'Houdini tool for relinking asset paths, including textures, geometry, and HDAs.',
+        tags: ['Houdini', 'USD', 'Asset Management', 'Pipeline'],
+        href: 'https://github.com/Ahmed-Hindy/houdini_asset_relinker',
         media: {
           image: {
-            src: '/projects/kitsu-desktop/kitsu-dashboard.png',
-            alt: 'Kitsu dashboard open in the Kitsu Desktop application',
-            width: 1397,
-            height: 927,
-            webp: [
-              { src: '/projects/kitsu-desktop/kitsu-dashboard-640w.webp', width: 640 },
-              { src: '/projects/kitsu-desktop/kitsu-dashboard-960w.webp', width: 960 },
-            ],
+            src: 'https://raw.githubusercontent.com/Ahmed-Hindy/houdini_asset_relinker/main/images/screenshot.png',
+            alt: 'Houdini Asset Relinker interface showing its asset path report',
+            width: 1200,
+            height: 675,
+            webp: [],
           },
         },
       },
       {
         title: 'Substance Painter USD Creator',
         summary:
-          'Substance Painter plugin for publishing layered USD assets.',
+          'Substance Painter plugin for auto publishing layered USD assets.',
         tags: ['USD', 'Substance Painter', 'Materials', 'Publishing'],
         href: 'https://github.com/Ahmed-Hindy/Substance-Painter-Usd-Creator',
         media: {
@@ -266,13 +296,6 @@ export const projectSections: ProjectSection[] = [
             ],
           },
         },
-      },
-      {
-        title: 'Materials Processor',
-        summary:
-          'Material ingestion and conversion tool for standardizing networks across USD and MaterialX.',
-        tags: ['Houdini', 'USD', 'MaterialX', 'Arnold', 'Redshift'],
-        href: 'https://github.com/Ahmed-Hindy/Materials-Processor',
       },
       {
         title: 'USD Scene Audit',
