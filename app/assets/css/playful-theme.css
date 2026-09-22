@@ -1044,7 +1044,7 @@ html[data-theme='dark'] .blog-shell {
   --blog-header-control: rgb(255 255 255 / 8%);
   --blog-header-control-border: rgb(255 255 255 / 24%);
 
-  background: var(--blog-deep);
+  background: var(--bg);
 }
 
 .blog-page-layout {
@@ -1186,7 +1186,7 @@ html[data-theme='light'] .blog-shell {
   display: block;
   width: 100%;
   height: clamp(96px, 12vw, 180px);
-  color: var(--blog-deep);
+  color: var(--bg);
   pointer-events: none;
 }
 
@@ -1517,7 +1517,7 @@ html[data-theme='light'] .blog-shell {
 
 .blog-site-footer {
   color: var(--blog-mist);
-  background: var(--blog-deep);
+  background: var(--bg);
 }
 
 .blog-site-footer p,
